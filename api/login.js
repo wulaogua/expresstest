@@ -5,8 +5,8 @@ const { UserC } = require('../modb')
 const jwt = require('jsonwebtoken')
 const seckey = 'dsd'
 router.post('/api/login', async(req, res) => {
-    const user = await User.findOne({ username: req.body.username})
-     //子用户登录
+    const user = await User.findOne({ username: req.body.username })
+        //子用户登录
     if (!user) {
         //无账户报错
         const userc = await UserC.findOne({ username: req.body.username })
@@ -17,37 +17,33 @@ router.post('/api/login', async(req, res) => {
                     'status': 422
                 }
             })
-        } 
-        else 
-        {
-             const  usercc = await UserC.findOne({ username: req.body.username })
-               const isPasswordValid = require('bcryptjs').compareSync(
-                       req.body.password,
-                       usercc.password
-                   )
-                   //密码错误判断
-               if (!isPasswordValid) {
-                   return res.status(422).send({
-                       message: "密码错误"
-                   })
-               } 
-               else 
-               {
-                   const tokenq = jwt.sign({ username: usercc.username }, seckey)
-                   res.send({
-                       'username': usercc.username,
-                       'token': tokenq,
-                       'Jurisdiction': 'user',
-                       "meta": {
-                           'msg': "登陆成功",
-                           'status': 200
-                       }
-                   })
-               }
+        } else {
+            const usercc = await UserC.findOne({ username: req.body.username })
+            const isPasswordValid = require('bcryptjs').compareSync(
+                    req.body.password,
+                    usercc.password
+                )
+                //密码错误判断
+            if (!isPasswordValid) {
+                return res.status(422).send({
+                    message: "密码错误"
+                })
+            } else {
+                const tokenq = jwt.sign({ username: usercc.username }, seckey)
+                res.send({
+                    'username': usercc.username,
+                    'token': tokenq,
+                    'Jurisdiction': 'user',
+                    "meta": {
+                        'msg': "登陆成功",
+                        'status': 200
+                    }
+                })
+            }
         }
     }
     //主账户登录
-     else {
+    else {
         const isPasswordValid = require('bcryptjs').compareSync(
                 req.body.password,
                 user.password
