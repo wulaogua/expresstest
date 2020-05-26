@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router(); //新建路由
 const { UserM } = require('../modb')
+const { UserC } = require('../modb')
 const { ProjectL } = require('../modb')
 const { MachineKey } = require('../modb')
 const jwt = require('jsonwebtoken')
@@ -17,6 +18,19 @@ const Mauth = async(req, res, next) => {
     //查询所有子账户
 router.post('/api/user/MachineSchAll', Mauth, async(req, res) => {
         const resa = await UserM.find({ "AdminName": req.user.name, "projectnumb": req.body.data })
+        if (!resa) {
+            return res.send({
+                "meta": {
+                    'msg': "查询失败",
+                    'status': 422
+                }
+            })
+        }
+        return res.send(resa);
+    })
+    //子用户对应设备
+router.post('/api/user/MachineSchOne', Mauth, async(req, res) => {
+        const resa = await UserM.find({ "AdminName": req.user.name, "projectnumb": pnumb.projectnumb, "nickname": req.body.data[3] })
         if (!resa) {
             return res.send({
                 "meta": {

@@ -9,11 +9,12 @@ const seckey = 'dsd' //tonken的密钥
 
 //中间件name token解密
 const Cauth = async(req, res, next) => {
-    const raw = req.headers.authorization.split(' ').pop()
-    const { username } = jwt.verify(raw, seckey)
-    req.user = await User.findOne({ username: username })
-    next()
-}
+        const raw = req.headers.authorization.split(' ').pop()
+        const { username } = jwt.verify(raw, seckey)
+        req.user = await User.findOne({ username: username })
+        next()
+    }
+    //注册子用户
 router.post('/api/user/childregister', Cauth, async(req, res) => {
         const UserChildrens = await UserC.create({
             adminnmae: req.user.username,
