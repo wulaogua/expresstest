@@ -29,16 +29,20 @@ router.post('/api/user/MachineSchAll', Mauth, async(req, res) => {
     })
     //查询对应设备
 router.post('/api/user/MachineSchOne', Mauth, async(req, res) => {
-        const resa = await UserM.findOne({ "AdminName": req.user.name, "projectnumb": req.body.data, "nickname": req.body.nickname })
-        if (!resa) {
-            return res.send({
-                "meta": {
-                    'msg': "查询失败",
-                    'status': 422
-                }
-            })
+        const pnumb = await ProjectL.findOne({ "username": req.user.name, 'platename': req.body.data[0], 'areaname': req.body.data[2] })
+        if (pnumb) {
+            const resa = await UserM.find({ "AdminName": req.user.name, "projectnumb": pnumb.projectnumb, "nickname": req.body.data[3] })
+            if (!resa) {
+                return res.send({
+                    "meta": {
+                        'msg': "查询失败",
+                        'status': 422
+                    }
+                })
+            }
+            return res.send(resa);
         }
-        return res.send(resa);
+
     })
     //查询子账户
 router.post('/api/user/MachineSch', async(req, res) => {

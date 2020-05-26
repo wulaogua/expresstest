@@ -227,5 +227,23 @@ router.post('/api/chartdata/query', async(req, res) => {
     }
 })
 
+router.post('/api/chartdata/areaquery', chartAuth, async(req, res) => {
+    const pnumb = await ProjectL.findOne({ "username": req.chartname, 'platename': req.body.areadata[0], 'areaname': req.body.areadata[2] })
+    if (pnumb.length != 0) {
+        const area = await UserM.findOne({ "AdminName": req.chartname, 'projectnumb': pnumb.projectnumb, nickname: req.body.areadata[3] })
+        if (area.length != 0) {
+            return res.send({
+                    area,
+                    "meta": {
+                        'msg': '失败',
+                        'status': 422
+                    }
+                }
+
+            )
+        }
+    }
+})
+
 
 module.exports = router;
