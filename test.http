@@ -1,0 +1,195 @@
+//服务器地址
+@url=http://127.0.0.1:4000/api
+@url2=http://120.55.69.237:8121/port/getData.ashx
+//post json 格式
+@json=Content-Type: application/json
+
+
+//规范格式post
+//###(必加)
+//post {{url}}
+//{{json}}
+//空一行（POST必加）
+//{
+  //数据
+//}
+
+//get带heard规范格式
+//###(必加)
+//get {{url}}
+//Authorization: Bearer token//发送带heard的数据
+
+//get带参数的规范格式
+//###
+//get {{url}}/xx/参数
+
+//注册
+post {{url}}/register
+{{json}}
+
+{
+    "username":"user",
+    "password":"123456",
+     "tal":"1233",
+    "machinekey":"FX006"
+}
+###查询所有用户
+get {{url}}/users
+###注册前用户名重复测试
+get {{url}}/users/dsadzzz
+
+###登录
+post {{url}}/login
+{{json}}
+
+{
+    "username":"admin",
+    "password":"123456"
+}
+###个人信息
+get {{url}}/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTgzNzQzMTQ0fQ.3vdYoDBQG0ODHApJMkzQCVCLqhzhCesohp1vTuGlsEo
+
+###添加KEY
+post {{url}}/machinekey
+{{json}}
+
+{
+  "machinekey":"FX014",
+  "keystate":false
+}
+###查询KEY
+get {{url}}/machinekey/FX0015
+###查询所有KEY
+get {{url}}/machinekey
+###修改KEY状态（true激活false未激活）
+post {{url}}/machinekey/state
+{{json}}
+
+{
+   "machinekey":"FX002" 
+}
+###查询头像
+get {{url}}/savePic/1583731267045.jpeg
+
+###修改用户内容
+post {{url}}/register/project
+{{json}}
+
+{     "username":"user",
+        "projectname":"2",
+        "comnpanyname":"1",
+        "companaddr":"3",
+        "companfex":"4",
+        "compantal":"5",
+        "projectintr":"6"
+}
+
+###查询用户内容
+get {{url}}/user/childuser/all
+###主账户下子账户
+get {{url}}/user/childuser
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg0NDEwODkzfQ.TJbY1h3PkTjE73iBksuumaZrDfgYoaxX8dAyfelVzC4
+
+###添加用户设备
+post {{url}}/user/Machineregister
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg1MDI5NzQwfQ.OQdkeWlJTIz813fUwRKiWkbmWRVP9wcfoo7qewGHCDo
+{{json}}
+
+{       "AdminName":"",
+        "machinekey":"FX005",
+        "nickname":"片区4",
+        "state":"运行",
+        "sensorsNum":"8",
+        "deviceNum":"7",
+        "Ip":"192.168.1.113",
+        "networkType":"有线网络",
+        "networkState":"10ms",
+        "error":"",
+        "Location":"13205477.604004944,3748421.145",
+        "inPin":["5Pin","2Pin"],
+        "outPin":["1Pin","2Pin","5Pin"],
+        "data":"1"
+}
+###
+post {{url}}/user/MachineSch
+{{json}}
+
+{
+  "machinekey":"FX001"
+}
+
+###搜索管理员下所有片区
+post {{url}}/user/MachineSchAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg1MDI5NzQwfQ.OQdkeWlJTIz813fUwRKiWkbmWRVP9wcfoo7qewGHCDo
+{{json}}
+
+{
+  "data":1
+}
+
+###
+post {{url}}/project/addproject
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg2MDg4MTcxfQ.jmVqtv_LnthNwbaD1ZVckvPj9f7_Ug2WjsvRF6iLAy8
+
+###查询管理员下项目
+post {{url}}/project/searchproject
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg0NzUzMDU0fQ.Naplg7R0Cv2ajAv7XYlhGIoxTBBRoXAI2emwYlhNSRI
+
+###
+post {{url}}/seachdata
+###
+post {{url}}/project/searchcnumb
+
+{{json}}
+
+{
+  "username":"admin",
+  "projectnumb":1
+}
+###
+post {{url}}/user/deletmachine
+{{json}}
+
+{
+  "machinekey": "FX003"
+}
+
+###
+get {{url}}/seachdata
+
+###
+post {{url}}/chartdata/add
+{{json}}
+
+{
+  "form":{ 
+     "name": "dasd",
+     "region": ["dasd","dsad","dasd1"],
+     "date1": "ewqe",
+     "date2": "qweq"
+    }
+}
+
+###
+post {{url}}/chartdata/query
+
+###
+get {{url2}}
+{{json}}
+
+{ "params":{
+  "val":"sensor"
+}
+  
+}
+
+###
+post {{url}}/chartdata/query
+{{json}}
+
+{
+  "id":"5ec2458e39e35522f4f8c82b"
+}
+
+
