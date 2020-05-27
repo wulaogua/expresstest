@@ -16,7 +16,6 @@ const Mauth = async(req, res, next) => {
     //查询子用户信息
 router.post('/api/user/userdata', Mauth, async(req, res) => {
     const resa = await UserC.findOne({ "username": req.user.name })
-    console.log(resa.areadatarights)
     if (resa) {
         const resb = await UserM.find({
             "AdminName": resa.adminnmae,
@@ -26,8 +25,24 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
         if (resb) {
             return res.send(resb);
         }
-
     }
+
+
+})
+
+router.post('/api/user/userdatak', Mauth, async(req, res) => {
+    const resc = await UserC.findOne({ "username": req.user.name })
+    if (resc) {
+        const resd = await UserM.find({
+            "AdminName": resc.adminnmae,
+            "projectnumb": resc.projectnumb,
+            "nickname": { "$in": resc.areacontrolarights }
+        })
+        if (resd) {
+            return res.send(resd);
+        }
+    }
+
 
 })
 
