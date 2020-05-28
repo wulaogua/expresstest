@@ -11,6 +11,7 @@ const seckey = 'dsd' //tonken的密钥
 const login = require('./api/login.js');
 const registerNameSch = require('./api/registerNameSch.js')
 const register = require('./api/register.js')
+const { router: devicedata } = require('./api/devicedata.js')
 const keysch = require('./api/keysch.js')
 const keyadd = require('./api/keyadd.js')
 const projectadd = require('./api/projectadd.js')
@@ -189,6 +190,9 @@ app.use(usermachinelist)
 app.use(projectadd)
     ///查询传感器数据
 app.use(seachdata)
+
+///设备数据
+app.use(devicedata)
     /////
 app.use(chindrndata)
     //

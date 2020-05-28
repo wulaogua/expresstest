@@ -26,8 +26,6 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
             return res.send(resb);
         }
     }
-
-
 })
 
 router.post('/api/user/userdatak', Mauth, async(req, res) => {

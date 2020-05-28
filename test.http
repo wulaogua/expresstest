@@ -52,12 +52,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkb
 
 ###添加KEY
 post {{url}}/machinekey
-{{json}}
-
-{
-  "machinekey":"FX014",
-  "keystate":false
-}
+ 
 ###查询KEY
 get {{url}}/machinekey/FX0015
 ###查询所有KEY
@@ -191,5 +186,11 @@ post {{url}}/chartdata/query
 {
   "id":"5ec2458e39e35522f4f8c82b"
 }
+//添加虚拟设备数据
+###
+post {{url}}/device/add
 
+
+###
+post {{url}}/machine/test
 

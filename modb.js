@@ -67,16 +67,17 @@ const porjectSchema = new mongoose.Schema({
     platenumb: { type: Number },
 })
 
-const PlateSchema = new mongoose.Schema({
-    username: { type: String }, //用户名
-    usericonadder: { type: String }, //图标地址
-    platename: { type: String }, //平台名称
-    comnpanyname: { type: String }, //公司名称
-    companaddr: { type: String }, //公司主治
-    companfex: { type: String }, //公司传真
-    compantal: { type: String }, //公司电话
-    projectintr: { type: String }, //公司电话
-    projectnumb: { type: Number },
+const deviceData = new mongoose.Schema({
+    devicename: { type: String }, //设备名
+    id: { type: String }, //设备ID
+    power: { type: Boolean }, //设备电源指示
+    remote: { type: Boolean }, //设备远程指示
+    status: { type: Number }, //设备状态指示
+    Nvalue: { type: Number }, //可调的数值
+    value: { type: Number }, //三种设备状态
+    voltage: { type: String }, //电压
+    ec: { type: String }, //电流
+    devicekey: { type: String }, //绑定的设备KEY
 })
 
 const userMachine = new mongoose.Schema({
@@ -124,6 +125,8 @@ const chartdata = new mongoose.Schema({
         formname: { type: String, unique: true }, //平台名称
         josnArry: { type: Array } //树
     })
+    //设备控制数据表
+const deviced = mongoose.model('deviceData', deviceData)
     //chart数据
 const chartData = mongoose.model('chartData', chartdata)
     //管理员设备表1
@@ -138,5 +141,6 @@ const User = mongoose.model('User', UserSchema)
 const MachineKey = mongoose.model('MachineKey', KeySchema)
     //设备详情表
 const porject = mongoose.model('porjectSchema', porjectSchema)
+    //随机生成数据表
 const sensorA = mongoose.model('sensor', sensor)
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData }
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced }
