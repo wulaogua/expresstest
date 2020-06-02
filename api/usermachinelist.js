@@ -108,8 +108,8 @@ router.post('/api/user/Machineregister', Mauth, async(req, res) => {
         }
     })
     //设备修改
-router.post('/api/user/MachineRevise', async(req, res) => {
-        const resa = await UserM.findOne({ "nickname": req.body.nickname, "projectnumb": req.body.data });
+router.post('/api/user/MachineRevise', Mauth, async(req, res) => {
+        const resa = await UserM.findOne({ "AdminName": req.user.name, "nickname": req.body.nickname, "projectnumb": req.body.data });
         if (!resa) {
             return res.send({
                 "meta": {

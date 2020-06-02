@@ -29,7 +29,35 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
 })
 
 router.post('/api/user/userdatak', Mauth, async(req, res) => {
+
     const resc = await UserC.findOne({ "username": req.user.name })
+    if (!resc) {
+        const admindata = await UserC.findOne({ "adminnmae": req.user.name })
+        if (admindata) {
+            const resd = await UserM.find({
+                "AdminName": admindata.adminnmae,
+                "projectnumb": admindata.projectnumb,
+                "nickname": req.body.payload,
+            })
+            if (resd) {
+                return res.send({
+                    resd,
+                    "meta": {
+                        'msg': "获取成功",
+                        'meta': 200
+                    }
+                });
+            }
+        } else {
+            return res.send({
+                "meta": {
+                    'msg': "更新失败",
+                    'meta': 422
+                }
+            })
+        }
+
+    }
     if (resc) {
         const resd = await UserM.find({
             "AdminName": resc.adminnmae,
@@ -37,11 +65,22 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
             "nickname": { "$in": resc.areacontrolarights }
         })
         if (resd) {
-            return res.send(resd);
+            return res.send({
+                resd,
+                "meta": {
+                    'msg': "获取成功",
+                    'meta': 200
+                }
+            });
         }
+    } else {
+        return res.send({
+            "meta": {
+                'msg': "更新失败",
+                'meta': 422
+            }
+        })
     }
-
-
 })
 
 module.exports = router;
