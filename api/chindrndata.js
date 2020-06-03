@@ -31,6 +31,7 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
 
 router.post('/api/user/userdatak', Mauth, async(req, res) => {
     const resc = await UserC.findOne({ "username": req.user.name })
+
     if (!resc) {
         if (req.body.platedata === 3) {
             const prodata = await porject.findOne({ "username": req.user.name, "platename": req.body.payload[0], "projectname": req.body.payload[2] })
@@ -98,7 +99,6 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
                 }
             })
         }
-
     }
 
 
