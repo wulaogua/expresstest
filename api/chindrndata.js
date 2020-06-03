@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router(); //新建路由
 const { UserC } = require('../modb')
 const { UserM } = require('../modb')
+const { porject } = require('../modb')
 
 const jwt = require('jsonwebtoken')
 const seckey = 'dsd' //tonken的密钥
@@ -31,12 +32,12 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
 router.post('/api/user/userdatak', Mauth, async(req, res) => {
     const resc = await UserC.findOne({ "username": req.user.name })
     if (!resc) {
-        const admindata = await UserC.findOne({ "adminnmae": req.user.name })
-        if (admindata) {
+        if (req.body.platedata === 3) {
+            const prodata = await porject.findOne({ "username": req.user.name, "platename": req.body.payload[0], "projectname": req.body.payload[2] })
             const resd = await UserM.find({
-                "AdminName": admindata.adminnmae,
-                "projectnumb": admindata.projectnumb,
-
+                "AdminName": req.user.name,
+                "projectnumb": prodata.projectnumb,
+                "nickname": req.body.payload[3],
             })
             if (resd) {
                 return res.send({
@@ -47,17 +48,35 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
                     }
                 });
             }
-        } else {
             return res.send({
                 "meta": {
                     'msg': "更新失败",
-                    'meta': 422
+                    'meta': 4222
+                }
+            })
+        } else {
+            const resd = await UserM.find({
+                "AdminName": req.user.name,
+                "projectnumb": req.body.projectnumb,
+            })
+            if (resd) {
+                return res.send({
+                    resd,
+                    "meta": {
+                        'msg': "获取成功",
+                        'meta': 200
+                    }
+                });
+            }
+            return res.send({
+                "meta": {
+                    'msg': "更新失败",
+                    'meta': 4222
                 }
             })
         }
 
-    }
-    if (resc) {
+    } else {
         const resd = await UserM.find({
             "AdminName": resc.adminnmae,
             "projectnumb": resc.projectnumb,
@@ -71,15 +90,18 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
                     'meta': 200
                 }
             });
+        } else {
+            return res.send({
+                "meta": {
+                    'msg': "更新失败",
+                    'meta': 422
+                }
+            })
         }
-    } else {
-        return res.send({
-            "meta": {
-                'msg': "更新失败",
-                'meta': 422
-            }
-        })
+
     }
+
+
 })
 
 module.exports = router;
