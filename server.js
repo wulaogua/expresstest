@@ -123,7 +123,6 @@ app.get('/api/savePic/:name', async(req, res) => {
 });
 //获取记录
 app.post('/api/projectinr', auth, async(req, res) => {
-
     const projectinr = await porject.find({ "username": req.user.username, "projectnumb": req.body.data })
     res.send(projectinr);
 });

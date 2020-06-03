@@ -29,7 +29,6 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
 })
 
 router.post('/api/user/userdatak', Mauth, async(req, res) => {
-
     const resc = await UserC.findOne({ "username": req.user.name })
     if (!resc) {
         const admindata = await UserC.findOne({ "adminnmae": req.user.name })
@@ -37,7 +36,7 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
             const resd = await UserM.find({
                 "AdminName": admindata.adminnmae,
                 "projectnumb": admindata.projectnumb,
-                "nickname": req.body.payload,
+
             })
             if (resd) {
                 return res.send({
