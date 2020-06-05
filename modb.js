@@ -125,6 +125,20 @@ const chartdata = new mongoose.Schema({
         formname: { type: String, unique: true }, //平台名称
         josnArry: { type: Array } //树
     })
+    //总览数据表
+const zonglandata = new mongoose.Schema({
+        name: { type: String }, //网关下子片区名称
+        waringnumb: { type: Number }, //网关下子片区报警数量
+        renwuname: { type: String }, //网关下子片区未来任务名称
+        waringstr: { type: String }, //网关下子片区报警信息
+        renwuing: { type: String }, //网关下子片区正在运行的任务
+        shezhi: { type: String }, //网关下子片区默认初始监控参数
+        videoname: { type: Boolean }, //网关下子片区监控名称
+        videobool: { type: String }, //网关下子片区是否有用监控
+        videoaddr: { type: String }, //网关下子片区监控地址
+        sensorlist: { type: Array }, //网关下子片区信息列表 { id: "rjy2", name: "溶解氧" },
+        machinekey: { type: String }, //网关序列号
+    })
     //设备控制数据表
 const deviced = mongoose.model('deviceData', deviceData)
     //chart数据
@@ -143,4 +157,7 @@ const MachineKey = mongoose.model('MachineKey', KeySchema)
 const porject = mongoose.model('porjectSchema', porjectSchema)
     //随机生成数据表
 const sensorA = mongoose.model('sensor', sensor)
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced }
+    //总览数据表
+const zongland = mongoose.model('zonglandata', zonglandata)
+
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland }
