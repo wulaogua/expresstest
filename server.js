@@ -24,6 +24,7 @@ const usermachinelist = require('./api/usermachinelist')
 const seachdata = require('./api/seachdata')
 const chindrndata = require('./api/chindrndata')
 const chartdata = require('./api/chartdata')
+const zonggai = require('./api/zonggai')
 const schedule = require('node-schedule')
 const stringRandom = require('string-random')
     ////////
@@ -189,8 +190,9 @@ app.use(usermachinelist)
 app.use(projectadd)
     ///查询传感器数据
 app.use(seachdata)
-
-///设备数据
+    //总概随机数
+app.use(zonggai)
+    ///设备数据
 app.use(devicedata)
     /////
 app.use(chindrndata)

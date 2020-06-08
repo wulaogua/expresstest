@@ -194,3 +194,5 @@ post {{url}}/device/add
 ###
 post {{url}}/machine/test
 
+###
+post {{url}}/zonglan/adddata

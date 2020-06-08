@@ -133,8 +133,8 @@ const zonglandata = new mongoose.Schema({
         waringstr: { type: String }, //网关下子片区报警信息
         renwuing: { type: String }, //网关下子片区正在运行的任务
         shezhi: { type: String }, //网关下子片区默认初始监控参数
-        videoname: { type: Boolean }, //网关下子片区监控名称
-        videobool: { type: String }, //网关下子片区是否有用监控
+        videoname: { type: String }, //网关下子片区监控名称
+        videobool: { type: Boolean }, //网关下子片区是否有用监控
         videoaddr: { type: String }, //网关下子片区监控地址
         sensorlist: { type: Array }, //网关下子片区信息列表 { id: "rjy2", name: "溶解氧" },
         machinekey: { type: String }, //网关序列号
