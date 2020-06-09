@@ -12,25 +12,62 @@ async function randadd(data) {
     let shebeilist = ['传感1', '传感2', '传感3', '传感4', '传感5', '传感6', '传感7', '传感8', '传感9', '传感10', '传感1'];
     let jiankonglist = ['监控1', '监控2', '监控3', '监控4', '监控5', '监控6', '监控7', '监控8', '监控9', '监控10', '监控1'];
     let sslist = [
-        { id: "rjy1", name: "溶解氧1" },
-        { id: "rjy1", name: "溶解氧2" },
-        { id: "ph1", name: "ph1" },
-        { id: "ph2", name: "ph2" },
-        { id: "qiya1", name: "气压1" },
-        { id: "qiya2", name: "气压2" },
-        { id: "shuiwen1", name: "水温1" },
-        { id: "shuiwen2", name: "水温2" },
-        { id: "guangzhao1", name: "关照1" },
-        { id: "guangzhao2", name: "关照2" },
-        { id: "guangzhao3", name: "关照3" },
+        [
+            { id: "ch1rjy1", name: "溶解氧1" },
+            { id: "ch2rjy2", name: "溶解氧2" },
+            { id: "ch3ph1", name: "ph1" },
+            { id: "ch4ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch5rjy1", name: "溶解氧1" },
+            { id: "ch6rjy2", name: "溶解氧2" },
+            { id: "ch7ph1", name: "ph1" },
+            { id: "ch8ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch9rjy1", name: "溶解氧1" },
+            { id: "ch10rjy2", name: "溶解氧2" },
+            { id: "ch11ph1", name: "ph1" },
+            { id: "ch12ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch13rjy1", name: "溶解氧1" },
+            { id: "ch14rjy2", name: "溶解氧2" },
+            { id: "ch15ph1", name: "ph1" },
+            { id: "ch16ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch17rjy1", name: "溶解氧1" },
+            { id: "ch18rjy2", name: "溶解氧2" },
+            { id: "ch19ph1", name: "ph1" },
+            { id: "ch20ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch21rjy1", name: "溶解氧1" },
+            { id: "ch22rjy2", name: "溶解氧2" },
+            { id: "ch23ph1", name: "ph1" },
+            { id: "ch24ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch25rjy1", name: "溶解氧1" },
+            { id: "ch26rjy2", name: "溶解氧2" },
+            { id: "ch27ph1", name: "ph1" },
+            { id: "ch28ph2", name: "ph2" },
+        ],
+        [
+            { id: "ch29rjy1", name: "溶解氧1" },
+            { id: "ch30rjy2", name: "溶解氧2" },
+            { id: "ch31ph1", name: "ph1" },
+            { id: "ch32ph2", name: "ph2" },
+        ],
+
     ]
     let rdatlist = [0, 3, 0, 2, 3, 1, 0, 3, 1, 3, 0];
     for (let p = 0; p < 8; p++) {
         let randdata = Math.ceil(Math.random() * 10); //生成1-10
         let slist = Array();
         for (let y = 0; y < 4; y++) {
-            let snumb = Math.ceil(Math.random() * 10);
-            slist.push(sslist[snumb])
+            slist.push(sslist[p][y])
         }
         await zongland.create({
             name: namelist[p], //网关下子片区名称

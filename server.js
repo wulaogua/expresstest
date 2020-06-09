@@ -1,13 +1,18 @@
 const express = require('express')
+const jwt = require('jsonwebtoken')
+const app = express()
+const seckey = 'dsd' //tonken的密钥
+
 const { User } = require('./modb')
 const { MachineKey } = require('./modb')
 const { porject } = require('./modb')
 const { UserC } = require('./modb')
 const { ProjectL } = require('./modb')
 const { sensorA } = require('./modb')
-const jwt = require('jsonwebtoken')
-const app = express()
-const seckey = 'dsd' //tonken的密钥
+
+const schedule = require('node-schedule')
+const stringRandom = require('string-random')
+
 const login = require('./api/login.js');
 const registerNameSch = require('./api/registerNameSch.js')
 const register = require('./api/register.js')
@@ -25,9 +30,8 @@ const seachdata = require('./api/seachdata')
 const chindrndata = require('./api/chindrndata')
 const chartdata = require('./api/chartdata')
 const zonggai = require('./api/zonggai')
-const schedule = require('node-schedule')
-const stringRandom = require('string-random')
-    ////////
+
+////////
 const task1 = () => {
     //每分钟的10秒都会触发，其它通配符依次类推
     //console.log('scheduleCronstyle:' + new Date());
