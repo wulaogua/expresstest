@@ -99,7 +99,7 @@ const userMachine = new mongoose.Schema({
 })
 
 const sensor = new mongoose.Schema({
-    username: { type: String },
+    /* username: { type: String },
     sensorname: { type: String },
     tair: { type: String }, //温度
     airhumidity: { type: String }, //湿度
@@ -108,7 +108,41 @@ const sensor = new mongoose.Schema({
     soi: { type: String }, //光照强度
     rainfall: { type: String }, //降雨量
     projectnumb: { type: Number },
-    time: { type: String }
+    time: { type: String } */
+    updatetime: { type: String },
+    machinekey: { type: String },
+    ch1rjy1: { type: String },
+    ch2rjy2: { type: String },
+    ch3ph1: { type: String },
+    ch4ph2: { type: String },
+    ch5rjy1: { type: String },
+    ch6rjy2: { type: String },
+    ch7ph1: { type: String },
+    ch8ph2: { type: String },
+    ch9rjy1: { type: String },
+    ch10rjy2: { type: String },
+    ch11ph1: { type: String },
+    ch12ph2: { type: String },
+    ch13rjy1: { type: String },
+    ch14rjy2: { type: String },
+    ch15ph1: { type: String },
+    ch16ph2: { type: String },
+    ch17rjy1: { type: String },
+    ch18rjy2: { type: String },
+    ch19ph1: { type: String },
+    ch20ph2: { type: String },
+    ch21rjy1: { type: String },
+    ch22rjy2: { type: String },
+    ch23ph1: { type: String },
+    ch24ph2: { type: String },
+    ch25rjy1: { type: String },
+    ch26rjy2: { type: String },
+    ch27ph1: { type: String },
+    ch28ph2: { type: String },
+    ch29rjy1: { type: String },
+    ch30rjy2: { type: String },
+    ch31ph1: { type: String },
+    ch32ph2: { type: String },
 })
 
 const videodata = new mongoose.Schema({
