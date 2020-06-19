@@ -98,6 +98,17 @@ const userMachine = new mongoose.Schema({
     projectnumb: { type: Number },
 })
 
+const sensorOne = new mongoose.Schema({
+    machinekey: { type: String }, //设备号
+    tair: { type: String }, //温度
+    airhumidity: { type: String }, //湿度
+    Soiltemp: { type: String }, //土壤温度
+    soilmoisture: { type: String }, //土壤湿度
+    soi: { type: String }, //光照强度
+    rainfall: { type: String }, //降雨量
+    time: { type: String }, //时间
+})
+
 const sensor = new mongoose.Schema({
     /* username: { type: String },
     sensorname: { type: String },
@@ -173,6 +184,8 @@ const zonglandata = new mongoose.Schema({
         sensorlist: { type: Array }, //网关下子片区信息列表 { id: "rjy2", name: "溶解氧" },
         machinekey: { type: String }, //网关序列号
     })
+    //数据表
+const sensoro = mongoose.model('sensorOne', sensorOne)
     //设备控制数据表
 const deviced = mongoose.model('deviceData', deviceData)
     //chart数据
@@ -194,4 +207,4 @@ const sensorA = mongoose.model('sensor', sensor)
     //总览数据表
 const zongland = mongoose.model('zonglandata', zonglandata)
 
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland }
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro }

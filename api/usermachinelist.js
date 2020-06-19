@@ -17,6 +17,7 @@ const Mauth = async(req, res, next) => {
     }
     //查询所有子账户
 router.post('/api/user/MachineSchAll', Mauth, async(req, res) => {
+
         const resa = await UserM.find({ "AdminName": req.user.name, "projectnumb": req.body.data })
         if (!resa) {
             return res.send({
