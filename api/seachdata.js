@@ -184,7 +184,7 @@ router.post('/api/seachdata/video', async(req, res) => {
         })
         res.send(videolist); */
     let token = 'at.7gxtk5da78rp8h3p4b1txpk8cuk360w7-1la2vai5q0-14rxpp2-7vb6jcxbs'
-    const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', { 'accessToken': token, 'pageStart': 0, 'pageSize': 2 })
+    const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', { 'accesslToken': token, 'pageStart': 0, 'pageSize': 2 })
         // console.log(data)
     res.send(resdata);
 })
