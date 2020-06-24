@@ -5,6 +5,8 @@ const { sensoro } = require('../modb')
 const stringRandom = require('string-random')
 const schedule = require('node-schedule')
 const axios = require('axios')
+const qs = require('qs');
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 const fucnc1 = () => {
     //每分钟的10秒都会触发，其它通配符依次类推
     //console.log('scheduleCronstyle:' + new Date());
@@ -177,16 +179,27 @@ router.post('/api/seachdatahour', async(req, res) => {
 })
 
 router.post('/api/seachdata/video', async(req, res) => {
+    let data = qs.stringify({
+        'appKey': req.body.AppKey,
+        'appSecret': req.body.Secret
+    });
+
+    const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/token/get', data, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    })
+    res.send(resdata.data);
     /*     const videourl = await sensoro.find({ machinekey: req.body.machinekey })
         let videolist;
         videourl.forEach((item, i) => {
             videolist.push(item.videoaddr)
         })
         res.send(videolist); */
-    let token = 'at.7gxtk5da78rp8h3p4b1txpk8cuk360w7-1la2vai5q0-14rxpp2-7vb6jcxbs'
-    const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', { 'accesslToken': token, 'pageStart': 0, 'pageSize': 2 })
-        // console.log(data)
-    res.send(resdata);
+    // let token = 'at.7gxtk5da78rp8h3p4b1txpk8cuk360w7-1la2vai5q0-14rxpp2-7vb6jcxbs'
+    // const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', { 'accesslToken': token, 'pageStart': 0, 'pageSize': 2 })
+    // console.log(data)
+
 })
 
 module.exports = { router, fucnc1 };
