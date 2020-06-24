@@ -201,5 +201,9 @@ router.post('/api/seachdata/video', async(req, res) => {
     // console.log(data)
 
 })
+router.post('/api/seachdata/test', async(req, res) => {
+    const adata = await sensorA.find({})
+    res.send(adata);
 
+})
 module.exports = { router, fucnc1 };
