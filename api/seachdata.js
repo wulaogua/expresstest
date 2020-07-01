@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router(); //新建路由
+
 const { sensorA } = require('../modb')
 const { sensoro } = require('../modb')
+const { ProjectL } = require('../modb')
+const { videolist } = require('../modb')
+const jwt = require('jsonwebtoken')
+const seckey = 'dsd' //tonken的密钥
+
 const stringRandom = require('string-random')
 const schedule = require('node-schedule')
 const axios = require('axios')
 const qs = require('qs');
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 const fucnc1 = () => {
     //每分钟的10秒都会触发，其它通配符依次类推
     //console.log('scheduleCronstyle:' + new Date());
@@ -40,6 +46,12 @@ const fucnc1 = () => {
         })
 }
 
+const plateInAuth = async(req, res, next) => {
+    const raw = req.headers.authorization.split(' ').pop()
+    const { username } = jwt.verify(raw, seckey)
+    req.chartname = username
+    next()
+}
 
 async function task2(data, data1) {
     await sensoro.create({
@@ -95,8 +107,6 @@ async function task1(data, data2) {
         updatetime: data2,
     })
 };
-
-
 
 router.post('/api/seachdata', async(req, res) => {
     const adata = await sensorA.find({ machinekey: req.body.machinekey }).sort({ "time": -1 }).limit(1)
@@ -178,32 +188,194 @@ router.post('/api/seachdatahour', async(req, res) => {
             } */
 })
 
-router.post('/api/seachdata/video', async(req, res) => {
+router.post('/api/seachdata/addvideo', plateInAuth, async(req, res) => {
     let data = qs.stringify({
         'appKey': req.body.AppKey,
         'appSecret': req.body.Secret
     });
-
     const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/token/get', data, {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
     })
-    res.send(resdata.data);
-    /*     const videourl = await sensoro.find({ machinekey: req.body.machinekey })
-        let videolist;
-        videourl.forEach((item, i) => {
-            videolist.push(item.videoaddr)
+    if (resdata.data) {
+        const vlaue = await ProjectL.updateOne({ 'username': req.chartname, 'projectnumb': req.body.projectnumb }, { 'appkey': req.body.AppKey, 'secret': req.body.Secret, 'accessToken': resdata.data.accessToken })
+        if (vlaue) {
+            res.send({
+                'data': resdata.data,
+                "meta": {
+                    'msg': "查询成功",
+                    'status': 200
+                }
+            })
+        } else {
+            res.send({
+                "meta": {
+                    'msg': "查询失败",
+                    'status': 403
+                }
+            })
+        }
+    } else {
+        res.send({
+            "meta": {
+                'msg': "查询失败",
+                'status': 403
+            }
         })
-        res.send(videolist); */
-    // let token = 'at.7gxtk5da78rp8h3p4b1txpk8cuk360w7-1la2vai5q0-14rxpp2-7vb6jcxbs'
-    // const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', { 'accesslToken': token, 'pageStart': 0, 'pageSize': 2 })
-    // console.log(data)
-
+    }
 })
-router.post('/api/seachdata/test', async(req, res) => {
-    const adata = await sensorA.find({})
-    res.send(adata);
+
+router.post('/api/seachdata/oneseachvideo', plateInAuth, async(req, res) => {
+    const data = await videolist.findOne({ 'adminname': req.chartname, 'projectnumb': req.body.projectnumb })
+    if (data) {
+        res.send({
+            'data': data,
+            "meta": {
+                'msg': "查询成功",
+                'status': 200
+            }
+        })
+    } else {
+        res.send({
+            "meta": {
+                'msg': "无数据",
+                'status': 403
+            }
+        })
+    }
+})
+
+
+router.post('/api/seachdata/seachvideo', plateInAuth, async(req, res) => {
+    let videolistform = [];
+    let idchanne = [];
+    let channellist = [];
+    let videkey;
+    let data = qs.stringify({
+        'appKey': req.body.AppKey,
+        'appSecret': req.body.Secret
+    });
+    //获取萤石云TOKEN
+    const { data: resda } = await axios.post('https://open.ys7.com/api/lapp/token/get', data, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+    })
+    if (resda.data) {
+        //更新ProjectL视频信息
+        const vlaue = await ProjectL.updateOne({ 'username': req.chartname, 'projectnumb': req.body.projectnumb }, { 'appkey': req.body.AppKey, 'secret': req.body.Secret, 'accessToken': resda.data.accessToken })
+        if (vlaue) {
+            //查询ProjectL中保持的数据
+            const prldata = await ProjectL.findOne({ 'username': req.chartname, 'projectnumb': req.body.projectnumb })
+            let value = qs.stringify({
+                'accessToken': resda.data.accessToken,
+                'pageStart': 0,
+                'pageSize': ''
+            });
+            //查询萤石云设备（硬盘录像机）列表
+            const { data: resdata } = await axios.post('https://open.ys7.com/api/lapp/device/list', value, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+            })
+            resdata.data.every(item => {
+                if (item.deviceName === prldata.areaname) {
+                    videkey = item.deviceSerial
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            if (videkey) {
+                let value1 = qs.stringify({
+                    'accessToken': resda.data.accessToken,
+                    'deviceSerial': videkey,
+                });
+                //获取设备列表下监控名称（硬盘录像机下通道，无绑定通道先修改null）
+                const { data: resdata1 } = await axios.post('https://open.ys7.com/api/lapp/device/camera/list', value1, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                })
+                if (resdata1.code !== '10001') {
+                    channellist = resdata1.data.filter((item) => {
+                        return item.channelName !== 'null'
+                    })
+                } else {
+                    return false;
+                }
+                if (channellist.length !== 0) {
+                    channellist.forEach((item) => {
+                        idchanne.push(item.deviceSerial + ':' + item.channelNo)
+                    })
+                    let value2 = qs.stringify({
+                        'accessToken': resda.data.accessToken,
+                        'source': idchanne.toString(),
+                    });
+                    //查询监控对应的直播地址
+                    const { data: resdata2 } = await axios.post('https://open.ys7.com/api/lapp/live/address/get', value2, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                    })
+                    if (resdata2.code === '200') {
+                        for (let i = 0; i < resdata2.data.length; i++) {
+                            videolistform[i] = {
+                                deviceSerial: resdata2.data[i].deviceSerial,
+                                channelNo: resdata2.data[i].channelNo,
+                                channelName: channellist[i].channelName,
+                                picUrl: resdata2.data[i].hls
+                            }
+                        }
+                        const vlauedata = await videolist.create({ 'adminname': req.chartname, 'projectnumb': req.body.projectnumb, 'videourl': videolistform })
+                        res.send({
+                            'data': videolistform,
+                            "meta": {
+                                'msg': "查询成功",
+                                'status': 200
+                            }
+                        })
+                    } else {
+                        res.send({
+                            "meta": {
+                                'msg': "查询直播地址失败",
+                                'status': 403
+                            }
+                        })
+                    }
+                } else {
+                    res.send({
+                        "meta": {
+                            'msg': "查询设备通道失败",
+                            'status': 403
+                        }
+                    })
+                }
+            } else {
+                res.send({
+                    "meta": {
+                        'msg': "查询设备(硬盘录像机)失败",
+                        'status': 403
+                    }
+                })
+            }
+        } else {
+            res.send({
+                "meta": {
+                    'msg': "视频信息更新失败",
+                    'status': 403
+                }
+            })
+        }
+    } else {
+        res.send({
+            "meta": {
+                'msg': "token获取失败",
+                'status': 403
+            }
+        })
+    }
 
 })
 module.exports = { router, fucnc1 };

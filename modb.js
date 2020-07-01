@@ -29,6 +29,9 @@ const ProjectList = new mongoose.Schema({
     waringnumb: { type: Number },
     areaname: { type: String },
     platenumb: { type: Number },
+    appkey: { type: String },
+    secret: { type: String },
+    accessToken: { type: String },
 })
 
 
@@ -172,18 +175,26 @@ const chartdata = new mongoose.Schema({
     })
     //总览数据表
 const zonglandata = new mongoose.Schema({
-        name: { type: String }, //网关下子片区名称
-        waringnumb: { type: Number }, //网关下子片区报警数量
-        renwuname: { type: String }, //网关下子片区未来任务名称
-        waringstr: { type: String }, //网关下子片区报警信息
-        renwuing: { type: String }, //网关下子片区正在运行的任务
-        shezhi: { type: String }, //网关下子片区默认初始监控参数
-        videoname: { type: String }, //网关下子片区监控名称
-        videobool: { type: Boolean }, //网关下子片区是否有用监控
-        videoaddr: { type: String }, //网关下子片区监控地址
-        sensorlist: { type: Array }, //网关下子片区信息列表 { id: "rjy2", name: "溶解氧" },
-        machinekey: { type: String }, //网关序列号
-    })
+    name: { type: String }, //网关下子片区名称
+    waringnumb: { type: Number }, //网关下子片区报警数量
+    renwuname: { type: String }, //网关下子片区未来任务名称
+    waringstr: { type: String }, //网关下子片区报警信息
+    renwuing: { type: String }, //网关下子片区正在运行的任务
+    shezhi: { type: String }, //网关下子片区默认初始监控参数
+    videoname: { type: String }, //网关下子片区监控名称
+    videobool: { type: Boolean }, //网关下子片区是否有用监控
+    videoaddr: { type: String }, //网关下子片区监控地址
+    sensorlist: { type: Array }, //网关下子片区信息列表 { id: "rjy2", name: "溶解氧" },
+    machinekey: { type: String }, //网关序列号
+})
+const videourl = new mongoose.Schema({
+    adminname: { type: String }, //管理员名称
+    projectnumb: { type: Number }, //平台名称
+    videourl: { type: Array } //列表
+})
+
+//视频地址表
+const videolist = mongoose.model('videourl', videourl)
     //数据表
 const sensoro = mongoose.model('sensorOne', sensorOne)
     //设备控制数据表
@@ -207,4 +218,4 @@ const sensorA = mongoose.model('sensor', sensor)
     //总览数据表
 const zongland = mongoose.model('zonglandata', zonglandata)
 
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro }
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro, videolist }
