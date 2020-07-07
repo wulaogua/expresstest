@@ -64,7 +64,7 @@ router.post('/api/usericon', upload.single('usericon'), auth, (req, res) => { //
         //写入数据库,
         const prjicon = await porject.findOne({ "username": req.user.username, "projectnumb": req.user.projectnumb });
 
-        prjicon.usericonadder = "127.0.0.1:4000" + "/" + "api" + "/" + "savePic" + "/" + filename;
+        prjicon.usericonadder = "192.168.2.204:4000" + "/" + "api" + "/" + "savePic" + "/" + filename;
         await prjicon.save()
     });
 

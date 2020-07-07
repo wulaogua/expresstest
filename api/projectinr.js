@@ -28,8 +28,9 @@ router.post('/api/register/project', auth, async(req, res) => {
     project.companfex = req.body.companyFax
     project.compantal = req.body.companyTal
     project.projectintr = req.body.projectSuggest
-    await project.save()
-    await ProjectL.updateOne({"username": req.user.username, "projectnumb": req.body.data},{"areaname": req.body.projectName})
+    await project.save();
+
+    await project.updateOne({ "username": req.user.username, "projectnumb": req.body.data }, { "projectname": req.body.projectName })
     return res.send({
         "meta": {
             'msg': "提交成功",
