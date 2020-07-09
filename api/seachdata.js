@@ -5,6 +5,8 @@ const { sensorA } = require('../modb')
 const { sensoro } = require('../modb')
 const { ProjectL } = require('../modb')
 const { videolist } = require('../modb')
+const { yanshiy } = require('../modb')
+const { qixiangz } = require('../modb')
 const jwt = require('jsonwebtoken')
 const seckey = 'dsd' //tonken的密钥
 
@@ -12,38 +14,656 @@ const stringRandom = require('string-random')
 const schedule = require('node-schedule')
 const axios = require('axios')
 const qs = require('qs');
+let tairaa = [{
+        date: '2020-7-7 00:00:00',
+        name: '空气温度',
+        data1: '27.1',
+        data2: '90',
+        data3: '0',
+        data3: '0',
+        data4: '743',
+        data5: 2.5,
+        data6: 96,
+    },
+    {
+        date: '2020-7-7 01:00:00',
+        name: '空气温度',
+        data1: '28.9',
+        data2: '82',
+        data3: '0',
+        data4: '739',
+        data5: 2.1,
+        data6: 99,
+    },
+    {
+        date: '2020-7-7 02:00:00',
+        name: '空气温度',
+        data1: '30.1',
+        data2: '76',
+        data3: '0',
+        data4: '736',
+        data5: 1.9,
+        data6: 93,
+    },
+    {
+        date: '2020-7-7 03:00:00',
+        name: '空气温度',
+        data1: '30.6',
+        data2: '78',
+        data3: '0',
+        data4: '735',
+        data5: 2.7,
+        data6: 72,
+    },
+    {
+        date: '2020-7-7 04:00:00',
+        name: '空气温度',
+        data1: '31.8',
+        data2: '74',
+        data3: '0',
+        data4: '735',
+        data5: 3.6,
+        data6: 93,
+    },
+    {
+        date: '2020-7-7 05:00:00',
+        name: '空气温度',
+        data1: '32.5',
+        data2: '69',
+        data3: '0',
+        data4: '736',
+        data5: 3.1,
+        data6: 100,
+    },
+    {
+        date: '2020-7-7 06:00:00',
+        name: '空气温度',
+        data1: '33.3',
+        data2: '65',
+        data3: '51',
+        data4: '736',
+        data5: 3.2,
+        data6: 86,
+    },
+    {
+        date: '2020-7-7 07:00:00',
+        name: '空气温度',
+        data1: '33.1',
+        data2: '66',
+        data3: '621',
+        data4: '748',
+        data5: 3.2,
+        data6: 67,
+    },
+    {
+        date: '2020-7-7 08:00:00',
+        name: '空气温度',
+        data1: '28.3',
+        data2: '68',
+        data3: '1939',
+        data4: '807',
+        data5: 4,
+        data6: 79,
+    },
+    {
+        date: '2020-7-7 09:00:00',
+        name: '空气温度',
+        data1: '23.9',
+        data2: '85',
+        data3: '3214',
+        data4: '905',
+        data5: 3.7,
+        data6: 88,
+    },
+    {
+        date: '2020-7-7 10:00:00',
+        name: '空气温度',
+        data1: '24.5',
+        data2: '85',
+        data3: '4350',
+        data4: '977',
+        data5: 4.8,
+        data6: 90,
+    },
+    {
+        date: '2020-7-7 11:00:00',
+        name: '空气温度',
+        data1: '24.8',
+        data2: '71',
+        data3: '5622',
+        data4: '1008',
+        data5: 4.9,
+        data6: 67,
+    },
+    {
+        date: '2020-7-7 12:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '81',
+        data3: '6656',
+        data4: '1024',
+        data5: 3.3,
+        data6: 91,
+    },
+    {
+        date: '2020-7-7 13:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '81',
+        data3: '7263',
+        data4: '1039',
+        data5: 3.5,
+        data6: 86,
+    },
+    {
+        date: '2020-7-7 14:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '89',
+        data3: '7161',
+        data4: '1038',
+        data5: 2.9,
+        data6: 92,
+    },
+    {
+        date: '2020-7-7 15:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '92',
+        data3: '5183',
+        data4: '1024',
+        data5: 3.5,
+        data6: 73,
+    },
 
-const fucnc1 = () => {
+    {
+        date: '2020-7-7 16:00:00',
+        name: '空气温度',
+        data1: '25.2',
+        data2: '98',
+        data3: '3569',
+        data4: '962',
+        data5: 3,
+        data6: 87,
+
+    },
+    {
+        date: '2020-7-7 17:00:00',
+        name: '空气温度',
+        data1: '25.1',
+        data2: '100',
+        data3: '2925',
+        data4: '896',
+        data5: 2.9,
+        data6: 67,
+
+    },
+    {
+        date: '2020-7-7 18:00:00',
+        name: '空气温度',
+        data1: '24.8',
+        data2: '100',
+        data3: '1750',
+        data4: '849',
+        data5: 3.4,
+        data6: 59,
+    },
+    {
+        date: '2020-7-7 19:00:00',
+        name: '空气温度',
+        data1: '24.5',
+        data2: '100',
+        data3: '300',
+        data4: '821',
+        data5: 1.8,
+        data6: 64,
+    },
+    {
+        date: '2020-7-7 20:00:00',
+        name: '空气温度',
+        data1: '24.1',
+        data2: '100',
+        data3: '100',
+        data4: '809',
+        data5: 2.2,
+        data6: 80,
+    },
+    {
+        date: '2020-7-7 21:00:00',
+        name: '空气温度',
+        data1: '24.4',
+        data2: '100',
+        data3: '20',
+        data4: '796',
+        data5: 2.2,
+        data6: 75,
+    },
+    {
+        date: '2020-7-7 22:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '100',
+        data3: '0',
+        data4: '784',
+        data5: 1.5,
+        data6: 68,
+    },
+    {
+        date: '2020-7-7 23:00:00',
+        name: '空气温度',
+        data1: '25.1',
+        data2: '100',
+        data3: '0',
+        data4: '773',
+        data5: 1.2,
+        data6: 79,
+    },
+];
+let tair = [{
+        date: '2020-7-7 00:00:00',
+        name: '空气温度',
+        data1: '27.1',
+        data2: '90',
+        data3: '0',
+        data3: '0',
+        data4: '743'
+    },
+    {
+        date: '2020-7-7 01:00:00',
+        name: '空气温度',
+        data1: '28.9',
+        data2: '82',
+        data3: '0',
+        data4: '739'
+    },
+    {
+        date: '2020-7-7 02:00:00',
+        name: '空气温度',
+        data1: '30.1',
+        data2: '76',
+        data3: '0',
+        data4: '736'
+    },
+    {
+        date: '2020-7-7 03:00:00',
+        name: '空气温度',
+        data1: '30.6',
+        data2: '78',
+        data3: '0',
+        data4: '735'
+    },
+    {
+        date: '2020-7-7 04:00:00',
+        name: '空气温度',
+        data1: '31.8',
+        data2: '74',
+        data3: '0',
+        data4: '735'
+    },
+    {
+        date: '2020-7-7 05:00:00',
+        name: '空气温度',
+        data1: '32.5',
+        data2: '69',
+        data3: '0',
+        data4: '736'
+    },
+    {
+        date: '2020-7-7 06:00:00',
+        name: '空气温度',
+        data1: '33.3',
+        data2: '65',
+        data3: '51',
+        data4: '736',
+    },
+    {
+        date: '2020-7-7 07:00:00',
+        name: '空气温度',
+        data1: '33.1',
+        data2: '66',
+        data3: '621',
+        data4: '748',
+    },
+    {
+        date: '2020-7-7 08:00:00',
+        name: '空气温度',
+        data1: '28.3',
+        data2: '68',
+        data3: '1939',
+        data4: '807',
+    },
+    {
+        date: '2020-7-7 09:00:00',
+        name: '空气温度',
+        data1: '23.9',
+        data2: '85',
+        data3: '3214',
+        data4: '905',
+    },
+    {
+        date: '2020-7-7 10:00:00',
+        name: '空气温度',
+        data1: '24.5',
+        data2: '85',
+        data3: '4350',
+        data4: '977',
+    },
+    {
+        date: '2020-7-7 11:00:00',
+        name: '空气温度',
+        data1: '24.8',
+        data2: '71',
+        data3: '5622',
+        data4: '1008',
+
+    },
+    {
+        date: '2020-7-7 12:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '81',
+        data3: '6656',
+        data4: '1024',
+    },
+    {
+        date: '2020-7-7 13:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '81',
+        data3: '7263',
+        data4: '1039',
+    },
+    {
+        date: '2020-7-7 14:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '89',
+        data3: '7161',
+        data4: '1038',
+    },
+    {
+        date: '2020-7-7 15:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '92',
+        data3: '5183',
+        data4: '1024',
+    },
+
+    {
+        date: '2020-7-7 16:00:00',
+        name: '空气温度',
+        data1: '25.2',
+        data2: '98',
+        data3: '3569',
+        data4: '962',
+
+    },
+    {
+        date: '2020-7-7 17:00:00',
+        name: '空气温度',
+        data1: '25.1',
+        data2: '100',
+        data3: '2925',
+        data4: '896',
+
+    },
+    {
+        date: '2020-7-7 18:00:00',
+        name: '空气温度',
+        data1: '24.8',
+        data2: '100',
+        data3: '1750',
+        data4: '849',
+    },
+    {
+        date: '2020-7-7 19:00:00',
+        name: '空气温度',
+        data1: '24.5',
+        data2: '100',
+        data3: '300',
+        data4: '821',
+    },
+    {
+        date: '2020-7-7 20:00:00',
+        name: '空气温度',
+        data1: '24.1',
+        data2: '100',
+        data3: '100',
+        data4: '809',
+    },
+    {
+        date: '2020-7-7 21:00:00',
+        name: '空气温度',
+        data1: '24.4',
+        data2: '100',
+        data3: '20',
+        data4: '796',
+    },
+    {
+        date: '2020-7-7 22:00:00',
+        name: '空气温度',
+        data1: '25',
+        data2: '100',
+        data3: '0',
+        data4: '784',
+    },
+    {
+        date: '2020-7-7 23:00:00',
+        name: '空气温度',
+        data1: '25.1',
+        data2: '100',
+        data3: '0',
+        data4: '773',
+    },
+];
+
+function fucnc1() {
     //每分钟的10秒都会触发，其它通配符依次类推
     //console.log('scheduleCronstyle:' + new Date());
     let tt;
-    let timedata = new Date();
-
+    let tt1;
+    let yy;
     schedule.scheduleJob('10 * * * * *',
         async() => {
-            for (var i = 1; i < 200; i++) {
-                switch (true) {
-                    case i <= 9:
-                        tt = `FX00${i}`;
-                        task1(tt, timedata);
-                        task2(tt, timedata);
-                        break;
-
-                    case i <= 99:
-                        tt = `FX0${i}`;
-                        task1(tt, timedata);
-                        task2(tt, timedata);
-                        break;
-
-                    case i <= 200:
-                        tt = `FX${i}`;
-                        task1(tt, timedata);
-                        task2(tt, timedata);
-                        break;
+            let timedata = new Date().toLocaleString(); //当前时间
+            let timehouer = timedata.split(' ')[1].split(':').join('') //当前小时
+            for (var o = 0; o < tair.length - 1; o++) {
+                if (timehouer < 230000) {
+                    let biaohouer = tair[o].date.split(' ')[1].split(':').join('') //数组的小时
+                    let biaohouer_1 = tair[o + 1].date.split(' ')[1].split(':').join('') //数组的小时
+                        //当当前时间处于两个数据之间时写入小的组的数据
+                    if (timehouer > biaohouer && timehouer < biaohouer_1) {
+                        let sahngsheng1;
+                        let sahngsheng2;
+                        switch (true) {
+                            case o > 0 && o < 5:
+                                tairaa[o].data3 = parseInt(tairaa[o].data3);
+                                tairaa[o].data4 = parseInt(tairaa[o].data4);
+                                break;
+                            case o >= 5 && o < 14:
+                                sahngsheng1 = Math.round((parseInt(tair[o + 1].data3) - parseInt(tair[o].data3)) / 59); //求出差值/59 eg:i 51 i+1 621 7
+                                sahngsheng2 = Math.round((parseInt(tair[o + 1].data4) - parseInt(tair[o].data4)) / 59); //求出差值/59 eg:i 51 i+1 621 7
+                                tairaa[o].data3 = parseInt(tairaa[o].data3) + parseInt(sahngsheng1); //一直往上加每一分钟差值//
+                                tairaa[o].data4 = parseInt(tairaa[o].data4) + parseInt(sahngsheng2); //一直往上加每一分钟差值//
+                                break;
+                            case o >= 14 && o < 20:
+                                sahngsheng1 = Math.round((parseInt(tair[o].data3) - parseInt(tair[o + 1].data3)) / 59); //求出差值/59 eg:i 51 i+1 621 7
+                                sahngsheng2 = Math.round((parseInt(tair[o].data4) - parseInt(tair[o + 1].data4)) / 59); //求出差值/59 eg:i 51 i+1 621 7
+                                tairaa[o].data3 = parseInt(tairaa[o].data3) - parseInt(sahngsheng1); //一直往上减每一分钟差值   
+                                tairaa[o].data4 = parseInt(tairaa[o].data4) - parseInt(sahngsheng2); //一直往上减每一分钟差值  
+                                break;
+                            case o >= 20 && o < 23:
+                                tairaa[o].data3 = parseInt(tairaa[o].data3);
+                                tairaa[o].data4 = parseInt(tairaa[o].data4);
+                                break;
+                        }
+                        task4(timedata, tair[o], tairaa[o].data3, tairaa[o].data5, tairaa[o].data6, o)
+                        for (let p = 16; p < 21; p++) {
+                            switch (true) {
+                                case p <= 20:
+                                    tt = `FX0${p}`;
+                                    task3(tt, timedata, tair[o], tairaa[o].data3, tairaa[o].data4, sahngsheng1, sahngsheng2, o);
+                                    break;
+                            }
+                        }
+                    }
+                } else {
+                    for (let p = 16; p < 21; p++) {
+                        switch (true) {
+                            case p <= 20:
+                                tt1 = `FX0${p}`;
+                                task3(tt1, timedata, tair[o], tairaa[o].data3, tairaa[o].data4, 0, 0, 23);
+                                break;
+                        }
+                    }
                 }
-
             }
         })
+}
+async function task3(data, data1, data2, gzhao, co, cha, cha1, i) {
+    let shuzu = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.0];
+    let shuzu1 = [0.0, 0.5, 0.7, 0.6, 0.4, 0.3, 0.2, 0.9, 0.8, 0.1];
+    let shuzu2 = [0.5, 0.6, 0.3, 0.2, 0.7, 0.8, 0.9, 0.1, 0.0, 0.4];
+    let shuzu3 = [0.3, 0.3, 0.1, 0.1, 0.2, 0.3, 0.2, 0.1, 0.3, 0.2];
+    let shuzu4 = [0.2, 0.2, 0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.1, 0.2];
+    let shuzu5 = [0.1, 0.2, 0.3, 0.1, 0.4, 0.2, 0.1, 0.3, 0.3, 0.1];
+    let rad = stringRandom(1, { letters: false });
+    switch (true) {
+        case i >= 0 && i < 5:
+            await yanshiy.create({
+                machinekey: data,
+                tair1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+                airhumidity1: data2.data2, //湿度1
+                Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
+                soilmoisture1: data2.data2, //土壤湿度1
+                soi1: Math.round(parseInt(gzhao)), //光照强度1
+                co21: Math.round(parseInt(co)),
+                tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
+                airhumidity2: data2.data2, //湿度2
+                Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
+                soilmoisture2: data2.data2, //土壤湿度2
+                soi2: Math.round(parseInt(gzhao)),
+                co22: Math.round(parseInt(co)),
+                tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
+                airhumidity3: data2.data2, //湿度3
+                Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
+                soilmoisture3: data2.data2, //土壤湿度3
+                soi3: Math.round(parseInt(gzhao)),
+                co23: Math.round(parseInt(co)),
+                time: data1,
+            })
+            break;
+        case i >= 5 && i < 14:
+            await yanshiy.create({
+                machinekey: data,
+                tair1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+                airhumidity1: data2.data2, //湿度1
+                Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
+                soilmoisture1: data2.data2, //土壤湿度1
+                soi1: Math.round(parseInt(gzhao) + parseInt(parseInt(cha) * parseFloat(shuzu3[rad]))), //光照强度1
+                co21: Math.round(parseInt(co) + parseInt(parseInt(cha1) * parseFloat(shuzu3[rad]))),
+                tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
+                airhumidity2: data2.data2, //湿度2
+                Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
+                soilmoisture2: data2.data2, //土壤湿度2
+                soi2: Math.round(parseInt(gzhao) + parseInt(parseInt(cha) * parseFloat(shuzu4[rad]))),
+                co22: Math.round(parseInt(co) + parseInt(parseInt(cha1) * parseFloat(shuzu4[rad]))),
+                tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
+                airhumidity3: data2.data2, //湿度3
+                Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
+                soilmoisture3: data2.data2, //土壤湿度3
+                soi3: Math.round(parseInt(gzhao) + parseInt(parseInt(cha) * parseFloat(shuzu5[rad]))),
+                co23: Math.round(parseInt(co) + parseInt(parseInt(cha1) * parseFloat(shuzu5[rad]))),
+                time: data1,
+            })
+            break;
+        case i >= 14 && i < 20:
+            await yanshiy.create({
+                machinekey: data,
+                tair1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+                airhumidity1: data2.data2, //湿度1
+                Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
+                soilmoisture1: data2.data2, //土壤湿度1
+                soi1: Math.round(parseInt(gzhao) - parseInt(parseInt(cha) * parseFloat(shuzu3[rad]))), //光照强度1
+                co21: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu3[rad]))),
+                tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
+                airhumidity2: data2.data2, //湿度2
+                Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
+                soilmoisture2: data2.data2, //土壤湿度2
+                soi2: Math.round(parseInt(gzhao) - parseInt(parseInt(cha) * parseFloat(shuzu4[rad]))),
+                co22: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu4[rad]))),
+                tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
+                airhumidity3: data2.data2, //湿度3
+                Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
+                soilmoisture3: data2.data2, //土壤湿度3
+                soi3: Math.round(parseInt(gzhao) - parseInt(parseInt(cha) * parseFloat(shuzu5[rad]))),
+                co23: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu5[rad]))),
+                time: data1,
+            })
+            break;
+        case i >= 20 && i < 23:
+            await yanshiy.create({
+                machinekey: data,
+                tair1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+                airhumidity1: data2.data2, //湿度1
+                Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
+                soilmoisture1: data2.data2, //土壤湿度1
+                soi1: Math.round(parseInt(gzhao)), //光照强度1
+                co21: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu3[rad]))),
+                tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
+                airhumidity2: data2.data2, //湿度2
+                Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
+                soilmoisture2: data2.data2, //土壤湿度2
+                soi2: Math.round(parseInt(gzhao)),
+                co22: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu4[rad]))),
+                tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
+                airhumidity3: data2.data2, //湿度3
+                Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
+                soilmoisture3: data2.data2, //土壤湿度3
+                soi3: Math.round(parseInt(gzhao)),
+                co23: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu5[rad]))),
+                time: data1,
+            })
+            break;
+        case i === 23:
+            await yanshiy.create({
+                machinekey: data,
+                tair1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+                airhumidity1: data2.data2, //湿度1
+                Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
+                soilmoisture1: data2.data2, //土壤湿度1
+                soi1: Math.round(parseInt(gzhao)), //光照强度1
+                co21: Math.round(parseInt(co)),
+                tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
+                airhumidity2: data2.data2, //湿度2
+                Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
+                soilmoisture2: data2.data2, //土壤湿度2
+                soi2: Math.round(parseInt(gzhao)),
+                co22: Math.round(parseInt(co)),
+                tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
+                airhumidity3: data2.data2, //湿度3
+                Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
+                soilmoisture3: data2.data2, //土壤湿度3
+                soi3: Math.round(parseInt(gzhao)),
+                co23: Math.round(parseInt(co)),
+                time: data1,
+            })
+            break;
+    }
+}
+
+async function task4(shijian, wenshi, gzhao, fengsu, fengxiang) {
+    let shuzu = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.0];
+    let rad = stringRandom(1, { letters: false });
+    await qixiangz.create({
+        tair1: (parseFloat(wenshi.data1) + parseFloat(shuzu[rad])).toFixed(1), //温度1
+        airhumidity1: wenshi.data2, //湿度1
+        soi1: gzhao, //光照强度1
+        fengxiang: fengxiang,
+        fengsu: fengsu,
+        time: shijian, //时间
+    })
 }
 
 const plateInAuth = async(req, res, next) => {
@@ -52,7 +672,6 @@ const plateInAuth = async(req, res, next) => {
     req.chartname = username
     next()
 }
-
 async function task2(data, data1) {
     await sensoro.create({
         machinekey: data,
@@ -65,8 +684,6 @@ async function task2(data, data1) {
         time: data1,
     })
 }
-
-
 
 async function task1(data, data2) {
 
@@ -164,9 +781,122 @@ router.post('/api/seachdata', async(req, res) => {
 })
 
 router.post('/api/seachdataOne', async(req, res) => {
-    const adata = await sensoro.find({ machinekey: req.body.machinekey }).sort({ "time": -1 }).limit(1)
-    res.send(adata);
+    const adata = await yanshiy.findOne({ machinekey: req.body.machinekey }).sort({ "time": -1 }).limit(1)
+    let pushdata = {
+        'date': adata.time,
+        'machinekey': adata.machinekey,
+        value: [{
+                name: 'tair1',
+                data: adata.tair1,
+                nikename: '空气温度1'
+            },
+            {
+                name: 'airhumidity1',
+                data: adata.airhumidity1,
+                nikename: '空气湿度1'
+
+            },
+            {
+                name: 'Soiltemp1',
+                data: adata.Soiltemp1,
+                nikename: '土壤温度1'
+            },
+            {
+                name: 'soilmoisture1',
+                data: adata.soilmoisture1,
+                nikename: '土壤湿度1'
+            },
+            {
+                name: 'soi1',
+                data: adata.soi1,
+                nikename: '光照强度1'
+            },
+            {
+                name: 'co21',
+                data: adata.co21,
+                nikename: '1号CO2'
+            },
+            {
+                name: 'tair2',
+                data: adata.tair2,
+                nikename: '空气温度2'
+            },
+            {
+                name: 'airhumidity2',
+                data: adata.airhumidity2,
+                nikename: '空气湿度2'
+            },
+            {
+                name: 'Soiltemp2',
+                data: adata.Soiltemp2,
+                nikename: '土壤温度2'
+            },
+            {
+                name: 'soilmoisture2',
+                data: adata.soilmoisture2,
+                nikename: '土壤湿度2'
+            },
+            {
+                name: 'soi2',
+                data: adata.soi2,
+                nikename: '光照强度2'
+            },
+            {
+                name: 'co22',
+                data: adata.co22,
+                nikename: '2号CO2'
+            },
+            {
+                name: 'tair3',
+                data: adata.tair3,
+                nikename: '空气温度3'
+            },
+            {
+                name: 'airhumidity3',
+                data: adata.airhumidity3,
+                nikename: '空气湿度3'
+            },
+            {
+                name: 'Soiltemp3',
+                data: adata.Soiltemp3,
+                nikename: '土壤温度3'
+            },
+            {
+                name: 'soilmoisture3',
+                data: adata.soilmoisture3,
+                nikename: '土壤湿度3'
+            },
+            {
+                name: 'soi3',
+                data: adata.soi3,
+                nikename: '光照强度3'
+            },
+            {
+                name: 'co23',
+                data: adata.co23,
+                nikename: '3号CO2'
+            },
+        ]
+    };
+    res.send(pushdata);
 })
+
+router.post('/api/seachdata/24houer', async(req, res) => {
+    const adata = await yanshiy.find({ machinekey: req.body.machinekey }).sort({ "time": -1 }).limit(3);
+    let pushdata = [];
+    adata.forEach((item) => {
+        pushdata.push(
+            [item.time, '1号空气温度', item.tair1], [item.time, '1号空气湿度', item.airhumidity1], [item.time, '1号土壤温度', item.Soiltemp1], [item.time, '1号土壤湿度', item.soilmoisture1], [item.time, '1号光照强度', item.soi1], [item.time, '1号二氧化碳', item.co21],
+
+            [item.time, '2号空气温度', item.tair2], [item.time, '2号空气湿度', item.airhumidity2], [item.time, '2号土壤温度', item.Soiltemp2], [item.time, '2号土壤湿度', item.soilmoisture2], [item.time, '2号光照强度', item.soi2], [item.time, '2号二氧化碳', item.co22],
+
+            [item.time, '3号空气温度', item.tair3], [item.time, '3号空气湿度', item.airhumidity3], [item.time, '3号土壤温度', item.Soiltemp3], [item.time, '3号土壤湿度', item.soilmoisture3], [item.time, '3号光照强度', item.soi3], [item.time, '3号二氧化碳', item.co23],
+        )
+    })
+
+    res.send(pushdata);
+})
+
 
 router.post('/api/seachdatahour', async(req, res) => {
     let timedata = new Date() //当时时间

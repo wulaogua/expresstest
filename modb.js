@@ -84,22 +84,57 @@ const deviceData = new mongoose.Schema({
 })
 
 const userMachine = new mongoose.Schema({
-    AdminName: { type: String },
-    machinekey: { type: String },
-    platename: { type: String },
-    nickname: { type: String },
-    state: { type: String },
-    sensorsNum: { type: String },
-    deviceNum: { type: String },
-    Ip: { type: String },
-    networkType: { type: String },
-    networkState: { type: String },
-    error: { type: String },
-    Location: { type: String },
-    inPin: { type: Array },
-    outPin: { type: Array },
-    projectnumb: { type: Number },
+        AdminName: { type: String },
+        machinekey: { type: String },
+        platename: { type: String },
+        nickname: { type: String },
+        state: { type: String },
+        sensorsNum: { type: String },
+        deviceNum: { type: String },
+        Ip: { type: String },
+        networkType: { type: String },
+        networkState: { type: String },
+        error: { type: String },
+        Location: { type: String },
+        inPin: { type: Array }, //
+        outPin: { type: Array }, //
+        projectnumb: { type: Number }, //
+    })
+    /* -------------------演示用------------------------ */
+const yanshiYong = new mongoose.Schema({
+    machinekey: { type: String }, //设备号
+    tair1: { type: String }, //温度1
+    airhumidity1: { type: String }, //湿度1
+    Soiltemp1: { type: String }, //土壤温度1
+    soilmoisture1: { type: String }, //土壤湿度1
+    soi1: { type: String }, //光照强度1
+    co21: { type: String },
+    tair2: { type: String }, //温度1
+    airhumidity2: { type: String }, //湿度1
+    Soiltemp2: { type: String }, //土壤温度1
+    soilmoisture2: { type: String }, //土壤湿度1
+    soi2: { type: String }, //光照强度1
+    co22: { type: String },
+    tair3: { type: String }, //温度1
+    airhumidity3: { type: String }, //湿度1
+    Soiltemp3: { type: String }, //土壤温度1
+    soilmoisture3: { type: String }, //土壤湿度1
+    soi3: { type: String }, //光照强度1
+    co23: { type: String },
+    time: { type: String }, //时间
 })
+
+const qixiangzhan = new mongoose.Schema({
+    tair1: { type: String }, //温度1
+    airhumidity1: { type: String }, //湿度1
+    soi1: { type: String }, //光照强度1
+    fengxiang: { type: String },
+    fengsu: { type: String },
+    time: { type: String }, //时间
+})
+
+
+/* -------------------演示用----------------------- */
 
 const sensorOne = new mongoose.Schema({
     machinekey: { type: String }, //设备号
@@ -193,7 +228,12 @@ const videourl = new mongoose.Schema({
     videourl: { type: Array } //列表
 })
 
-//视频地址表
+/* --------演示用-------- */
+
+const qixiangz = mongoose.model('qixiangzhan', qixiangzhan)
+const yanshiy = mongoose.model('yanshiYong', yanshiYong)
+    /* --------演示用-------- */
+    //视频地址表
 const videolist = mongoose.model('videourl', videourl)
     //数据表
 const sensoro = mongoose.model('sensorOne', sensorOne)
@@ -218,4 +258,4 @@ const sensorA = mongoose.model('sensor', sensor)
     //总览数据表
 const zongland = mongoose.model('zonglandata', zonglandata)
 
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro, videolist }
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro, videolist, yanshiy, qixiangz }
