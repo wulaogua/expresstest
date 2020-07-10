@@ -98,9 +98,9 @@ let tairaa = [{
     {
         date: '2020-7-7 08:00:00',
         name: '空气温度',
-        data1: '28.3',
+        data1: '27.3',
         data2: '68',
-        data3: '1939',
+        data3: '5000',
         data4: '807',
         data5: 4,
         data6: 79,
@@ -108,9 +108,9 @@ let tairaa = [{
     {
         date: '2020-7-7 09:00:00',
         name: '空气温度',
-        data1: '23.9',
+        data1: '28.1',
         data2: '85',
-        data3: '3214',
+        data3: '5700',
         data4: '905',
         data5: 3.7,
         data6: 88,
@@ -118,9 +118,9 @@ let tairaa = [{
     {
         date: '2020-7-7 10:00:00',
         name: '空气温度',
-        data1: '24.5',
+        data1: '28.5',
         data2: '85',
-        data3: '4350',
+        data3: '7000',
         data4: '977',
         data5: 4.8,
         data6: 90,
@@ -128,9 +128,9 @@ let tairaa = [{
     {
         date: '2020-7-7 11:00:00',
         name: '空气温度',
-        data1: '24.8',
+        data1: '28.8',
         data2: '71',
-        data3: '5622',
+        data3: '8000',
         data4: '1008',
         data5: 4.9,
         data6: 67,
@@ -138,9 +138,9 @@ let tairaa = [{
     {
         date: '2020-7-7 12:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '81',
-        data3: '6656',
+        data3: '9000',
         data4: '1024',
         data5: 3.3,
         data6: 91,
@@ -148,9 +148,9 @@ let tairaa = [{
     {
         date: '2020-7-7 13:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '81',
-        data3: '7263',
+        data3: '13000',
         data4: '1039',
         data5: 3.5,
         data6: 86,
@@ -158,9 +158,9 @@ let tairaa = [{
     {
         date: '2020-7-7 14:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '29',
         data2: '89',
-        data3: '7161',
+        data3: '17000',
         data4: '1038',
         data5: 2.9,
         data6: 92,
@@ -168,9 +168,9 @@ let tairaa = [{
     {
         date: '2020-7-7 15:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '92',
-        data3: '5183',
+        data3: '10000',
         data4: '1024',
         data5: 3.5,
         data6: 73,
@@ -179,9 +179,9 @@ let tairaa = [{
     {
         date: '2020-7-7 16:00:00',
         name: '空气温度',
-        data1: '25.2',
+        data1: '28',
         data2: '98',
-        data3: '3569',
+        data3: '6000',
         data4: '962',
         data5: 3,
         data6: 87,
@@ -190,9 +190,9 @@ let tairaa = [{
     {
         date: '2020-7-7 17:00:00',
         name: '空气温度',
-        data1: '25.1',
+        data1: '28',
         data2: '100',
-        data3: '2925',
+        data3: '4000',
         data4: '896',
         data5: 2.9,
         data6: 67,
@@ -201,7 +201,7 @@ let tairaa = [{
     {
         date: '2020-7-7 18:00:00',
         name: '空气温度',
-        data1: '24.8',
+        data1: '27',
         data2: '100',
         data3: '1750',
         data4: '849',
@@ -211,7 +211,7 @@ let tairaa = [{
     {
         date: '2020-7-7 19:00:00',
         name: '空气温度',
-        data1: '24.5',
+        data1: '26',
         data2: '100',
         data3: '300',
         data4: '821',
@@ -221,7 +221,7 @@ let tairaa = [{
     {
         date: '2020-7-7 20:00:00',
         name: '空气温度',
-        data1: '24.1',
+        data1: '26',
         data2: '100',
         data3: '100',
         data4: '809',
@@ -329,89 +329,89 @@ let tair = [{
         name: '空气温度',
         data1: '28.3',
         data2: '68',
-        data3: '1939',
+        data3: '5000',
         data4: '807',
     },
     {
         date: '2020-7-7 09:00:00',
         name: '空气温度',
-        data1: '23.9',
+        data1: '27.9',
         data2: '85',
-        data3: '3214',
+        data3: '6700',
         data4: '905',
     },
     {
         date: '2020-7-7 10:00:00',
         name: '空气温度',
-        data1: '24.5',
+        data1: '27.5',
         data2: '85',
-        data3: '4350',
+        data3: '7000',
         data4: '977',
     },
     {
         date: '2020-7-7 11:00:00',
         name: '空气温度',
-        data1: '24.8',
+        data1: '27.8',
         data2: '71',
-        data3: '5622',
+        data3: '8000',
         data4: '1008',
 
     },
     {
         date: '2020-7-7 12:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '81',
-        data3: '6656',
+        data3: '9000',
         data4: '1024',
     },
     {
         date: '2020-7-7 13:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '81',
-        data3: '7263',
+        data3: '13000',
         data4: '1039',
     },
     {
         date: '2020-7-7 14:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '89',
-        data3: '7161',
+        data3: '17000',
         data4: '1038',
     },
     {
         date: '2020-7-7 15:00:00',
         name: '空气温度',
-        data1: '25',
+        data1: '28',
         data2: '92',
-        data3: '5183',
+        data3: '10000',
         data4: '1024',
     },
 
     {
         date: '2020-7-7 16:00:00',
         name: '空气温度',
-        data1: '25.2',
+        data1: '27',
         data2: '98',
-        data3: '3569',
+        data3: '6000',
         data4: '962',
 
     },
     {
         date: '2020-7-7 17:00:00',
         name: '空气温度',
-        data1: '25.1',
+        data1: '26',
         data2: '100',
-        data3: '2925',
+        data3: '4000',
         data4: '896',
 
     },
     {
         date: '2020-7-7 18:00:00',
         name: '空气温度',
-        data1: '24.8',
+        data1: '26',
         data2: '100',
         data3: '1750',
         data4: '849',
@@ -419,7 +419,7 @@ let tair = [{
     {
         date: '2020-7-7 19:00:00',
         name: '空气温度',
-        data1: '24.5',
+        data1: '25',
         data2: '100',
         data3: '300',
         data4: '821',
@@ -610,19 +610,19 @@ async function task3(data, data1, data2, gzhao, co, cha, cha1, i) {
                 Soiltemp1: (parseFloat(data2.data1) + parseFloat(shuzu[rad])).toFixed(1), //土壤温度1
                 soilmoisture1: data2.data2, //土壤湿度1
                 soi1: Math.round(parseInt(gzhao)), //光照强度1
-                co21: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu3[rad]))),
+                co21: Math.round(parseInt(co)),
                 tair2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //温度2
                 airhumidity2: data2.data2, //湿度2
                 Soiltemp2: (parseFloat(data2.data1) + parseFloat(shuzu1[rad])).toFixed(1), //土壤温度2
                 soilmoisture2: data2.data2, //土壤湿度2
                 soi2: Math.round(parseInt(gzhao)),
-                co22: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu4[rad]))),
+                co22: Math.round(parseInt(co)),
                 tair3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //温度3
                 airhumidity3: data2.data2, //湿度3
                 Soiltemp3: (parseFloat(data2.data1) + parseFloat(shuzu2[rad])).toFixed(1), //土壤温度3
                 soilmoisture3: data2.data2, //土壤湿度3
                 soi3: Math.round(parseInt(gzhao)),
-                co23: Math.round(parseInt(co) - parseInt(parseInt(cha1) * parseFloat(shuzu5[rad]))),
+                co23: Math.round(parseInt(co)),
                 time: data1,
             })
             break;
@@ -882,19 +882,147 @@ router.post('/api/seachdataOne', async(req, res) => {
 })
 
 router.post('/api/seachdata/24houer', async(req, res) => {
-    const adata = await yanshiy.find({ machinekey: req.body.machinekey }).sort({ "time": -1 }).limit(3);
-    let pushdata = [];
-    adata.forEach((item) => {
-        pushdata.push(
-            [item.time, '1号空气温度', item.tair1], [item.time, '1号空气湿度', item.airhumidity1], [item.time, '1号土壤温度', item.Soiltemp1], [item.time, '1号土壤湿度', item.soilmoisture1], [item.time, '1号光照强度', item.soi1], [item.time, '1号二氧化碳', item.co21],
+    const adata = await yanshiy.find({ machinekey: req.body.machinekey }).sort({ "time": 1 });
+    let y = parseInt(adata[0].time.split(' ')[1].split(':')[0])
+    let pushdataa = [];
+    let a = [];
+    let a1 = [];
+    let a2 = [];
+    let a3 = [];
+    let a4 = [];
+    let a5 = [];
+    let a6 = [];
+    let a7 = [];
+    let a8 = [];
+    let a9 = [];
+    let a10 = [];
+    let a11 = [];
+    let a12 = [];
+    let a13 = [];
+    let a14 = [];
+    let a15 = [];
+    let a16 = [];
+    let a17 = [];
 
-            [item.time, '2号空气温度', item.tair2], [item.time, '2号空气湿度', item.airhumidity2], [item.time, '2号土壤温度', item.Soiltemp2], [item.time, '2号土壤湿度', item.soilmoisture2], [item.time, '2号光照强度', item.soi2], [item.time, '2号二氧化碳', item.co22],
+    for (i = 0; i < adata.length; i++) {
+        if (adata[i].time.split(' ')[1].split(':')[1] === '00') {
+            a.push(adata[i].tair1)
+            a1.push(adata[i].airhumidity1)
+            a2.push(adata[i].airhumidity1)
+            a3.push(adata[i].soilmoisture1)
+            a4.push(adata[i].soi1)
+            a5.push(adata[i].co21)
+            a6.push(adata[i].tair2)
+            a7.push(adata[i].airhumidity2)
+            a8.push(adata[i].airhumidity2)
+            a9.push(adata[i].soilmoisture2)
+            a10.push(adata[i].soi2)
+            a11.push(adata[i].co22)
+            a12.push(adata[i].tair3)
+            a13.push(adata[i].airhumidity3)
+            a14.push(adata[i].airhumidity3)
+            a15.push(adata[i].soilmoisture3)
+            a16.push(adata[i].soi3)
+            a17.push(adata[i].co23)
+            pushdataa.push({
+                date: adata[i].time,
+                data: adata[i].tair1,
+                nikename: '空气温度1'
+            }, {
+                date: adata[i].time,
+                data: adata[i].airhumidity1,
+                nikename: '空气湿度1'
 
-            [item.time, '3号空气温度', item.tair3], [item.time, '3号空气湿度', item.airhumidity3], [item.time, '3号土壤温度', item.Soiltemp3], [item.time, '3号土壤湿度', item.soilmoisture3], [item.time, '3号光照强度', item.soi3], [item.time, '3号二氧化碳', item.co23],
-        )
-    })
-
-    res.send(pushdata);
+            }, {
+                date: adata[i].time,
+                data: adata[i].Soiltemp1,
+                nikename: '土壤温度1'
+            }, {
+                date: adata[i].time,
+                data: adata[i].soilmoisture1,
+                nikename: '土壤湿度1'
+            }, {
+                date: adata[i].time,
+                data: adata[i].soi1,
+                nikename: '光照强度1'
+            }, {
+                date: adata[i].time,
+                data: adata[i].co21,
+                nikename: '1号CO2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].tair2,
+                nikename: '空气温度2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].airhumidity2,
+                nikename: '空气湿度2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].Soiltemp2,
+                nikename: '土壤温度2'
+            }, {
+                ndate: adata[i].time,
+                data: adata[i].soilmoisture2,
+                nikename: '土壤湿度2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].soi2,
+                nikename: '光照强度2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].co22,
+                nikename: '2号CO2'
+            }, {
+                date: adata[i].time,
+                data: adata[i].tair3,
+                nikename: '空气温度3'
+            }, {
+                date: adata[i].time,
+                data: adata[i].airhumidity3,
+                nikename: '空气湿度3'
+            }, {
+                date: adata[i].time,
+                data: adata[i].Soiltemp3,
+                nikename: '土壤温度3'
+            }, {
+                date: adata[i].time,
+                data: adata[i].soilmoisture3,
+                nikename: '土壤湿度3'
+            }, {
+                date: adata[i].time,
+                data: adata[i].soi3,
+                nikename: '光照强度3'
+            }, {
+                date: adata[i].time,
+                data: adata[i].co23,
+                nikename: '3号CO2'
+            }, )
+        }
+    }
+    for (let u = 0; u < 24; u++) {
+        if (u < y) {
+            a.unshift('')
+            a1.unshift('')
+            a2.unshift('')
+            a3.unshift('')
+            a4.unshift('')
+            a5.unshift('')
+            a6.unshift('')
+            a7.unshift('')
+            a8.unshift('')
+            a10.unshift('')
+            a11.unshift('')
+            a12.unshift('')
+            a13.unshift('')
+            a14.unshift('')
+            a15.unshift('')
+            a16.unshift('')
+            a17.unshift('')
+        }
+    }
+    let biaodataa = [a, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17]
+    res.send([pushdataa, biaodataa]);
 })
 
 
