@@ -39,28 +39,33 @@ router.post('/api/device/search', async(req, res) => {
 })
 
 router.post('/api/device/updata', async(req, res) => {
-    const bdata = await deviced.update({ "devicekey": req.body.machinekey, "id": req.body.id }, {
+    const bdata = await deviced.updateOne({ "devicekey": req.body.machinekey, "id": req.body.id }, {
         status: req.body.status,
         Nvalue: req.body.Nvalue
     })
     if (bdata.nModified != 1) {
-        console.log('1', bdata.nModified)
-        res.send({
-            "meta": {
-                'msg': "更新失败",
-                'status': 422
-            }
-        })
+        setTimeout(function (){
+            console.log('1', bdata.nModified)
+            res.send({
+                "meta": {
+                    'msg': "更新失败",
+                    'status': 422
+                }
+            })
+        }, 500);
+
     } else {
         const cdata = await deviced.findOne({ "devicekey": req.body.machinekey, "id": req.body.id })
         if (cdata) {
-            res.send({
-                data: { "status": cdata.status, Nvalue: cdata.Nvalue },
-                meta: {
-                    'msg': "更新成功",
-                    'status': 200
-                }
-            })
+            setTimeout(function (){
+                res.send({
+                    data: { "status": cdata.status, Nvalue: cdata.Nvalue },
+                    meta: {
+                        'msg': "更新成功",
+                        'status': 200
+                    }
+                })
+            }, 500);
         }
     }
 })
