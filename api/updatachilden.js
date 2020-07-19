@@ -4,7 +4,7 @@ const router = express.Router(); //新建路由
 
 router.post('/api/user/updatachlidren', async(req, res) => {
     //子用户更新
-    const updatachildren = await UserC.update({ 'username': req.body.ouserame, 'projectnumb': req.body.data }, {
+    const updatachildren = await UserC.updateOne({ 'username': req.body.ouserame, 'projectnumb': req.body.data }, {
         username: req.body.newdata.name,
         password: req.body.newdata.password,
         areadatarights: req.body.newdata.checkeduseris,

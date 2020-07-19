@@ -3,7 +3,7 @@ const router = express.Router(); //新建路由
 const { UserC } = require('../modb')
 const { UserM } = require('../modb')
 const { porject } = require('../modb')
-
+const { videolist } = require('../modb')
 const jwt = require('jsonwebtoken')
 const seckey = 'dsd' //tonken的密钥
     //中间件name token解密
@@ -16,7 +16,7 @@ const Mauth = async(req, res, next) => {
     }
     //查询子用户信息
 router.post('/api/user/userdata', Mauth, async(req, res) => {
-    const resa = await UserC.findOne({ "username": req.user.name })
+    const resa = await UserC.findOne({ "username": req.user.name})
     if (resa) {
         const resb = await UserM.find({
             "AdminName": resa.adminnmae,
@@ -29,11 +29,42 @@ router.post('/api/user/userdata', Mauth, async(req, res) => {
     }
 })
 
+router.post('/api/user/uservideo', Mauth, async(req, res) => {
+    const resc = await UserC.findOne({ "username": req.user.name })
+    if(resc)
+    {
+        let videodata=[];
+        const data=await videolist.findOne({adminname:resc.adminnmae,projectnumb:resc.projectnumb});
+        for(let i =0;i<resc.areacontrolarights.length;i++){
+            for(let y=0;y<data.videourl.length;y++){
+                if(data.videourl[y].channelName===resc.areacontrolarights[i])
+                {
+                    videodata.push({
+                        nikenmae:data.videourl[y].channelName,
+                        picUrl:data.videourl[y].picUrl
+                    })
+                }
+            }
+        }
+        return res.send(videodata)
+    }
+    else
+    {
+        return res.send({
+            "meta": {
+                'msg': "查询失败",
+                'meta': 301
+            }
+        })
+    }
+})
+
+
 router.post('/api/user/userdatak', Mauth, async(req, res) => {
     const resc = await UserC.findOne({ "username": req.user.name })
-
     if (!resc) {
-        if (req.body.platedata === 3) {
+        if (req.body.platedata === 3)
+         {
             const prodata = await porject.findOne({ "username": req.user.name, "platename": req.body.payload[0], "projectname": req.body.payload[2] })
             const resd = await UserM.find({
                 "AdminName": req.user.name,
@@ -55,7 +86,9 @@ router.post('/api/user/userdatak', Mauth, async(req, res) => {
                     'meta': 4222
                 }
             })
-        } else {
+        } 
+        else 
+        {
             const resd = await UserM.find({
                 "AdminName": req.user.name,
                 "projectnumb": req.body.projectnumb,
