@@ -80,7 +80,9 @@ const deviceData = new mongoose.Schema({
     value: { type: Number }, //三种设备状态
     voltage: { type: String }, //电压
     ec: { type: String }, //电流
-    devicekey: { type: String }, //绑定的设备KEY
+    devicekey: { type: String }, //绑定的设备KEY,
+    task:{type:Array},//定时任务
+    task1:{type:Array},//阈值任务
 })
 
 const userMachine = new mongoose.Schema({
@@ -131,6 +133,11 @@ const qixiangzhan = new mongoose.Schema({
     fengxiang: { type: String },
     fengsu: { type: String },
     time: { type: String }, //时间
+})
+//每日价格
+const jiageri = new mongoose.Schema({
+    date:{type:String},//时间
+    data:{ type: Array }, //数组
 })
 
 
@@ -234,28 +241,30 @@ const qixiangz = mongoose.model('qixiangzhan', qixiangzhan)
 const yanshiy = mongoose.model('yanshiYong', yanshiYong)
     /* --------演示用-------- */
     //视频地址表
-const videolist = mongoose.model('videourl', videourl)
+const videolist = mongoose.model('videourl', videourl)//
     //数据表
-const sensoro = mongoose.model('sensorOne', sensorOne)
+const sensoro = mongoose.model('sensorOne', sensorOne)////
     //设备控制数据表
-const deviced = mongoose.model('deviceData', deviceData)
+const deviced = mongoose.model('deviceData', deviceData)//
     //chart数据
-const chartData = mongoose.model('chartData', chartdata)
+const chartData = mongoose.model('chartData', chartdata)//
     //管理员设备表1
-const ProjectL = mongoose.model('ProjectL', ProjectList)
+const ProjectL = mongoose.model('ProjectL', ProjectList)//
     //管理员片区表1
-const UserM = mongoose.model('UserM', userMachine)
+const UserM = mongoose.model('UserM', userMachine)//
     //管理员子账户表1
-const UserC = mongoose.model('UserC', UserChildren)
+const UserC = mongoose.model('UserC', UserChildren)//
     //管理员表
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema)//
     //设备表
-const MachineKey = mongoose.model('MachineKey', KeySchema)
+const MachineKey = mongoose.model('MachineKey', KeySchema)//
     //设备详情表
-const porject = mongoose.model('porjectSchema', porjectSchema)
+const porject = mongoose.model('porjectSchema', porjectSchema)//
     //随机生成数据表
-const sensorA = mongoose.model('sensor', sensor)
+const sensorA = mongoose.model('sensor', sensor)//
     //总览数据表
-const zongland = mongoose.model('zonglandata', zonglandata)
+const zongland = mongoose.model('zonglandata', zonglandata)//
+    //每日价格
+const jiager = mongoose.model('jiageri', jiageri)
 
-module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro, videolist, yanshiy, qixiangz }
+module.exports = { User, MachineKey, porject, UserC, UserM, ProjectL, sensorA, chartData, deviced, zongland, sensoro, videolist, yanshiy, qixiangz,jiager}

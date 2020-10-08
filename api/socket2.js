@@ -9,13 +9,15 @@ let portaddrs;
 let hsportaddrs;
 async function dingshi() {
     //开启链接
-    let conntrult = await getConnection('conntrult')
-    let hongshun = await getConnection('hongshun')
+
         //定义定时器
     let rule = new schedule.RecurrenceRule();
-    rule.minute = [00, 15, 25, 55, 59];
+    //rule.minute = [00, 15, 30, 45];
+    rule.minute = [00, 23, 30, 45];
     //定时器动作
     schedule.scheduleJob(rule, async() => {
+        let conntrult = await getConnection('conntrult')
+        let hongshun = await getConnection('hongshun')
         const id = ['FX015', 'FX015', 'FX015', 'FX016', 'FX016', 'FX016', 'FX017', 'FX017', 'FX017', 'FX017', 'FX018', 'FX018', 'FX018', 'FX019', 'FX019', 'FX019']
         const hssbbmlist = ['234393903401', '234393903402', '234393903403', '234393903404', '234393903405', '234393903406', '234393903407', '234393903408', ]
         const sbbmlist = ['33487400922807001', '33487400922807002', '33487400922807003', '33487400922807004', '33487400922807005', '33487400922807006', '33487400922807007', '33487400922807008', '33487400922807009', '33487400922807010', '33487400922807011', '33487400922807012', '33487400922807013', '33487400922807014', '33487400922807015', '33487400922807016', ]
@@ -44,22 +46,23 @@ async function dingshi() {
                 await writeData(hongshun, JSON.stringify(overdata3));
             }, 500 * y);
         }
-
     });
 }
 async function getConnection(connName) {
-    let client = await net.connect({ port: 60000, host: '39.99.205.217' },
+    let client = await net.connect({ port: 8089, host: '120.55.69.237' },
         function() {
             if (connName === "conntrult") {
                 portaddrs = `39.99.205.217:${this.localPort}`
             } else {
                 hsportaddrs = `39.99.205.217:${this.localPort}`
             }
-            //this.setTimeout(2000);
+            this.setTimeout(2000,()=>{
+                this.end();
+            });
             this.setEncoding('utf8');
             this.on('data', function(data) {
                 console.log(connName + " From Server:" + data.toString());
-                //this.end();
+                
             });
             this.on('end', function() {
                 console.log(connName + 'Client disconnection');
@@ -101,6 +104,7 @@ function writeData(socket, data) {
     if (!success) {
         (function(socket, data) {
             socket.once('drain', function() {
+                console.log('huancun')
                 writeData(socket, data);
             });
         })(socket, data);
@@ -127,7 +131,8 @@ function hsshuju() {
     let rad7 = Math.floor(Math.random() * 20);
     let rad8 = Math.floor(Math.random() * 20);
     let tmp = Date.parse(new Date()).toString().substr(0, 10);
-    let scmoban = [{
+    let scmoban = [
+        {
             'FX063': {
                 s7: `${(parseFloat(doo) + parseFloat(doojiey[rad1])).toFixed(1)}`,
                 s8: `${(parseFloat(temp) + parseFloat(tempjiey[rad2])).toFixed(1)}`,

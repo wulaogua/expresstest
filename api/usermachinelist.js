@@ -19,7 +19,7 @@ const Mauth = async(req, res, next) => {
 router.post('/api/user/MachineSchAll', Mauth, async(req, res) => {
 
         const resa = await UserM.find({ "AdminName": req.user.name, "projectnumb": req.body.data })
-        if (!resa) {
+        if (resa.length===0) {
             return res.send({
                 "meta": {
                     'msg': "查询失败",

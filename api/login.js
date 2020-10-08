@@ -10,7 +10,7 @@ router.post('/api/login', async(req, res) => {
     if (!user) {
         //无账户报错
         const userc = await UserC.findOne({ username: req.body.username })
-        if (!userc) {
+        if (!userc) {  
             return res.send({
                 "meta": {
                     'msg': "登陆失败",
@@ -26,7 +26,7 @@ router.post('/api/login', async(req, res) => {
                 //密码错误判断
             if (!isPasswordValid) {
                 return res.status(422).send({
-                    message: "密码错误"
+                    message: "用户/密码错误"
                 })
             } else {
                 const tokenq = jwt.sign({ username: usercc.username }, seckey)

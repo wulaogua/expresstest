@@ -934,6 +934,7 @@ router.post('/api/seachdata', async (req, res) => {
 
 router.post('/api/seachdataOne', async (req, res) => {
     const adata = await yanshiy.findOne({ machinekey: req.body.machinekey }).sort({ "time": -1 })
+
     if (adata) {
         let pushdata = {
             'date': adata.time,
@@ -1101,7 +1102,6 @@ router.post('/api/seachdata/24houer', async (req, res) => {
         machinekey:req.body.machinekey,
         $and: [{ time: { $gt:  req.body.fdate } }, { time: { $lt:  req.body.sdate } }]
     })
- 
     let y = parseInt(adata[0].time.split(' ')[1].split(':')[0])
     let pushdataa = [];
     let xzdate=[];
@@ -1123,7 +1123,6 @@ router.post('/api/seachdata/24houer', async (req, res) => {
     let a15 = [];
     let a16 = [];
     let a17 = [];
-
     for (i = 0; i < adata.length; i++) {
         if (adata[i].time.split(' ')[1].split(':')[1] === '00') {
             a.push(adata[i].tair1)

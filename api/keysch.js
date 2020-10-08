@@ -6,7 +6,7 @@ router.get('/api/machinekey/:id', async (req, res) => {
     if(!mkey){
        return res.send({
         "meta":{
-            'msg': "序列号不存在1",
+            'msg': "序列号不存在",
             'status':422
             }
        }); 
@@ -14,7 +14,7 @@ router.get('/api/machinekey/:id', async (req, res) => {
     if(mkey.keystate){
         return res.send({
             "meta":{
-                'msg': "序列号不存在2",
+                'msg': "序列号不存在",
                 'status':422
                 }
            }); 

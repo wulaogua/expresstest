@@ -57,18 +57,24 @@ router.post('/api/project/searchproject', auth, async(req, res) => {
     })
     //搜索账户平台单个项目
 router.post('/api/project/searchprojectOne', auth, async(req, res) => {
-    const projecdata = await ProjectL.find({ 'username': req.user.username, "platename": req.body.platename, "areaname": req.body.areaname })
-    if (!projecdata) return res.send({
-        'msg': "查询失败",
-        'status': 422
-    });
-    return res.send({
-        'data': projecdata,
-        "meta": {
-            'msg': "查询成功",
-            'status': 200,
-        }
 
-    });
+    const projecdata = await ProjectL.find({ 'username': req.user.username, "platename": req.body.platename, "areaname": req.body.areaname })
+    if (projecdata.length==0){
+        return res.send({
+            'msg': "查询失败",
+            'status': 422
+        });
+    } 
+    else{
+        return res.send({
+            'data': projecdata,
+            "meta": {
+                'msg': "查询成功",
+                'status': 200,
+            }
+    
+        });
+    }
+
 })
 module.exports = router;

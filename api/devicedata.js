@@ -37,6 +37,88 @@ router.post('/api/device/search', async(req, res) => {
         });
     }
 })
+//任务查询
+router.post('/api/device/searchtask', async(req, res) => {
+    const adataa = await deviced.findOne({ "devicekey": req.body.devicekey,"id": req.body.id})
+    if (adataa.task.length!==0) {
+        res.send({
+            adataa,
+            "meta": {
+                'msg': "查询成功",
+                'status': 200
+            }
+        })
+    }
+    else{
+        res.send({
+            "meta": {
+                'msg': "查询为空/查询失败",
+                'status': 422
+            }
+        })
+    }
+})
+//任务查询
+router.post('/api/device/searchtask1', async(req, res) => {
+    const adataa = await deviced.findOne({ "devicekey": req.body.devicekey,"id": req.body.id})
+    if (adataa.task1.length!==0) {
+        res.send({
+            adataa,
+            "meta": {
+                'msg': "查询成功",
+                'status': 200
+            }
+        })
+    }
+    else{
+        res.send({
+            "meta": {
+                'msg': "查询为空/查询失败",
+                'status': 422
+            }
+        })
+    }
+})
+//定时任务添加
+router.post('/api/device/taskadd', async(req, res) => {
+    const taskadd = await deviced.updateOne({ "devicekey": req.body.devicekey, "id": req.body.id },{task:req.body.task})
+    if(taskadd.nModified==1){
+        res.send({
+            "meta": {
+                'msg': "更新成功",
+                'status': 200
+            }
+        })
+    }
+    else{
+        res.send({
+            meta: {
+                'msg': "更新失败",
+                'status': 422
+            }
+        })
+    }
+})
+//定时任务添加
+router.post('/api/device/task1add', async(req, res) => {
+    const taskadd = await deviced.updateOne({ "devicekey": req.body.devicekey, "id": req.body.id },{task1:req.body.task1})
+    if(taskadd.nModified==1){
+        res.send({
+            "meta": {
+                'msg': "更新成功",
+                'status': 200
+            }
+        })
+    }
+    else{
+        res.send({
+            meta: {
+                'msg': "更新失败",
+                'status': 422
+            }
+        })
+    }
+})
 
 router.post('/api/device/updata', async(req, res) => {
     const bdata = await deviced.updateOne({ "devicekey": req.body.machinekey, "id": req.body.id }, {
@@ -74,4 +156,5 @@ router.post('/api/device/add', async(req, res) => {
     let macdata = "FX53"
     randadd(macdata)
 })
+
 module.exports = { router, randadd };

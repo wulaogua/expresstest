@@ -10,7 +10,6 @@ router.post('/api/user/updatachlidren', async(req, res) => {
         areadatarights: req.body.newdata.checkeduseris,
         areacontrolarights: req.body.newdata.checkeduserisO,
     })
-
     if (!updatachildren) {
         return res.send({
             'msg': "修改失败",

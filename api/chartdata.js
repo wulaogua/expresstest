@@ -23,7 +23,7 @@ function deletarry(data) {
 }
 
 async function addproject(value, adname, treename) {
-    let numb = await ProjectL.find({ username: adname }).sort({ projectnumb: -1 }).skip(0).limit(1);
+    let numb = await ProjectL.find({ username: adname }).sort({ projectnumb: -1 }).skip(0).limit(1);//
     if (numb.length === 0) {
         await ProjectL.create({
             platename: treename,
@@ -91,7 +91,7 @@ router.post('/api/chartdata/seek', chartAuth, async(req, res) => {
     if (req.numb.length === 0) {
         return res.send({
             "meta": {
-                'msg': "无设备",
+                'msg': "无项目",
                 'status': 422
             }
         })
@@ -116,39 +116,33 @@ router.post('/api/chartdata/add', nameAuth, async(req, res) => {
     const tests = (async() => {
 
         for (var i = 0; i < tree.children.length; i++) {
-            let hangye = tree.children[i]
+            let hangye = tree.children[i]//历遍行业
             for (var o = 0; o < hangye.children.length; o++) {
-                let xiangmu = hangye.children[o]
-                await addproject(xiangmu.name, req.chartname, tree.name)
+                let xiangmu = hangye.children[o]//历遍行业下项目
+                await addproject(xiangmu.name, req.chartname, tree.name)//查询原始项目/添加项目
                 for (var p = 0; p < xiangmu.children.length; p++) {
-                    let pianqu = xiangmu.children[p]
-                    await addpianqu(req.chartname, pianqu.name, tree.name)
+                    let pianqu = xiangmu.children[p]//历遍行业下项目下片区
+                    await addpianqu(req.chartname, pianqu.name, tree.name)//查询原始项目下原始片区/添加....
                 }
             }
         }
     })
-
-
     jidi.forEach((itema, i) => {
         itema.list.forEach(itemb => {
-            itemb.value = uuid.v1()
+            itemb.value = uuid.v1()//给每个基地添加独立id
         })
     })
-
     hangye.forEach((item, i) => {
-        item.children = jidi[i].list
+        item.children = jidi[i].list//重组hangye
     })
-
-
-    tests();
-    //数的子项循环 行业循环
+    tests();//一些处理
+    //树的子项循环 行业循环
     tree.children.forEach((item) => {
         //对应行业验证
         hangye.forEach(item_1 => {
             if (item.name === item_1.Fname) {
                 item.children.forEach((item_2) => {
                     if (item_2.name === item_1.Sname) {
-
                         item_2.children = item_1.children
                     }
                 })
@@ -158,7 +152,7 @@ router.post('/api/chartdata/add', nameAuth, async(req, res) => {
 
     delete tree.relationship;
 
-    tree = deletarry(tree);
+    tree = deletarry(tree);//删除树中无用元素
 
 
     if (req.value) {
