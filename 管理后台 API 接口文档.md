@@ -2,14 +2,17 @@
 
 ## 1.1. API V1 接口说明
 
-- 接口基准地址：`http://127.0.0.1:4000/api/`
+- 接口基准地址：`http://39.99.205.217:4000/api/`
 - 服务端已开启 CORS 跨域支持
 - API V1 认证统一使用 Token 认证
 - 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌（每个POST请求都在头部填充了TOKEN）
 - 使用 HTTP Status Code 标识状态
 - 数据返回格式统一使用 JSON
 ### 1.1.0. 数据库介绍
-**表1：users**
+**表1：User**
+
+**存放**：**管理员数据**
+
 | *键值*          |       *含义*             |                      *说明*                                                       |
 | ------------- | --------------------| -------------------------------------------------------------|
 | username    | 用户名                  | 区分大小写                                                                      |
@@ -18,7 +21,10 @@
 | machinekey| 初始绑定设备序列号|                                                                                       |
 | Jurisdiction  | 权限                      | admin                                                                             |
 
-**表2：userms**
+**表2：UserM**
+
+**存放**：**管理员片区表**
+
 |   *键值*        |   *含义*       |  *说明*      |
 | --- | --- | --- |
 |  inPin   |   网关输入引脚启动状态  |     |
@@ -29,7 +35,10 @@
 |  platename   |  平台名称   |     |
 |  machinekey   | 片区绑定的网管序列号    |     |
 
-**表3：usercs**
+**表3：UserC**
+
+**存放：管理员子账户表**
+
 |   *键值*    |   *含义*        |  *说明*        |
 | --- | --- | --- |
 |  adminnmae   | 管理员名称    |     |
@@ -41,7 +50,10 @@
 |  Jurisdiction   |  权限名称   |  user子用户   |
 |   projectnumb  |  项目标志   |  提供管理员项目下的子用户标志   |
 
-**表3：sensors**
+**表3：sensorA**
+
+**存放：随机数据表**
+
 |   *键值*  |  *含义*     |  *说明*   |
 | --- | --- | --- |
 |  username   |     |     |
@@ -54,7 +66,10 @@
 |  rainfall   |     |     |
 |  time   |     |     |
 
-**表4：projectls**
+**表4：ProjectL**
+
+**存放：管理员设备表**
+
 |    *键值*   |  *含义*     | *说明*    |
 | --- | --- | --- |
 |  platename   |  平台名   |     |
@@ -66,7 +81,10 @@
 |  errornumb   |  片区报错数量   |     |
 |  waringnumb   |  片区报警数量   |     |
 
-**表5：projectls**
+**表5：porject**
+
+**存放：设备详情表**
+
 |  *键值*   | *含义*   |  *说明*    |
 | --- | --- | --- |
 |  platename   |  平台名   |     |
@@ -80,37 +98,83 @@
 |  projectintr   |  项目介绍   |     |
 |  usericonadder   |  项目图片方位地址   |     |
 
-**表5：machinekeys**
+**表5：MachineKey**
+
+**存放：全部设备**
+
 |   *键值*  |  *含义*   |  *说明*    |
 | --- | --- | --- |
 |  machinekey   |  设备序列号   |     |
 |  keystate   |  设备状态   |  true已注册，false未注册   |
 
-**表6：devicedatas**
-|  *键值*   |  *含义*   |  *说明*    |
-| --- | --- | --- |
-|  devicename   | 网关下设备名称   |     |
-|  id   |  网关下输出口ID   |     |
-|  power   |  供电状态   |  true正常,false异常   |
-|   remote  |  远程连接状态   |  true正常,false异常    |
-|   status  |  网关下设备状态   | 三态1左转，2停止，3右转；2态1运行,2停止； |
-|  Nvalue   |  调节值   |  仅限可调类型   |
-|  value   |  网关下设备类型   |  1两态，2三态，3可调   |
-|  voltage   |  电压   |     |
-|  ec   | 电流    |     |
-|  devicekey   |  网关绑定序列号   |     |
+**表6：deviced**
 
-**表7：chartdatas**
+**存放：设备控制数据**
+
+|  *含义*   |  *键值*   |  *说明*    |
+| --- | --- | --- |
+| 网关下设备名称   |  devicename   |     |
+|  网关下输出口ID   |  id   |     |
+|  供电状态   |  power   |  true正常,false异常   |
+|  远程连接状态   |   remote  |  true正常,false异常    |
+|  网关下设备状态   |   status  | 三态1左转，2停止，3右转；2态1运行,2停止； |
+|  调节值   |  Nvalue   |  仅限可调类型   |
+|  网关下设备类型   |  value   |  1两态，2三态，3可调   |
+|  电压   |  voltage   |     |
+| 电流    |  ec   |     |
+|  网关绑定序列号   |  devicekey   |     |
+
+**表7：chartData**
+
+**存放：树状表**
+
 |  *键值*    |  *含义*    |  *说明*     |
 | --- | --- | --- |
 |  josnArry   |  JSON格式树  |     |
 |  adminname   |  管理员名称   |     |
 |   formname  |  平台名称   |     |
 
+**表8：videolist**
+
+**存放：视频流链接**
+
+| *键值*      | *含义*     | *说明* |
+| ----------- | ---------- | ------ |
+| adminname   | 管理员名称 |        |
+| projectnumb | 项目编号   |        |
+| videourl    | 视频地址   |        |
+
+**表9：zongland**
+
+**存放：总览数据**
+
+| *键值*     | *含义*                       | *说明* |
+| ---------- | ---------------------------- | ------ |
+| name       | 网关下子片区名称             |        |
+| waringnumb | 网关下子片区报警数量         |        |
+| renwuname  | 网关下子片区未来任务名称     |        |
+| waringstr  | 网关下子片区报警信息         |        |
+| renwuing   | 网关下子片区正在运行的任务   |        |
+| shezhi     | 网关下子片区默认初始监控参数 |        |
+| videoname  | 网关下子片区监控名称         |        |
+| videobool  | 网关下子片区是否有用监控     |        |
+| videoaddr  | 网关下子片区监控地址         |        |
+| sensorlist | 网关下子片区信息列表         |        |
+| machinekey | 网关序列号                   |        |
+
+**表10：jiager**
+
+**存放：每日水产价格**
+
+| *键值* | *含义*   | *说明* |
+| ------ | -------- | ------ |
+| date   | 时间     |        |
+| data   | 价格数组 |        |
+
 ### 1.1.1. 支持的请求方法
 
-- GET（SELECT）：从服务器取出资源（一项或多项）。
-- POST（CREATE）：在服务器新建一个资源。
+- GET
+- POST
 
 
 ### 1.1.2. 通用返回状态说明
@@ -120,7 +184,6 @@
 | 200      | OK                  | 请求成功                                         |
 | 422      | Unprocesable entity | [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误 |
 
-
 ------
 
 ## 1.2. 登录
@@ -128,7 +191,9 @@
 ### 1.2.1. 登录验证接口
 
 - 请求路径：login
+- 所在文件：login.js
 - 请求方法：post
+- 涉及表：User,UserC
 - 请求参数
 
 |  参数名   | 参数说明 |   备注   |
@@ -144,9 +209,9 @@
 | username | 用户名   |                |
 | tal      | 手机号   |                |
 | email    | 邮箱     |                |
-| token    | 令牌     | 基于 jwt 的令牌 |
+| token    | 令牌     | `不需要携带同头部获取` |
 
-- 响应数据
+- 响应数据（admin）
 
 ```json
 {
@@ -160,1891 +225,2028 @@
   }
 }
 ```
-- 登陆逻辑
-![](_v_images/20200602194034607_15996.png)
+- 响应数据（user）
 
+  ```json
+  {
+    "username": "user",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIiLCJpYXQiOjE2MDAzMjExMzh9.wE3538Y4R7n-x29sT9y3NEHtFDTXfnV18ZC8f8eaz1w",
+    "Jurisdiction": "user",
+    "meta": {
+      "msg": "登陆成功",
+      "status": 200
+    }
+  }
+  ```
 
+- 相应数据（error）
 
-## 1.3. 用户管理
+  ```json
+  {
+    "meta": {
+      "msg": "登陆失败",
+      "status": 422
+    }
+  }
+  ```
 
-### 1.3.1. 用户数据列表
+### 1.2.2. 获取权限
 
-- 请求路径：users
+- 请求路径：user/role
 - 请求方法：get
+- 所在文件：server.js
+- 涉及表：User,UserC
 - 请求参数
 
-| 参数名   | 参数说明     | 备注     |
-| -------- | ------------ | -------- |
-| query    | 查询参数     | 可以为空 |
-| pagenum  | 当前页码     | 不能为空 |
-| pagesize | 每页显示条数 | 不能为空 |
-
-- 响应参数
-
-| 参数名    | 参数说明     | 备注 |
-| --------- | ------------ | ---- |
-| totalpage | 总记录数     |      |
-| pagenum   | 当前页码     |      |
-| users     | 用户数据集合 |      |
+| 参数名 | 参数说明 | 备注                   |
+| ------ | -------- | ---------------------- |
+| token  | 令牌     | `不需要携带同头部获取` |
 
 - 响应数据
 
 ```json
-{
-    "data": {
-        "totalpage": 5,
-        "pagenum": 4,
-        "users": [
-            {
-                "id": 25,
-                "username": "tige117",
-                "mobile": "18616358651",
-                "type": 1,
-                "email": "tige112@163.com",
-                "create_time": "2017-11-09T20:36:26.000Z",
-                "mg_state": true, // 当前用户的状态
-                "role_name": "炒鸡管理员"
-            }
-        ]
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
+//管理员
+"admin"
+//子用户
+"user"
 ```
 
-### 1.3.2. 添加用户
 
-- 请求路径：users
+
+- 登陆逻辑
+![](./登陆.png)
+
+### 1.2.3. 查询项目
+
+- 请求路径：chartdata/seek
 - 请求方法：post
+- 所在文件：chartdata.js
+- 涉及表：chartData
 - 请求参数
 
-| 参数名   | 参数说明 | 备注     |
-| -------- | -------- | -------- |
-| username | 用户名称 | 不能为空 |
-| password | 用户密码 | 不能为空 |
-| email    | 邮箱     | 可以为空 |
-| mobile   | 手机号   | 可以为空 |
-
-- 响应参数
-
-| 参数名   | 参数说明    | 备注 |
-| -------- | ----------- | ---- |
-| id       | 用户 ID     |      |
-| rid      | 用户角色 ID |      |
-| username | 用户名      |      |
-| mobile   | 手机号      |      |
-| email    | 邮箱        |      |
+| 参数名 | 参数说明 | 备注                   |
+| ------ | -------- | ---------------------- |
+| token  | 令牌     | `不需要携带同头部获取` |
 
 - 响应数据
 
-```json
-{
-    "data": {
-        "id": 28,
-        "username": "tige1200",
-        "mobile": "test",
-        "type": 1,
-        "openid": "",
-        "email": "test@test.com",
-        "create_time": "2017-11-10T03:47:13.533Z",
-        "modify_time": null,
-        "is_delete": false,
-        "is_active": false
-    },
-    "meta": {
-        "msg": "用户创建成功",
-        "status": 201
-    }
-}
-```
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| numb   | 项目数组 |      |
 
-### 1.3.3. 修改用户状态
-
-- 请求路径：users/:uId/state/:type
-- 请求方法：put
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                                        |
-| ------ | -------- | ------------------------------------------- |
-| uId    | 用户 ID  | 不能为空`携带在url中`                       |
-| type   | 用户状态 | 不能为空`携带在url中`，值为 true 或者 false |
-
-- 响应数据
+- 响应数据（有项目）
 
 ```json
 {
-  "data": {
-    "id": 566,
-    "rid": 30,
-    "username": "admin",
-    "mobile": "123456",
-    "email": "bb@itcast.com",
-    "mg_state": 0
-  },
   "meta": {
-    "msg": "设置状态成功",
+    "msg": "成功",
+    "data": [
+      {
+        "josnArry": [
+          {
+            "name": "苏鲜润农业平台",
+            "children": [
+              {
+                "name": "设施农业",
+                "children": [
+                  {
+                    "name": "苏鲜润大棚",
+                    "children": [
+                      {
+                        "name": "1号棚",
+                        "value": "57973a30-c040-11ea-89fa-4352fce2dd3a"
+                      },
+                      {
+                        "name": "2号棚",
+                        "value": "57973a31-c040-11ea-89fa-4352fce2dd3a"
+                      },
+                      {
+                        "name": "3号棚",
+                        "value": "57973a32-c040-11ea-89fa-4352fce2dd3a"
+                      },
+                      {
+                        "name": "4号棚",
+                        "value": "57973a33-c040-11ea-89fa-4352fce2dd3a"
+                      },
+                      {
+                        "name": "5号棚",
+                        "value": "57973a34-c040-11ea-89fa-4352fce2dd3a"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "_id": "5f045494a454870c789280d8",
+        "adminname": "suxianrun",
+        "formname": "苏鲜润农业平台",
+        "__v": 0
+      }
+    ],
     "status": 200
   }
 }
 ```
 
-### 1.3.4. 根据 ID 查询用户信息
+- 相应数据（无项目）
 
-- 请求路径：users/:id
+```json
+{
+            "meta": {
+                'msg': "无项目",
+                'status': 422
+            }
+        }
+```
+
+- 登陆逻辑2
+
+![](./登陆2.png)
+
+## 1.3. 管理员用户管理
+
+### 1.3.1.注册管理员用户
+
+- 请求路径：register
+- 请求方法：post
+- 所在文件：register.js
+- 涉及表：User
+- 请求参数
+
+| 参数名     | 参数说明   | 备注     |
+| ---------- | ---------- | -------- |
+| username   | 用户名     | 不能为空 |
+| password   | 密码       | 不能为空 |
+| tal        | 电话       | 不能为空 |
+| machinekey | 设备序列号 | 不能为空 |
+
+- 响应数据（成功）
+
+  ```json
+  {
+    "meta": {
+      "msg": "注册成功",
+      "status": 200
+    }
+  }
+  ```
+
+  
+
+- 响应数据（失败）
+
+```json
+{
+  "meta": {
+    "msg": "注册失败",
+    "status": 422
+  }
+}
+```
+
+### 1.3.2. 用户名验证
+
+- 请求路径：users/:id:
 - 请求方法：get
+- 所在文件：registerNameSch.js
+- 涉及表：User
+- 请求参数
+
+| 参数名 | 参数说明 | 备注                  |
+| ------ | -------- | --------------------- |
+| id     | 用户名称 | 不能为空`携带在url中` |
+
+- 响应成功
+
+  ```json
+  {
+          "meta":{
+              'msg': "验证成功",
+              'status':200
+              }
+      }
+  ```
+
+  
+
+- 响应数据(失败)
+
+```json
+{
+  "meta": {
+    "msg": "用户名重复",
+    "status": 422
+  }
+}
+```
+
+### 1.3.3. 设备码验证
+
+- 请求路径：machinekey/:id:
+- 请求方法：get
+- 所在文件：keysch
+- 涉及表：MachineKey
 - 请求参数
 
 | 参数名 | 参数说明 | 备注                  |
 | ------ | -------- | --------------------- |
 | id     | 用户 ID  | 不能为空`携带在url中` |
 
-- 响应参数
-
-| 参数名  | 参数说明 | 备注 |
-| ------- | -------- | ---- |
-| id      | 用户 ID  |      |
-| role_id | 角色 ID  |      |
-| mobile  | 手机号   |      |
-| email   | 邮箱     |      |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "id": 503,
-        "username": "admin3",
-        "role_id": 0,
-        "mobile": "00000",
-        "email": "new@new.com"
-    },
-    "meta": {
-        "msg": "查询成功",
-        "status": 200
-    }
-}
-```
-
-### 1.3.5. 编辑用户提交
-
-- 请求路径：users/:id
-- 请求方法：put
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                        |
-| ------ | -------- | --------------------------- |
-| id     | 用户 id  | 不能为空 `参数是url参数:id` |
-| email  | 邮箱     | 可以为空                    |
-| mobile | 手机号   | 可以为空                    |
-
-- 响应参数
-
-| 参数名  | 参数说明 | 备注 |
-| ------- | -------- | ---- |
-| id      | 用户 ID  |      |
-| role_id | 角色 ID  |      |
-| mobile  | 手机号   |      |
-| email   | 邮箱     |      |
-
-- 响应数据
-
-```json
-/* 200表示成功，500表示失败 */
-{
-    "data": {
-        "id": 503,
-        "username": "admin3",
-        "role_id": 0,
-        "mobile": "111",
-        "email": "123@123.com"
-    },
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
-```
-
-### 1.3.6. 删除单个用户
-
-- 请求路径：users/:id
-- 请求方法：delete
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                       |
-| ------ | -------- | -------------------------- |
-| id     | 用户 id  | 不能为空`参数是url参数:id` |
-
-- 响应参数
-- 响应数据
-
-```json
-{
-    "data": null,
-    "meta": {
-        "msg": "删除成功",
-        "status": 200
-    }
-}
-```
-
-### 1.3.7. 分配用户角色
-
-- 请求路径：users/:id/role
-- 请求方法：put
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                       |
-| ------ | -------- | -------------------------- |
-| id     | 用户 ID  | 不能为空`参数是url参数:id` |
-| rid    | 角色 id  | 不能为空`参数body参数`     |
-
-- 响应参数
-
-| 参数名  | 参数说明 | 备注 |
-| ------- | -------- | ---- |
-| id      | 用户 ID  |      |
-| role_id | 角色 ID  |      |
-| mobile  | 手机号   |      |
-| email   | 邮箱     |      |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "id": 508,
-        "rid": "30",
-        "username": "asdf1",
-        "mobile": "123123",
-        "email": "adfsa@qq.com"
-    },
-    "meta": {
-        "msg": "设置角色成功",
-        "status": 200
-    }
-}
-```
-
-## 1.4. 权限管理
-
-### 1.4.1. 所有权限列表
-
-- 请求路径：rights/:type
-- 请求方法：get
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                                                         |
-| ------ | -------- | ------------------------------------------------------------ |
-| type   | 类型     | 值 list 或 tree , list 列表显示权限, tree 树状显示权限,`参数是url参数:type` |
-
-- 响应参数
-
-| 参数名   | 参数说明     | 备注 |
-| -------- | ------------ | ---- |
-| id       | 权限 ID      |      |
-| authName | 权限说明     |      |
-| level    | 权限层级     |      |
-| pid      | 权限父 ID    |      |
-| path     | 对应访问路径 |      |
-
-- 响应数据 type=list
-
-```json
-  {
-    "data": [
-        {
-            "id": 101,
-            "authName": "商品管理",
-            "level": "0",
-            "pid": 0,
-            "path": null
-        },
-        {
-            "id": 102,
-            "authName": "订单管理",
-            "level": "0",
-            "pid": 0,
-            "path": null
-        }
-    ],
-    "meta": {
-        "msg": "获取权限列表成功",
-        "status": 200
-    }
-}
-```
-
-type=tree
-
-```json
-  {
-    data: [
-      {
-        id: 101,
-        authName: '商品管理',
-        path: null,
-        pid: 0,
-        children: [
-          {
-            id: 104,
-            authName: '商品列表',
-            path: null,
-            pid: 101,
-            children: [
-              {
-                id: 105,
-                authName: '添加商品',
-                path: null,
-                pid: '104,101'
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    meta: {
-      msg: '获取权限列表成功',
-      status: 200
-    }
-  }
-```
-
-### 1.4.2. 左侧菜单权限
-
-- 请求路径：menus
-- 请求方法：get
-- 响应数据
-
-```json
-{
-    "data":
-        {
-            "id": 101,
-            "authName": "商品管理",
-            "path": null,
-            "children": [
-                {
-                    "id": 104,
-                    "authName": "商品列表",
-                    "path": null,
-                    "children": []
-                }
-            ]
-        }
-    "meta": {
-        "msg": "获取菜单列表成功",
-        "status": 200
-    }
-}
-```
-
-## 1.5. 角色管理
-
-### 1.5.1. 角色列表
-
-- 请求路径：roles
-
-- 请求方法：get
-
-- 响应数据说明
-
-  + 第一层为角色信息
-
-  - 第二层开始为权限说明，权限一共有 3 层权限
-  - 最后一层权限，不包含 `children` 属性
-
-- 响应数据
-
-```json
-{
-    "data": [
-        {
-            "id": 30,
-            "roleName": "主管",
-            "roleDesc": "技术负责人",
-            "children": [
-                {
-                    "id": 101,
-                    "authName": "商品管理",
-                    "path": null,
-                    "children": [
-                        {
-                            "id": 104,
-                            "authName": "商品列表",
-                            "path": null,
-                            "children": [
-                                {
-                                    "id": 105,
-                                    "authName": "添加商品",
-                                    "path": null
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.5.2. 添加角色
-
-- 请求路径：roles
-- 请求方法：post
-- 请求参数
-
-| 参数名   | 参数说明 | 备注     |
-| -------- | -------- | -------- |
-| roleName | 角色名称 | 不能为空 |
-| roleDesc | 角色描述 | 可以为空 |
-
-- 响应参数
-
-| 参数名   | 参数说明 | 备注 |
-| -------- | -------- | ---- |
-| roleId   | 角色 ID  |      |
-| roleName | 角色名称 |      |
-| roleDesc | 角色描述 |      |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "roleId": 40,
-        "roleName": "admin2",
-        "roleDesc": "admin2Desc"
-    },
-    "meta": {
-        "msg": "创建成功",
-        "status": 201
-    }
-}
-```
-
-### 1.5.3. 根据 ID 查询角色
-
-- 请求路径：roles/:id
-- 请求方法：get
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| :id    | 角色 ID  | 不能为空`携带在url中` |
-
-- 响应参数
-
-| 参数名   | 参数说明 | 备注 |
-| -------- | -------- | ---- |
-| roleId   | 角色 ID  |      |
-| roleName | 角色名称 |      |
-| roleDesc | 角色描述 |      |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "roleId": 31,
-        "roleName": "测试角色",
-        "roleDesc": "测试负责人"
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.5.4. 编辑提交角色
-
-- 请求路径：roles/:id
-- 请求方法：put
-- 请求参数
-
-| 参数名   | 参数说明 | 备注                  |
-| -------- | -------- | --------------------- |
-| :id      | 角色 ID  | 不能为空`携带在url中` |
-| roleName | 角色名称 | 不能为空              |
-| roleDesc | 角色描述 | 可以为空              |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "roleId": 31,
-        "roleName": "测试角色",
-        "roleDesc": "测试角色描述"
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.5.5. 删除角色
-
-- 请求路径：roles/:id
-- 请求方法：delete
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| :id    | 角色 ID  | 不能为空`携带在url中` |
-
-- 响应数据
-
-```json
-{
-    "data": null,
-    "meta": {
-        "msg": "删除成功",
-        "status": 200
-    }
-}
-```
-
-### 1.5.6. 角色授权
-
-- 请求路径：roles/:roleId/rights
-- 请求方法：post
-- 请求参数：通过 `请求体` 发送给后端
-
-| 参数名  | 参数说明               | 备注                                                         |
-| ------- | ---------------------- | ------------------------------------------------------------ |
-| :roleId | 角色 ID                | 不能为空`携带在url中`                                        |
-| rids    | 权限 ID 列表（字符串） | 以 `,` 分割的权限 ID 列表（获取所有被选中、叶子节点的key和半选中节点的key, 包括 1，2，3级节点） |
-
-- 响应数据
-
-```json
-{
-    "data": null,
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
-```
-
-### 1.5.7. 删除角色指定权限
-
-- 请求路径：roles/:roleId/rights/:rightId
-
-- 请求方法：delete
-
-- 请求参数
-
-  | 参数名   | 参数说明 | 备注                  |
-  | -------- | -------- | --------------------- |
-  | :roleId  | 角色 ID  | 不能为空`携带在url中` |
-  | :rightId | 权限 ID  | 不能为空`携带在url中` |
-
-- 响应数据说明 
-
-  - 返回的data, 是当前角色下最新的权限数据
-
-- 响应数据
+- 响应数据（成功）
 
   ```json
   {
-      "data": [
-          {
-              "id": 101,
-              "authName": "商品管理",
-              "path": null,
-              "children": [
-                  {
-                      "id": 104,
-                      "authName": "商品列表",
-                      "path": null,
-                      "children": [
-                          {
-                              "id": 105,
-                              "authName": "添加商品",
-                              "path": null
-                          },
-                          {
-                              "id": 116,
-                              "authName": "修改",
-                              "path": null
-                          }
-                      ]
-                  }
-              ]
-          }
-      ],
-      "meta": {
-          "msg": "取消权限成功",
-          "status": 200
-      }
+    "meta": {
+      "msg": "验证成功",
+      "status": 200
+    }
   }
   ```
 
-## 1.6. 商品分类管理
+  
 
-### 1.6.1. 商品分类数据列表
+- 响应数据（失败）
 
-- 请求路径：categories
-- 请求方法：get
+```json
+
+{
+  "meta": {
+    "msg": "序列号不存在",
+    "status": 422
+  }
+}
+```
+
+- 注册逻辑
+
+  ![](./注册.png)
+
+
+
+## 1.4. 项目模块
+
+### 1.4.1. 添加项目
+
+- 请求路径：chartdata/add
+- 请求方法：post
+- 所在文件：chartdata.js
+- 涉及表：chartData,ProjectL,porject,UserM
 - 请求参数
 
-| 参数名   | 参数说明           | 备注                                                         |
-| -------- | ------------------ | ------------------------------------------------------------ |
-| type     | [1,2,3]            | 值：1，2，3 分别表示显示一层二层三层分类列表<br />【可选参数】如果不传递，则默认获取所有级别的分类 |
-| pagenum  | 当前页码值         | 【可选参数】如果不传递，则默认获取所有分类                   |
-| pagesize | 每页显示多少条数据 | 【可选参数】如果不传递，则默认获取所有分类                   |
+| 参数名      | 参数说明 | 备注               |
+| ----------- | -------- | ------------------ |
+| token       | 令牌     | `头部获取不用携带` |
+| b           | 行业数组 |                    |
+| UpLevelForm | 原始树   |                    |
+| listform    | 基地数组 |                    |
 
-- 响应参数
+- b示意
 
-| 参数名    | 参数说明     | 备注 |
-| --------- | ------------ | ---- |
-| cat_id    | 分类 ID      |      |
-| cat_name  | 分类名称     |      |
-| cat_pid   | 分类父 ID    |      |
-| cat_level | 分类当前层级 |      |
+```js
+[
+  { Fname: 'text-hangye2', Sname: 'test-xiangmu2' },//Fname：行业//Sname：行业下项目
+  { Fname: 'text-hangye1', Sname: 'test-xiangmu1' }
+]
+```
 
-- 响应数据
+- listform示意
+
+```js
+[
+  { id: 0, list: [ {id:1,name:"槽1"}, {id:52,name:"槽2"} },
+  { id: 1, list: [ {id:3,name:"蓬1"}, {id:54,name:"蓬2"} ] }
+]
+```
+
+- UpLevelForm示意
+
+```json
+{"name":"test",
+ "relationship":"001",
+ "children":
+    [
+        {"name":"test-hangye2",
+         "relationship":"111",
+         "Id":1600399743982898,
+           "children":
+         	  [
+                  {"name":"test-xiangmu2",
+                   "relationship":"100",
+                   "Id":1600399756094830
+                  }
+              ]
+         },
+        {"name":"test-hangye1",
+         "relationship":"111",
+         "Id":1600399740662982,
+         "children":
+         [
+             {"name":"test-xiangmu1",
+              "relationship":"100",
+              "Id":1600399753415183
+             }
+         ]
+        }
+    ]
+}
+```
+
+- 响应数据(成功)
 
 ```json
 {
-    "data": [
-        {
-            "cat_id": 1,
-            "cat_name": "大家电",
-            "cat_pid": 0,
-            "cat_level": 0,
-            "cat_deleted": false,
-            "children": [
-                {
-                    "cat_id": 3,
-                    "cat_name": "电视",
-                    "cat_pid": 1,
-                    "cat_level": 1,
-                    "cat_deleted": false,
-                    "children": [
-                        {
-                            "cat_id": 6,
-                            "cat_name": "曲面电视",
-                            "cat_pid": 3,
-                            "cat_level": 2,
-                            "cat_deleted": false
-                        },
-                        {
-                            "cat_id": 7,
-                            "cat_name": "海信",
-                            "cat_pid": 3,
-                            "cat_level": 2,
-                            "cat_deleted": false
-                        }
-                    ]
+                "meta": {
+                    'msg': "添加失败",
+                    'status': 422
                 }
-            ]
-        }
-    ],
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
+            }
 ```
 
-### 1.6.2. 添加分类
+- 响应数据(失败)
 
-- 请求路径：categories
-- 请求方法：post
-- 请求参数
-
-| 参数名    | 参数说明  | 备注                                                        |
-| --------- | --------- | ----------------------------------------------------------- |
-| cat_pid   | 分类父 ID | 不能为空，如果要添加1级分类，则父分类Id应该设置为  `0`      |
-| cat_name  | 分类名称  | 不能为空                                                    |
-| cat_level | 分类层级  | 不能为空，`0`表示一级分类；`1`表示二级分类；`2`表示三级分类 |
-
-- 响应数据
 
 ```json
-{
-    "data": {
-        "cat_id": 62,
-        "cat_name": "相框",
-        "cat_pid": "1",
-        "cat_level": "1"
-    },
-    "meta": {
-        "msg": "创建成功",
-        "status": 201
-    }
-}
-```
-
-### 1.6.3. 根据 id 查询分类
-
-- 请求路径：categories/:id
-- 请求方法：get
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| :id    | 分类 ID  | 不能为空`携带在url中` |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "cat_id": 3,
-        "cat_name": "厨卫电器",
-        "cat_pid": 0,
-        "cat_level": 0
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.6.4. 编辑提交分类
-
-- 请求路径：categories/:id
-- 请求方法：put
-- 请求参数
-
-| 参数名   | 参数说明 | 备注                             |
-| -------- | -------- | -------------------------------- |
-| :id      | 分类 ID  | 不能为空`携带在url中`            |
-| cat_name | 分类名称 | 不能为空【此参数，放到请求体中】 |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "cat_id": 22,
-        "cat_name": "自拍杆",
-        "cat_pid": 7,
-        "cat_level": 2
-    },
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
-```
-
-### 1.6.5. 删除分类
-
-- 请求路径：categories/:id
-- 请求方法：delete
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| :id    | 分类 ID  | 不能为空`携带在url中` |
-
-- 响应数据
-
-```
-{
-    "data": null,
-    "meta": {
-        "msg": "删除成功",
-        "status": 200
-    }
-}
-```
-
-## 1.7. 分类参数管理
-
-### 1.7.1. 参数列表
-
-- 请求路径：categories/:id/attributes
-- 请求方法：get
-- 请求参数
-
-| 参数名 | 参数说明    | 备注                                                      |
-| ------ | ----------- | --------------------------------------------------------- |
-| :id    | 分类 ID     | 不能为空`携带在url中`                                     |
-| sel    | [only,many] | 不能为空,通过 only 或 many 来获取分类静态参数还是动态参数 |
-
-- 响应参数
-
-| 参数名     | 参数说明                                       | 备注 |
-| ---------- | ---------------------------------------------- | ---- |
-| attr_id    | 分类参数 ID                                    |      |
-| attr_name  | 分类参数名称                                   |      |
-| cat_id     | 分类参数所属分类                               |      |
-| attr_sel   | only:输入框(唯一) many:后台下拉列表/前台单选框 |      |
-| attr_write | manual:手工录入 list:从列表选择                |      |
-| attr_vals  | 如果 attr_write:list,那么有值，该值以逗号分隔  |      |
-
-- 响应数据
-
-```
-{
-    "data": [
-        {
-            "attr_id": 1,
-            "attr_name": "cpu",
-            "cat_id": 22,
-            "attr_sel": "only",
-            "attr_write": "manual",
-            "attr_vals": "ffff"
-        }
-    ],
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.7.2. 添加动态参数或者静态属性
-
-- 请求路径：categories/:id/attributes
-- 请求方法：post
-- 请求参数
-
-| 参数名    | 参数说明                                   | 备注                  |
-| --------- | ------------------------------------------ | --------------------- |
-| :id       | 分类 ID                                    | 不能为空`携带在url中` |
-| attr_name | 参数名称                                   | 不能为空              |
-| attr_sel  | [only,many]                                | 不能为空              |
-| attr_vals | 如果是 many 就需要填写值的选项，以逗号分隔 | 【可选参数】          |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "attr_id": 44,
-        "attr_name": "测试参数",
-        "cat_id": "1",
-        "attr_sel": "many",
-        "attr_write": "list",
-        "attr_vals": "a,b,c"
-    },
-    "meta": {
-        "msg": "创建成功",
-        "status": 201
-    }
-}
-```
-
-### 1.7.3. 删除参数
-
-- 请求路径： categories/:id/attributes/:attrid
-- 请求方法：delete
-- 请求参数
-
-| 参数名  | 参数说明 | 备注                  |
-| ------- | -------- | --------------------- |
-| :id     | 分类 ID  | 不能为空`携带在url中` |
-| :attrid | 参数 ID  | 不能为空`携带在url中` |
-
-- 响应数据
-
-```
-{
-    "data": null,
-    "meta": {
-        "msg": "删除成功",
-        "status": 200
-    }
-}
-```
-
-### 1.7.4. 根据 ID 查询参数
-
-- 请求路径：categories/:id/attributes/:attrId
-- 请求方法：get
-- 请求参数
-
-| 参数名    | 参数说明                                   | 备注                  |
-| --------- | ------------------------------------------ | --------------------- |
-| :id       | 分类 ID                                    | 不能为空`携带在url中` |
-| :attrId   | 属性 ID                                    | 不能为空`携带在url中` |
-| attr_sel  | [only,many]                                | 不能为空              |
-| attr_vals | 如果是 many 就需要填写值的选项，以逗号分隔 |                       |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "attr_id": 1,
-        "attr_name": "cpu",
-        "cat_id": 22,
-        "attr_sel": "only",
-        "attr_write": "manual",
-        "attr_vals": "ffff"
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.7.5. 编辑提交参数
-
-- 请求路径：categories/:id/attributes/:attrId
-- 请求方法：put
-- 请求参数
-
-| 参数名    | 参数说明               | 备注                       |
-| --------- | ---------------------- | -------------------------- |
-| :id       | 分类 ID                | 不能为空`携带在url中`      |
-| :attrId   | 属性 ID                | 不能为空`携带在url中`      |
-| attr_name | 新属性的名字           | 不能为空，携带在`请求体`中 |
-| attr_sel  | 属性的类型[many或only] | 不能为空，携带在`请求体`中 |
-| attr_vals | 参数的属性值           | 可选参数，携带在`请求体`中 |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "attr_id": 9,
-        "attr_name": "测试更新",
-        "cat_id": "43",
-        "attr_sel": "only",
-        "attr_write": "manual",
-        "attr_vals": "abc"
-    },
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
-```
-
-## 1.8. 商品管理
-
-### 1.8.1. 商品列表数据
-
-- 请求路径：goods
-- 请求方法：get
-- 请求参数
-
-| 参数名   | 参数说明     | 备注     |
-| -------- | ------------ | -------- |
-| query    | 查询参数     | 可以为空 |
-| pagenum  | 当前页码     | 不能为空 |
-| pagesize | 每页显示条数 | 不能为空 |
-
-- 响应参数
-
-| 参数名       | 参数说明     | 备注                                   |
-| ------------ | ------------ | -------------------------------------- |
-| total        | 总共商品条数 |                                        |
-| pagenum      | 当前商品页数 |                                        |
-| goods_id     | 商品 ID      |                                        |
-| goods_name   | 商品名称     |                                        |
-| goods_price  | 价格         |                                        |
-| goods_number | 数量         |                                        |
-| goods_weight | 重量         | 不能为空                               |
-| goods_state  | 商品状态     | 商品状态 0: 未通过 1: 审核中 2: 已审核 |
-| add_time     | 添加时间     |                                        |
-| upd_time     | 更新时间     |                                        |
-| hot_mumber   | 热销品数量   |                                        |
-| is_promote   | 是否是热销品 |                                        |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "total": 50,
-        "pagenum": "1",
-        "goods": [
-            {
-                "goods_id": 144,
-                "goods_name": "asfdsd",
-                "goods_price": 1,
-                "goods_number": 1,
-                "goods_weight": 1,
-                "goods_state": null,
-                "add_time": 1512954923,
-                "upd_time": 1512954923,
-                "hot_mumber": 0,
-                "is_promote": false
-            }
-        ]
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
-    }
-}
-```
-
-### 1.8.2. 添加商品
-
-- 请求路径：goods
-- 请求方法：post
-- 请求参数
-
-| 参数名          | 参数说明                                          | 备注     |
-| --------------- | ------------------------------------------------- | -------- |
-| goods_name      | 商品名称                                          | 不能为空 |
-| goods_cat       | 以为','分割的分类列表                             | 不能为空 |
-| goods_price     | 价格                                              | 不能为空 |
-| goods_number    | 数量                                              | 不能为空 |
-| goods_weight    | 重量                                              | 不能为空 |
-| goods_introduce | 介绍                                              | 可以为空 |
-| pics            | 上传的图片临时路径（对象）                        | 可以为空 |
-| attrs           | 商品的参数（数组），包含 `动态参数` 和 `静态属性` | 可以为空 |
-
-- 请求数据
-
-```json
-{
-  "goods_name":"test_goods_name2",
-  "goods_cat": "1,2,3",
-  "goods_price":20,
-  "goods_number":30,
-  "goods_weight":40,
-  "goods_introduce":"abc",
-  "pics":[
-    {"pic":"/tmp_uploads/30f08d52c551ecb447277eae232304b8"}
-    ],
-  "attrs":[
-    {
-      "attr_id":15,
-      "attr_value":"ddd"
-    },
-    {
-      "attr_id":15,
-      "attr_value":"eee"
-    }
-    ]
-}
-```
-
-- 响应参数
-
-| 参数名       | 参数说明                   | 备注                                                         |
-| ------------ | -------------------------- | ------------------------------------------------------------ |
-| total        | 总共商品条数               |                                                              |
-| pagenum      | 当前商品页数               |                                                              |
-| goods_id     | 商品 ID                    |                                                              |
-| goods_cat    | 以为','分割的分类列表      |                                                              |
-| goods_name   | 商品名称                   |                                                              |
-| goods_price  | 价格                       |                                                              |
-| goods_number | 数量                       |                                                              |
-| goods_weight | 重量                       | 不能为空                                                     |
-| goods_state  | 商品状态                   | 商品状态 0: 未通过 1: 审核中 2: 已审核                       |
-| add_time     | 添加时间                   |                                                              |
-| upd_time     | 更新时间                   |                                                              |
-| hot_mumber   | 热销品数量                 |                                                              |
-| is_promote   | 是否是热销品               |                                                              |
-| pics         | 上传的图片临时路径（对象） | pics_id:图片 ID,goods_id:商品 ID,pics_big:大图,pics_mid:中图,pics_sma:小图 |
-| attrs        | 商品的参数（数组）         | goods_id:商品 ID,attr_value:当前商品的参数值,add_price:浮动价格,attr_vals:预定义的参数值,attr_sel:手动输入，还是单选, |
-
-- 响应数据
-
-```json
-{
-    "data": {
-        "goods_id": 145,
-        "goods_name": "test_goods_name2",
-        "goods_price": 20,
-        "cat_id": 1,
-        "goods_number": 30,
-        "goods_weight": 40,
-        "goods_introduce": "abc",
-        "goods_big_logo": "",
-        "goods_small_logo": "",
-        "goods_state": 1,
-        "add_time": 1512962370,
-        "upd_time": 1512962370,
-        "hot_mumber": 0,
-        "is_promote": false,
-        "pics": [
-            {
-                "pics_id": 397,
-                "goods_id": 145,
-                "pics_big": "uploads/goodspics/big_30f08d52c551ecb447277eae232304b8",
-                "pics_mid": "uploads/goodspics/mid_30f08d52c551ecb447277eae232304b8",
-                "pics_sma": "uploads/goodspics/sma_30f08d52c551ecb447277eae232304b8"
-            }
-        ],
-        "attrs": [
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "ddd",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            },
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "eee",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            }
-        ]
-    },
-    "meta": {
-        "msg": "创建商品成功",
-        "status": 201
-    }
-}
-```
-
-### 1.8.3. 根据 ID 查询商品
-
-- 请求路径：goods/:id
-- 请求方法：get
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| id     | 商品 ID  | 不能为空`携带在url中` |
-
-- 响应参数
-
-| 参数名       | 参数说明                   | 备注                                                         |
-| ------------ | -------------------------- | ------------------------------------------------------------ |
-| total        | 总共商品条数               |                                                              |
-| pagenum      | 当前商品页数               |                                                              |
-| goods_id     | 商品 ID                    |                                                              |
-| goods_name   | 商品名称                   |                                                              |
-| goods_price  | 价格                       |                                                              |
-| goods_number | 数量                       |                                                              |
-| goods_weight | 重量                       | 不能为空                                                     |
-| goods_state  | 商品状态                   | 商品状态 0: 未通过 1: 审核中 2: 已审核                       |
-| add_time     | 添加时间                   |                                                              |
-| upd_time     | 更新时间                   |                                                              |
-| hot_mumber   | 热销品数量                 |                                                              |
-| is_promote   | 是否是热销品               |                                                              |
-| pics         | 上传的图片临时路径（对象） | pics_id:图片 ID,goods_id:商品 ID,pics_big:大图,pics_mid:中图,pics_sma:小图 |
-| attrs        | 商品的参数（数组）         | goods_id:商品 ID,attr_value:当前商品的参数值,add_price:浮动价格,attr_vals:预定义的参数值,attr_sel:手动输入，还是单选, |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "goods_id": 145,
-        "goods_name": "test_goods_name2",
-        "goods_price": 20,
-        "goods_number": 30,
-        "goods_weight": 40,
-        "goods_introduce": "abc",
-        "goods_big_logo": "",
-        "goods_small_logo": "",
-        "goods_state": 1,
-        "add_time": 1512962370,
-        "upd_time": 1512962370,
-        "hot_mumber": 0,
-        "is_promote": false,
-        "pics": [
-            {
-                "pics_id": 397,
-                "goods_id": 145,
-                "pics_big": "uploads/goodspics/big_30f08d52c551ecb447277eae232304b8",
-                "pics_mid": "uploads/goodspics/mid_30f08d52c551ecb447277eae232304b8",
-                "pics_sma": "uploads/goodspics/sma_30f08d52c551ecb447277eae232304b8"
-            }
-        ],
-        "attrs": [
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "ddd",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            },
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "eee",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            }
-        ]
-    },
-    "meta": {
-        "msg": "创建商品成功",
-        "status": 201
-    }
-}
-```
-
-### 1.8.4. 编辑提交商品
-
-- 请求路径：goods/:id
-- 请求方法：put
-- 请求参数
-
-| 参数名          | 参数说明                   | 备注                  |
-| --------------- | -------------------------- | --------------------- |
-| id              | 商品 ID                    | 不能为空`携带在url中` |
-| goods_name      | 商品名称                   | 不能为空              |
-| goods_price     | 价格                       | 不能为空              |
-| goods_number    | 数量                       | 不能为空              |
-| goods_weight    | 重量                       | 不能为空              |
-| goods_introduce | 介绍                       | 可以为空              |
-| pics            | 上传的图片临时路径（对象） | 可以为空              |
-| attrs           | 商品的参数（数组）         | 可以为空              |
-
-- 请求数据
-
-```
-{
-  "goods_name":"test_goods_name2",
-  "goods_price":20,
-  "goods_number":30,
-  "goods_weight":40,
-  "goods_introduce":"abc",
-  "pics":[
-    {"pic":"/tmp_uploads/30f08d52c551ecb447277eae232304b8"}
-    ],
-  "attrs":[
-    {
-      "attr_id":15,
-      "attr_value":"ddd"
-    },
-    {
-      "attr_id":15,
-      "attr_value":"eee"
-    }
-    ]
-}
-```
-
-- 响应参数
-
-| 参数名       | 参数说明                   | 备注                                                         |
-| ------------ | -------------------------- | ------------------------------------------------------------ |
-| total        | 总共商品条数               |                                                              |
-| pagenum      | 当前商品页数               |                                                              |
-| goods_id     | 商品 ID                    |                                                              |
-| goods_name   | 商品名称                   |                                                              |
-| goods_price  | 价格                       |                                                              |
-| goods_number | 数量                       |                                                              |
-| goods_weight | 重量                       | 不能为空                                                     |
-| goods_state  | 商品状态                   | 商品状态 0: 未通过 1: 审核中 2: 已审核                       |
-| add_time     | 添加时间                   |                                                              |
-| upd_time     | 更新时间                   |                                                              |
-| hot_mumber   | 热销品数量                 |                                                              |
-| is_promote   | 是否是热销品               |                                                              |
-| pics         | 上传的图片临时路径（对象） | pics_id:图片 ID,goods_id:商品 ID,pics_big:大图,pics_mid:中图,pics_sma:小图 |
-| attrs        | 商品的参数（数组）         | goods_id:商品 ID,attr_value:当前商品的参数值,add_price:浮动价格,attr_vals:预定义的参数值,attr_sel:手动输入，还是单选, |
-
-- 响应数据
-
-```
-{
-    "data": {
-        "goods_id": 145,
-        "goods_name": "test_goods_name2",
-        "goods_price": 20,
-        "goods_number": 30,
-        "goods_weight": 40,
-        "goods_introduce": "abc",
-        "goods_big_logo": "",
-        "goods_small_logo": "",
-        "goods_state": 1,
-        "add_time": 1512962370,
-        "upd_time": 1512962370,
-        "hot_mumber": 0,
-        "is_promote": false,
-        "pics": [
-            {
-                "pics_id": 397,
-                "goods_id": 145,
-                "pics_big": "uploads/goodspics/big_30f08d52c551ecb447277eae232304b8",
-                "pics_mid": "uploads/goodspics/mid_30f08d52c551ecb447277eae232304b8",
-                "pics_sma": "uploads/goodspics/sma_30f08d52c551ecb447277eae232304b8"
-            }
-        ],
-        "attrs": [
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "ddd",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            },
-            {
-                "goods_id": 145,
-                "attr_id": 15,
-                "attr_value": "eee",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            }
-        ]
-    },
-    "meta": {
-        "msg": "创建商品成功",
-        "status": 201
-    }
-}
-```
-
-### 1.8.5. 删除商品
-
-- 请求路径：goods/:id
-- 请求方法：delete
-- 请求参数
-
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| id     | 商品 ID  | 不能为空`携带在url中` |
-
-- 响应数据
-
-```
-{
-    "data": null,
-    "meta": {
-        "msg": "删除成功",
-        "status": 200
-    }
-}
-```
-
-\###同步商品图片
-
-- 请求路径：goods/:id/pics
-- 请求方法：put
-- 请求参数
-
-| 参数名 | 参数说明     | 备注                                                         |
-| ------ | ------------ | ------------------------------------------------------------ |
-| id     | 商品 ID      | 不能为空`携带在url中`                                        |
-| pics   | 商品图片集合 | 如果有 pics_id 字段会保留该图片，如果没有 pics_id 但是有 pic 字段就会新生成图片数据 |
-
-- 请求数据
-
-```
-;[
-  { pic: 'tmp_uploads/db28f6316835836e97653b5c75e418be.png' },
   {
-    pics_id: 397,
-    goods_id: 145,
-    pics_big: 'uploads/goodspics/big_30f08d52c551ecb447277eae232304b8',
-    pics_mid: 'uploads/goodspics/mid_30f08d52c551ecb447277eae232304b8',
-    pics_sma: 'uploads/goodspics/sma_30f08d52c551ecb447277eae232304b8'
-  }
-]
-```
-
-- 响应数据
-
-```
-{
-    "data": {
-        "goods_id": 96,
-        "goods_name": "iphoneXX",
-        "goods_price": 2,
-        "goods_number": 22,
-        "goods_weight": 22,
-        "goods_introduce": null,
-        "goods_big_logo": "./uploads/goods/20171113/483a3b8e99e534ec3e4312dbbaee7c9d.jpg",
-        "goods_small_logo": "./uploads/goods/20171113/small_483a3b8e99e534ec3e4312dbbaee7c9d.jpg",
-        "goods_state": 0,
-        "is_del": "1",
-        "add_time": 1510045904,
-        "upd_time": 1512635159,
-        "delete_time": 1512635159,
-        "hot_mumber": 0,
-        "is_promote": false,
-        "pics": [
-            {
-                "pics_id": 383,
-                "goods_id": 96,
-                "pics_big": "uploads/goodspics/big_6f5750132abd3f5b2b93dd722fcde653.jpg",
-                "pics_mid": "uploads/goodspics/mid_6f5750132abd3f5b2b93dd722fcde653.jpg",
-                "pics_sma": "uploads/goodspics/sma_6f5750132abd3f5b2b93dd722fcde653.jpg"
+                "meta": {
+                    'msg': "添加成功",
+                    'status': 200
+                }
             }
-        ],
-        "attrs": [
-            {
-                "goods_id": 96,
-                "attr_id": 15,
-                "attr_value": "eee",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            },
-            {
-                "goods_id": 96,
-                "attr_id": 15,
-                "attr_value": "ddd",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            }
-        ]
-    },
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
 ```
 
-\###同步商品属性
+- 新建项目逻辑图
 
-- 请求路径：goods/:id/attributes
-- 请求方法：put
-- 请求参数
+![](./新建项目.png)
 
-| 参数名 | 参数说明 | 备注                  |
-| ------ | -------- | --------------------- |
-| id     | 商品 ID  | 不能为空`携带在url中` |
+### 1.4.2. 查询单项目树数据
 
-- 请求数据
-
-```
-;[
-  {
-    attr_id: 15,
-    attr_value: 'ddd'
-  },
-  {
-    attr_id: 15,
-    attr_value: 'eee'
-  }
-]
-```
-
-- 响应数据
-
-```
-{
-    "data": {
-        "goods_id": 96,
-        "goods_name": "iphoneXX",
-        "goods_price": 2,
-        "goods_number": 22,
-        "goods_weight": 22,
-        "goods_introduce": null,
-        "goods_big_logo": "./uploads/goods/20171113/483a3b8e99e534ec3e4312dbbaee7c9d.jpg",
-        "goods_small_logo": "./uploads/goods/20171113/small_483a3b8e99e534ec3e4312dbbaee7c9d.jpg",
-        "goods_state": 0,
-        "is_del": "1",
-        "add_time": 1510045904,
-        "upd_time": 1512635159,
-        "delete_time": 1512635159,
-        "hot_mumber": 0,
-        "is_promote": false,
-        "pics": [
-            {
-                "pics_id": 383,
-                "goods_id": 96,
-                "pics_big": "uploads/goodspics/big_6f5750132abd3f5b2b93dd722fcde653.jpg",
-                "pics_mid": "uploads/goodspics/mid_6f5750132abd3f5b2b93dd722fcde653.jpg",
-                "pics_sma": "uploads/goodspics/sma_6f5750132abd3f5b2b93dd722fcde653.jpg"
-            }
-        ],
-        "attrs": [
-            {
-                "goods_id": 96,
-                "attr_id": 15,
-                "attr_value": "eee",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            },
-            {
-                "goods_id": 96,
-                "attr_id": 15,
-                "attr_value": "ddd",
-                "add_price": null,
-                "attr_name": "fffffff",
-                "attr_sel": "many",
-                "attr_write": "list",
-                "attr_vals": ""
-            }
-        ]
-    },
-    "meta": {
-        "msg": "更新成功",
-        "status": 200
-    }
-}
-```
-
-\###商品图片处理必须安装 GraphicsMagick
-
-- linux
-
-```
-apt-get install GraphicsMagick
-```
-
-- Mac OS X
-
-```
-brew install GraphicsMagick
-```
-
-- Windows [点击下载](https://sourceforge.net/projects/graphicsmagick/files/graphicsmagick-binaries/1.3.27/GraphicsMagick-1.3.27-Q8-win64-dll.exe/download)
-
-## 1.9. 图片上传
-
-- 请求路径：upload
+- 请求路径：chartdata/query
 - 请求方法：post
+- 所在文件：chartdata.js
+- 涉及表：chartData
 - 请求参数
 
 | 参数名 | 参数说明 | 备注 |
 | ------ | -------- | ---- |
-| file   | 上传文件 |      |
+| id     | 数据库ID |      |
 
-- 响应数据
+- 响应数据(成功)
 
-```
+```json
 {
-    "data": {
-        "tmp_path": "tmp_uploads/ccfc5179a914e94506bcbb7377e8985f.png",
-        "url": "http://127.0.0.1:8888tmp_uploads/ccfc5179a914e94506bcbb7377e8985f.png"
-    },
-    "meta": {
-        "msg": "上传成功",
-        "status": 200
-    }
+  "meta": {
+    "msg": "成功",
+    "data": [
+      {
+        "name": "苏鲜润农业平台",
+        "children": [
+          {
+            "name": "设施农业",
+            "children": [
+              {
+                "name": "苏鲜润大棚",
+                "children": [
+                  {
+                    "name": "1号棚",
+                    "value": "57973a30-c040-11ea-89fa-4352fce2dd3a"
+                  },
+                  {
+                    "name": "2号棚",
+                    "value": "57973a31-c040-11ea-89fa-4352fce2dd3a"
+                  },
+                  {
+                    "name": "3号棚",
+                    "value": "57973a32-c040-11ea-89fa-4352fce2dd3a"
+                  },
+                  {
+                    "name": "4号棚",
+                    "value": "57973a33-c040-11ea-89fa-4352fce2dd3a"
+                  },
+                  {
+                    "name": "5号棚",
+                    "value": "57973a34-c040-11ea-89fa-4352fce2dd3a"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "status": 200
+  }
 }
 ```
 
-## 1.10. 订单管理
+- 相应数据（失败）
 
-### 1.10.1. 订单数据列表
+```json
+{
+    "meta": 
+    {
+      'msg': '失败',
+      'status': 422
+     }
+ }
+```
 
-- 请求路径：orders
-- 请求方法：get
+- 项目逻辑图
+
+![](./项目2.png)
+
+### 1.4.3. 查询单项目详细数据
+
+- 请求路径：project/searchprojectOne
+- 请求方法：post
+- 所在文件：projectadd.js
+- 涉及表：ProjectL
 - 请求参数
 
-| 参数名               | 参数说明        | 备注     |
-| -------------------- | --------------- | -------- |
-| query                | 查询参数        | 可以为空 |
-| pagenum              | 当前页码        | 不能为空 |
-| pagesize             | 每页显示条数    | 不能为空 |
-| user_id              | 用户 ID         | 可以为空 |
-| pay_status           | 支付状态        | 可以为空 |
-| is_send              | 是否发货        | 可以为空 |
-| order_fapiao_title   | ['个人','公司'] | 可以为空 |
-| order_fapiao_company | 公司名称        | 可以为空 |
-| order_fapiao_content | 发票内容        | 可以为空 |
-| consignee_addr       | 发货地址        | 可以为空 |
+| 参数名    | 参数说明 | 备                 |
+| --------- | -------- | ------------------ |
+| token     | 令牌     | `头部获取不用携带` |
+| platename | 平台名称 | utf-8              |
+| areaname  | 项目名称 | utf-8              |
 
-- 响应数据
+- 响应数据(成功)
 
-```
+| 参数名      | 参数说明     | 备   |
+| ----------- | ------------ | ---- |
+| platename   | 平台名       |      |
+| username    | 管理员用户名 |      |
+| areaname    | 项目名       |      |
+| projectnumb | 项目序号     |      |
+| usernumb    | 子用户数量   |      |
+| areanumb    | 片区数量     |      |
+| errornumb   | 错误数量     |      |
+| waringnumb  | 警告数量     |      |
+| accessToken | 萤石云token  |      |
+| appkey      | 萤石云码     |      |
+| secret      | 萤石云码     |      |
+
+
+
+```json
 {
-    "data": {
-        "total": 1,
-        "pagenum": "1",
-        "goods": [
-            {
-                "order_id": 47,
-                "user_id": 133,
-                "order_number": "itcast-59e7502d7993d",
-                "order_price": 322,
-                "order_pay": "1",
-                "is_send": "是",
-                "trade_no": "",
-                "order_fapiao_title": "个人",
-                "order_fapiao_company": "",
-                "order_fapiao_content": "办公用品",
-                "consignee_addr": "a:7:{s:6:\"cgn_id\";i:1;s:7:\"user_id\";i:133;s:8:\"cgn_name\";s:9:\"王二柱\";s:11:\"cgn_address\";s:51:\"北京市海淀区苏州街长远天地大厦305室\";s:7:\"cgn_tel\";s:11:\"13566771298\";s:8:\"cgn_code\";s:6:\"306810\";s:11:\"delete_time\";N;}",
-                "pay_status": "1",
-                "create_time": 1508331565,
-                "update_time": 1508331565
-            }
-        ]
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
+  "data": [
+    {
+      "_id": "5f045494a454870c789280d9",
+      "platename": "苏鲜润农业平台",
+      "username": "suxianrun",
+      "areaname": "苏鲜润大棚",
+      "projectnumb": 1,
+      "usernumb": 1,
+      "areanumb": 5,
+      "errornumb": 0,
+      "waringnumb": 0,
+      "__v": 0,
+      "accessToken": "at.arbobfvy42bwpaj99ckoarag9g866mfb-7zopkspveo-09y6u1h-fvx7466p2",
+      "appkey": "bc824dc91c664a1c8c2469a3c03e0f06",
+      "secret": "19ec4402541c7258cf51d4275db6f445"
     }
+  ],
+  "meta": {
+    "msg": "查询成功",
+    "status": 200
+  }
 }
 ```
 
-### 1.10.2. 修改订单状态
+- 响应数据(失败)
 
-- 请求路径：orders/:id
-- 请求方法：put
+```json
+{
+  "msg": "查询失败",
+  "status": 422
+}
+```
+
+
+
+### 1.4.4. 查询平台下所有项目
+
+- 请求路径：project/searchprojectOne
+- 请求方法：post
+- 所在文件：projectadd.js
+- 涉及表：ProjectL
 - 请求参数
 
-| 参数名       | 参数说明     | 备注                                       |
-| ------------ | ------------ | ------------------------------------------ |
-| id           | 订单 ID      | 不能为空`携带在url中`                      |
-| is_send      | 订单是否发货 | 1:已经发货，0:未发货                       |
-| order_pay    | 订单支付     | 支付方式 0 未支付 1 支付宝 2 微信 3 银行卡 |
-| order_price  | 订单价格     |                                            |
-| order_number | 订单数量     |                                            |
-| pay_status   | 支付状态     | 订单状态： 0 未付款、1 已付款              |
+| 参数名    | 参数说明 | 备                 |
+| --------- | -------- | ------------------ |
+| token     | 令牌     | `头部获取不用携带` |
+| platename | 平台名称 | utf-8              |
+| areaname  | 项目名称 | utf-8              |
 
-- 请求数据说明
-  - 所有请求数据都是增量更新，如果参数不填写，就不会更新该字段
-- 响应数据
+- 响应数据(成功)
 
-```
+```json
 {
-    "data": {
-        "order_id": 67,
-        "user_id": 1,
-        "order_number": "itcast-g7kmck71vjaujfgoi",
-        "order_price": 20,
-        "order_pay": "0",
-        "is_send": "否",
-        "trade_no": "",
-        "order_fapiao_title": "个人",
-        "order_fapiao_company": "",
-        "order_fapiao_content": "",
-        "consignee_addr": "",
-        "pay_status": "0",
-        "create_time": 1512533560,
-        "update_time": 1512533560,
-        "goods": [
-            {
-                "id": 82,
-                "order_id": 67,
-                "goods_id": 96,
-                "goods_price": 333,
-                "goods_number": 2,
-                "goods_total_price": 999
-            },
-            {
-                "id": 83,
-                "order_id": 67,
-                "goods_id": 95,
-                "goods_price": 666,
-                "goods_number": 5,
-                "goods_total_price": 999
-            }
-        ]
-    },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
+  "data": [
+    {
+      "_id": "5f045494a454870c789280d9",
+      "platename": "苏鲜润农业平台",
+      "username": "suxianrun",
+      "areaname": "苏鲜润大棚",
+      "projectnumb": 1,
+      "usernumb": 1,
+      "areanumb": 5,
+      "errornumb": 0,
+      "waringnumb": 0,
+      "__v": 0,
+      "accessToken": "at.arbobfvy42bwpaj99ckoarag9g866mfb-7zopkspveo-09y6u1h-fvx7466p2",
+      "appkey": "bc824dc91c664a1c8c2469a3c03e0f06",
+      "secret": "19ec4402541c7258cf51d4275db6f445"
     }
+  ],
+  "meta": {
+    "msg": "查询成功",
+    "status": 200
+  }
 }
 ```
 
-### 1.10.3. 查看订单详情
+- 相应数据（失败）
 
-- 请求路径：orders/:id
+```json
+{
+  "msg": "查询失败",
+  "status": 422
+}
+```
+
+
+
+## 1.5. 控制台相关
+
+### 1.5.1. 项目介绍-项目介绍数据
+
+- 请求路径：projectinr
+- 请求方法：post
+- 所在文件：projectadd.js
+- 涉及表：ProjectL
+- 请求参数
+
+| 参数名 | 参数说明 | 备                 |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| data   | 项目序号 | Number             |
+
+- 响应数据（成功）
+
+```json
+[
+  {
+    "_id": "5f045494a454870c789280da",
+    "platename": "苏鲜润农业平台",
+    "username": "suxianrun",
+    "projectname": "苏鲜润大棚",
+    "projectnumb": 1,
+    "__v": 0,
+    "comnpanyname": "江苏苏鲜润生态农业科技有限公司 ",
+    "companaddr": "南京市江宁区横溪街道许呈社区",
+    "compantal": "18694989090",
+    "companfex": "12131"
+  }
+]
+```
+
+- 响应数据（失败）
+
+```json
+{
+  "meta": {
+    "msg": "获取失败",
+    "status": 422
+  }
+}
+```
+
+### 1.5.2. 项目介绍-项目图片
+
+- 请求路径：usericon
+- 请求方法：post
+- 所在文件：userIcon.js
+- 涉及表：porject
+- 请求参数
+
+| 参数名 | 参数说明 | 备                 |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| data   | 项目编号 | Number             |
+| file   | 图片信息 | 见下               |
+
+```json
+//http post请中req.file非req.body 中携带的数据
+file: {
+    fieldname: 'usericon',
+    originalname: 'timg.jpg',//图片名称
+    encoding: '7bit',
+    mimetype: 'image/jpeg',//图片类型
+    destination: '../usericon/',//请求地址
+    filename: '3c6084140daa23a356dd791bb689dc29',//唯一编号
+    path: '..\\usericon\\3c6084140daa23a356dd791bb689dc29',
+    size: 60201//图片大小
+  },
+```
+
+- 响应数据（成功）
+
+```json
+{
+                data: "savePic/1600658731865.jpeg",
+                "meta": {
+                    'msg': "注册成功",
+                    'status': 200
+                }
+            }
+```
+
+- 响应数据（失败）
+
+```json
+{
+                    "meta": {
+                        'msg': "上传失败",
+                        'status': 420
+                    }
+                }
+```
+
+### 1.5.3. 项目介绍-添加/修改项目信息
+
+- 请求路径：register/project
+- 请求方法：post
+- 所在文件：projectinr.js
+- 涉及表：porject
+- 请求参数
+
+| 参数名         | 参数说明 | 备注               |
+| -------------- | -------- | ------------------ |
+| token          | 令牌     | `头部获取不用携带` |
+| data           | 项目编号 | Number             |
+| projectName    | 项目名称 |                    |
+| companyName    | 公司名称 |                    |
+| companyFax     | 公司传真 |                    |
+| companyTal     | 公司电话 |                    |
+| projectSuggest | 项目介绍 |                    |
+
+- 响应参数（成功）
+
+```json
+{
+        "meta": {
+            'msg': "提交成功",
+            'status': 200
+        }
+    }
+```
+
+- 响应参数（失败）
+
+```json
+{
+            "meta": {
+                'msg': "提交失败",
+                'status': 422
+            }
+        }
+```
+
+## 1.6. 子用户管理
+
+### 1.6.1. 子用户删除
+
+- 请求路径：user/deletchlidren
+- 请求方法：post
+- 所在文件：deletuser.js
+- 涉及表：UserC
+- 请求参数
+
+| 参数名 | 参数说明 | 备注               |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| nanme  | 子用户名 |                    |
+| data   | 项目序号 |                    |
+
+- 响应参数（成功）
+
+```json
+{
+            "meta": {
+                'msg': "删除成功",
+                'status': 200
+            }
+        }
+```
+
+- 响应数据（失败）
+
+```json
+{
+            'msg': "删除失败",
+            'status': 422
+        }
+```
+
+### 1.6.2. 获取子用户数据
+
+- 请求路径：user/childuser
+- 请求方法：post
+- 所在文件：server.js
+- 涉及表：UserC
+- 请求参数
+
+| 参数名 | 参数说明 | 备注               |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| data   | 项目序号 |                    |
+
+- 响应数据（s）
+
+```json
+[
+  {
+    "_id": "5f57156fcb96000ba84f9e17",
+    "adminnmae": "suxianrun",//管理员名字
+    "username": "user",//子用户名字
+    "password": "$2a$10$NcZSYP4rMUTDPtO.e/oPP.HU7Ebpmu7RgSellNcdgSb4q8o9KBUyW",//密码
+    "areadatarights": [
+      "1号棚",
+      "2号棚",
+      "3号棚"
+    ],//子用户可以看到数据片区
+    "areacontrolarights": [
+      "3号棚",
+      "2号棚",
+      "1号棚"
+    ],//子用户可以控制的片区
+    "phone": "12345678912",//电话
+    "Jurisdiction": "user",//权利 user
+    "projectnumb": 1,//项目编号
+    "__v": 0
+  }
+]
+```
+
+- 响应数据（e）
+
+```json
+{
+            "meta": {
+                
+                'msg': "读取失败",
+                'status': 422
+            }
+        }
+```
+
+
+
+### 1.6.4. 查询所有片区设备
+
+- 请求路径：user/MachineSchAll
+- 请求方法：post
+- 所在文件：usermachinelist.js
+- 涉及表：UserC
+- 请求参数
+
+| 参数名 | 参数说明 | 备注               |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| data   | 项目序号 |                    |
+
+- 响应数据（s）
+
+```json
+[
+  {
+    "inPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin"
+    ],//已经使用的I口
+    "outPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin",
+      "5Pin",
+      "6Pin"
+    ],//已经使用的O口
+    "_id": "5f045494a454870c789280dc",
+    "projectnumb": 1,//项目编号
+    "nickname": "2号棚",//片区名字
+    "AdminName": "suxianrun",//管理员名称
+    "platename": "苏鲜润农业平台",//平台名字
+    "__v": 0,
+    "machinekey": "FX017",//设备编码
+    "Ip": "192.168.1.51",//
+    "sensorsNum": "15",//传感器数量
+    "deviceNum": "4",//控制设备数量
+    "networkType": "有线",//连接方式
+    "networkState": "140ms"//延迟
+  },.....
+  ]
+```
+
+- 响应数据（e）
+
+```json
+{
+  "meta": {
+    "msg": "查询失败",
+    "status": 422
+  }
+}
+```
+
+### 1.6.5. 子用户名验证
+
+- 请求路径：users/:id:
 - 请求方法：get
+- 所在文件：registerNameSch.js
+- 涉及表：User
 - 请求参数
 
 | 参数名 | 参数说明 | 备注                  |
 | ------ | -------- | --------------------- |
-| id     | 订单 ID  | 不能为空`携带在url中` |
+| :id    | 名字     | 不能为空`携带在url中` |
+
+- 响应数据（s）
+
+```json
+{
+  "meta": {
+    "msg": "验证成功",
+    "status": 200s
+  }
+}
+```
+
+- 响应数据（e）
+
+```json
+{
+        "meta":{
+            'msg': "用户名重复",
+            'status':422
+            }
+       }
+```
+
+### 1.6.6. 子用户修改
+
+- 请求路径：user/updatachlidren
+- 请求方法：post
+- 所在文件：updatachilden.js
+- 涉及表：UserC
+- 请求参数
+
+| 参数名                 | 参数说明           | 备注 |
+| ---------------------- | ------------------ | ---- |
+| ouserame               | 原始用户名         |      |
+| data                   | 项目编号           |      |
+| name                   | 现在用户名         |      |
+| password               | 现在密码           |      |
+| newdata.checkeduseris  | 现在管理数据的片区 |      |
+| newdata.checkeduserisO | 现在管理控制的片区 |      |
+
+- 请求参数newdata.checkeduseris例：
+
+```json
+[ '1号棚', '2号棚', '3号棚' ]
+```
+
+- 请求参数newdata.checkeduserisO例：
+
+```json
+[ '1号棚', '2号棚', '3号棚' ]
+```
+
+- 响应数据（s）
+
+```json
+{
+        "meta": {
+            'msg': "修改成功",
+            'status': 200
+        }
+    }
+```
+
+- 响应数据（e）
+
+```json
+{
+            'msg': "修改失败",
+            'status': 422
+        }
+```
+
+### 1.6.7. 子用户注册
+
+- 请求路径：user/childregister
+- 请求方法：post
+- 所在文件：addchildrenusers.js
+- 涉及表：UserC
+- 请求参数
+
+| 参数名         | 参数说明           | 备注               |
+| -------------- | ------------------ | ------------------ |
+| token          | 令牌               | `头部获取不用携带` |
+| name           | 姓名               |                    |
+| password       | 密码               |                    |
+| checkeduseris  | 可以管理数据的片区 |                    |
+| checkeduserisO | 可以管理控制的片区 |                    |
+| phone          | 手机               |                    |
+| data           | 项目编号           |                    |
+
+- 请求参数checkeduseris例：
+
+```json
+[ '1号棚', '2号棚', '3号棚' ]
+```
+
+- 请求参数checkeduserisO例：
+
+```json
+[ '1号棚', '2号棚', '3号棚' ]
+```
+
+- 响应数据（s）
+
+```json
+{
+                "meta": {
+                    'msg': "注册成功",
+                    'status': 200
+                }
+            }
+```
+
+- 响应数据（e）
+
+```json
+{
+                "meta": {
+                    'msg': "注册失败",
+                    'status': 422
+                }
+            }
+```
+
+## 1.7. 片区管理相关
+
+### 1.7.1. 查看相关设备
+
+- 请求路径：user/MachineSchOne
+- 请求方法：post
+- 所在文件：usermachinelist.js
+- 涉及表：ProjectL,UserM
+- 请求参数
+
+| 参数名 | 参数说明 | 备注               |
+| ------ | -------- | ------------------ |
+| token  | 令牌     | `头部获取不用携带` |
+| data   | 参数     |                    |
+
+- 请求参数:data例
+
+```json
+ [ '苏鲜润农业平台', '设施农业', '苏鲜润大棚', '3号棚' ] 
+//[平台名，行业名，项目名，片区名]
+```
+
+- 响应数据（s）同1.6.4
+
+```json
+
+[
+  {
+    "inPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin"
+    ],
+    "outPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin",
+      "5Pin",
+      "6Pin"
+    ],
+    "_id": "5f045494a454870c789280dd",
+    "projectnumb": 1,
+    "nickname": "3号棚",
+    "AdminName": "suxianrun",
+    "platename": "苏鲜润农业平台",
+    "__v": 0,
+    "machinekey": "FX018",
+    "Ip": "192.168.1.52",
+    "sensorsNum": "15",
+    "deviceNum": "4",
+    "networkType": "有线",
+    "networkState": "150ms"
+  }
+]
+```
+
+- 响应数据（e）同1.6.4
+
+### 1.7.2. 通过key查询设备参数
+
+- 请求路径：user/MachineSch
+- 请求方法：post
+- 所在文件：usermachinelist.js
+- 涉及表：UserM
+- 请求参数
+
+| 参数名     | 参数说明 | 备注 |
+| ---------- | -------- | ---- |
+| machinekey | 设备编号 |      |
+
+- 响应数据(s)
+
+```json
+{
+  "inPin": [],
+  "outPin": [],
+  "_id": "5f06c558059a1a46845cddb5",
+  "projectnumb": 1,
+  "nickname": "气象站",
+  "AdminName": "suxianrun",
+  "platename": "苏鲜润农业平台",
+  "machinekey": "FX050",
+  "Ip": "192.168.1.55",
+  "sensorsNum": "5",
+  "deviceNum": "0",
+  "networkType": "有线",
+  "networkState": "150ms"
+}
+```
+
+- 响应数据(s)
+
+```json
+{
+  "meta": {
+    "msg": "查询失败",
+    "status": 422
+  }
+}
+```
+
+### 1.7.3. 设备注册
+
+- 请求路径： user/Machineregister
+- 请求方法：post
+- 所在文件：usermachinelist.js
+- 涉及表：UserM
+- 请求参数
+
+| 参数名       | 参数说明       | 备注               |
+| ------------ | -------------- | ------------------ |
+| token        | 令牌           | `头部获取不用携带` |
+| name         | 管理员名称     |                    |
+| machinekey   | 设备编号       |                    |
+| nickname     | 片区名称       |                    |
+| state        | 状态           |                    |
+| sensorsNum   | 传感器数量     |                    |
+| deviceNum    | 设备数量       |                    |
+| Ip           |                |                    |
+| networkType  | 网络连接方式   |                    |
+| networkState | 延迟           |                    |
+| error        | 错误           |                    |
+| Location     | 地址           |                    |
+| inPin        | 已使用输入管脚 |                    |
+| outPin       | 已使用输出管脚 |                    |
+| data         | 项目序列号     |                    |
+
+- 响应数据（s）
+
+```json
+{
+                "meta": {
+                    'msg': "注册成功",
+                    'status': 200
+                }
+            }
+```
+
+- 响应数据（e）
+
+```json
+{
+                "meta": {
+                    'msg': "注册失败",
+                    'status': 422
+                }
+            }
+```
+
+### 1.7.4. 删除片区
+
+- 请求路径：user/deletmachine
+- 请求方法：post
+- 所在文件：usermachinelist.js
+- 涉及表：UserM，MachineKey，ProjectL
+- 请求参数
+
+| 参数名      | 参数说明 | 备注               |
+| ----------- | -------- | ------------------ |
+| token       | 令牌     | `头部获取不用携带` |
+| machinekey  | 设备编号 |                    |
+| projectnumb | 项目编号 |                    |
+
+- 响应数据（s）
+
+```json
+{
+            "meta": {
+                "msg": "删除成功",
+                'statys': 200
+            }
+        }
+```
+
+- 响应数据（e）
+
+```json
+{
+            "meta": {
+                "msg": "删除失败",
+                'statys': 300
+            }
+        }
+```
+
+### 1.7.5. 设备号查询
+
+- 请求路径：machinekey/:id:
+- 请求方法：get
+- 所在文件：keysch.js
+- 涉及表：MachineKey
+- 请求参数
+
+| 参数名 | 参数说明 | 备注 |
+| ------ | -------- | ---- |
+| id     | 设备编号 |      |
+
+- 响应数据（s）
+
+```json
+{
+        "meta":{
+            'msg': "验证成功",
+            'status':200
+            }
+    }
+```
+
+- 响应数据（e）
+
+```json
+{
+            "meta":{
+                'msg': "序列号不存在",
+                'status':422
+                }
+           })
+```
+
+## 1.8. 数据展示相关
+
+### 1.8.1. 单个片区当前最新数据查询
+
+- 请求路径：seachdataOne
+- 请求方法：post
+- 所在文件：seachdata.js
+- 涉及表：yanshiy
+- 请求参数
+
+| 参数名     | 参数说明 | 备注 |
+| ---------- | -------- | ---- |
+| machinekey | 设备编号 |      |
+
+- 响应数据（s）
+
+```json
+{
+  "date": "2020-09-21 15:12:10",//时间戳
+  "machinekey": "FX017",//设备序列号
+   //值
+  "value": [
+    {
+      "name": "tair1",
+      "data": "28.8",
+      "nikename": "空气温度1"
+    },
+    {
+      "name": "airhumidity1",
+      "data": "71",
+      "nikename": "空气湿度1"
+    },
+    {
+      "name": "Soiltemp1",
+      "data": "28.8",
+      "nikename": "土壤温度1"
+    },
+   .......
+  ]
+}
+```
+
+### 1.8.2. 单个片区选定时间小时数据
+
+- 请求路径：seachdataOne
+- 请求方法：post
+- 所在文件：seachdata.js
+- 涉及表：yanshiy
+- 请求参数
+
+| 参数名     | 参数说明 | 备注                  |
+| ---------- | -------- | --------------------- |
+| fdate      | 开始时间 | 例2020-09-20 17:02:02 |
+| sdate      | 结束时间 | 例2020-09-21 02:02:02 |
+| machinekey | 设备编号 |                       |
+
+- 响应数据（s）
+
+```JSON
+[
+    //设备信息
+  [
+    {
+      "date": "2020-09-20 18:00:10",
+      "data": "26.2",
+      "nikename": "空气温度1"
+    },
+    {
+      "date": "2020-09-20 19:00:10",
+      "data": "25.7",
+      "nikename": "空气温度1"
+    },
+     .....
+  ],
+   //数据
+  [
+    [
+      "26.2",
+      "25.7"
+    ],
+      .....
+  ],
+    //时间戳
+  [
+    "2020-09-20 18:00:10",
+    "2020-09-20 19:00:10"
+  ]
+]
+```
+
+## 1.9. 片区控制相关
+
+### 1.9.1. 查找片区控制任务
+
+- 请求路径：device/search
+- 请求方法：post
+- 所在文件：devicedata.js
+- 涉及表：deviced
+- 请求参数
+
+| 参数名     | 参数说明 | 备注 |
+| ---------- | -------- | ---- |
+| machinekey | 设备编号 |      |
 
 - 响应数据
 
-```
+```json
+//所有的任务已经做过优先级排序，数组中靠前的就是优先的
 {
-    "data": {
-        "order_id": 67,
-        "user_id": 1,
-        "order_number": "itcast-g7kmck71vjaujfgoi",
-        "order_price": 20,
-        "order_pay": "0",
-        "is_send": "否",
-        "trade_no": "",
-        "order_fapiao_title": "个人",
-        "order_fapiao_company": "",
-        "order_fapiao_content": "",
-        "consignee_addr": "",
-        "pay_status": "0",
-        "create_time": 1512533560,
-        "update_time": 1512533560,
-        "goods": [
+  "adata": [
+    {
+       //定时任务
+      "task": [
+        {
+          "name": "任务1",
+          "id": "1",
+          "dingshi": true,
+          "janj": "231",
+          "form": {
+            "name": "231",
+            "region": "dingshi",
+            "date1": "2020-08-12T05:51:27.000Z",//开始时间东8区时间
+            "date2": "2020-08-12T06:52:31.000Z",//结束时间东8区时间
+            "canshu": "",
+            "data1": "",
+            "data2": ""
+          },
+          "canshulist": [
             {
-                "id": 82,
-                "order_id": 67,
-                "goods_id": 96,
-                "goods_price": 333,
-                "goods_number": 2,
-                "goods_total_price": 999
+              "name": "温度",
+              "id": 1,
+              "value": "wendu"
             },
             {
-                "id": 83,
-                "order_id": 67,
-                "goods_id": 95,
-                "goods_price": 666,
-                "goods_number": 5,
-                "goods_total_price": 999
+              "name": "日照",
+              "id": 2,
+              "value": "rizhao"
             }
-        ]
+          ]
+        },
+      ],
+        //阈值任务
+      "task1": [
+        {
+          "name": "任务2",
+          "id": "2",
+          "dingshi": false,
+          "janj": "1",
+          "form": {
+            "name": "1",
+            "region": "yuzhi",
+            "date1": "",
+            "date2": "",
+            "canshu": "tair1",//需要比较的参数
+            "data1": "11",//最小值
+            "data2": "333",//最大值
+            "youxian": 1
+          },
+          "canshulist": [
+            {
+              "name": "空气温度1",
+              "id": 1,
+              "value": "tair1"
+            },
+            {
+              "name": "空气湿度1",
+              "id": 2,
+              "value": "airhumidity1"
+            },
+            {
+              "name": "土壤温度1",
+              "id": 3,
+              "value": "Soiltemp1"
+            },
+            {
+              "name": "土壤湿度1",
+              "id": 4,
+              "value": "soilmoisture1"
+            },
+            {
+              "name": "光照强度1",
+              "id": 5,
+              "value": "soi1"
+            },
+            {
+              "name": "1号CO2",
+              "id": 6,
+              "value": "co21"
+            },
+            {
+              "name": "空气温度2",
+              "id": 7,
+              "value": "tair2"
+            },
+            {
+              "name": "空气湿度2",
+              "id": 8,
+              "value": "airhumidity2"
+            },
+            {
+              "name": "土壤温度2",
+              "id": 9,
+              "value": "Soiltemp2"
+            },
+            {
+              "name": "土壤湿度2",
+              "id": 10,
+              "value": "soilmoisture2"
+            },
+            {
+              "name": "光照强度2",
+              "id": 11,
+              "value": "soi2"
+            },
+            {
+              "name": "2号CO2",
+              "id": 12,
+              "value": "co22"
+            },
+            {
+              "name": "空气温度3",
+              "id": 13,
+              "value": "tair3"
+            },
+            {
+              "name": "空气湿度3",
+              "id": 14,
+              "value": "airhumidity3"
+            },
+            {
+              "name": "土壤温度3",
+              "id": 15,
+              "value": "Soiltemp3"
+            },
+            {
+              "name": "土壤湿度3",
+              "id": 16,
+              "value": "soilmoisture3"
+            },
+            {
+              "name": "光照强度3",
+              "id": 17,
+              "value": "soi3"
+            },
+            {
+              "name": "3号CO2",
+              "id": 18,
+              "value": "co23"
+            }
+          ]
+        },
+      ],
+      "_id": "5f0445e6a454870c789217c6",
+      "devicename": "控制1",//控制路数
+      "id": "reg00001",//设备控制号
+      "power": false,//供电状态
+      "remote": false,//远程状态
+      "status": 1,//运行状态 1开2关 //1左2关3右
+      "Nvalue": 45,//线性值
+      "value": 3,//1双控2三控3线性值
+      "voltage": "380V",
+      "ec": "6A",
+      "devicekey": "FX016",
+      "__v": 0
     },
-    "meta": {
-        "msg": "获取成功",
-        "status": 200
+   ]
+}
+```
+
+### 1.9.1. 双态/三态/调值控制
+
+- 请求路径：device/updata
+- 请求方法：post
+- 所在文件：devicedata.js
+- 涉及表：deviced
+- 请求参数
+
+| 参数名     | 参数说明               | 备注 |
+| ---------- | ---------------------- | ---- |
+| machinekey | 设备编号               |      |
+| id         | 设备控制编号           |      |
+| status     | 状态1开2关 或 左2关3右 |      |
+| Nvalue     | 调值的数值             |      |
+
+- 响应数据（s）
+
+```json
+{
+                    data: { "status": 1, Nvalue:  },
+                    meta: {
+                        'msg': "更新成功",
+                        'status': 200
+                    }
+                }
+```
+
+- 响应数据（e）
+
+```json
+{
+                "meta": {
+                    'msg': "更新失败",
+                    'status': 422
+                }
+            }
+```
+
+
+
+## 1.10. 视频相关
+
+### 1.10.1. 添加视频列表
+
+- 请求路径：seachdata/seachvideo
+- 请求方法：post
+- 所在文件：seachdata.js
+- 涉及表：ProjectL
+- 请求参数
+
+| 参数名      | 参数说明         | 备注               |
+| ----------- | ---------------- | ------------------ |
+| token       | 令牌             | `头部获取不用携带` |
+| AppKey      | 萤石云提供AppKey |                    |
+| Secret      | 萤石云提供Secret |                    |
+| projectnumb | 项目编号         |                    |
+
+- 响应数据（s）
+
+```json
+
+{
+  "data": [
+    {
+      "deviceSerial": "E29436901",
+      "channelNo": 13,
+      "channelName": "1号大棚",
+      "picUrl": "http://hls01open.ys7.com/openlive/abd49c84a5a943f7a7febe6208a530e4.m3u8"
+    },
+    {
+      "deviceSerial": "E29436901",
+      "channelNo": 2,
+      "channelName": "3号大棚",
+      "picUrl": "http://hls01open.ys7.com/openlive/3fa680fb9db74ef383d8b5571513a9b3.m3u8"
+    },
+    {
+      "deviceSerial": "E29436901",
+      "channelNo": 3,
+      "channelName": "2号大鹏",
+      "picUrl": "http://hls01open.ys7.com/openlive/f9f0701d08e24100adb2db0d800fffed.m3u8"
+    },
+    {
+      "deviceSerial": "E29436901",
+      "channelNo": 6,
+      "channelName": "4号大棚",
+      "picUrl": "http://hls01open.ys7.com/openlive/be4f6561cf54491aa84c1530a7e5b633.m3u8"
+    },
+    {
+      "deviceSerial": "E29436901",
+      "channelNo": 7,
+      "channelName": "5号大棚",
+      "picUrl": "http://hls01open.ys7.com/openlive/c98d5f92aec342d695197be8cdd94fde.m3u8"
     }
+  ],
+  "meta": {
+    "msg": "查询成功",
+    "status": 200
+  }
+}
+```
+
+- 响应数据（e）
+
+```json
+//萤石云AppKey/Secret错误
+{
+  "meta": {
+    "msg": "token获取失败",
+    "status": 403
+  }
+}
+//无相关直播地址
+{
+  "meta": {
+     'msg': "查询直播地址失败",
+     'status': 403
+   }
+ }
+//无相关直播通道
+{
+    "meta": {
+      'msg': "查询设备通道失败",
+      'status': 403
+   }
+}
+//无相关设备
+{
+   "meta": {
+     'msg': "查询设备(硬盘录像机)失败",
+     'status': 403
+   }
+}
+//
+{
+  "meta": {
+     'msg': "视频信息更新失败",
+     'status': 403
+   }
 }
 ```
 
 
 
-### 1.10.4. 修改地址
+### 1.10.2. 查询单个项目的视频
 
-1. [省市区/县联动效果 - 结合ElementUI的 el-cascader 组件](https://github.com/iceyangcc/provinces-china)
+- 请求路径：seachdata/oneseachvideo
+- 请求方法：post
+- 所在文件：seachdata.js
+- 涉及表：videolist
+- 请求参数
 
-### 1.10.5. 查看物流信息
+| 参数名      | 参数说明 | 备注               |
+| ----------- | -------- | ------------------ |
+| token       | 令牌     | `头部获取不用携带` |
+| projectnumb | 项目编号 |                    |
 
-+ 请求路径：/kuaidi/:id
+- 响应数据（s）
 
-+ 请求方法：get
+```json
 
-+ 供测试的物流单号：1106975712662
-
-+ 响应数据：
-
-  ```json
-  {
-    "data": [
+{
+  "data": {
+    "videourl": [
       {
-        "time": "2018-05-10 09:39:00",
-        "ftime": "2018-05-10 09:39:00",
-        "context": "已签收,感谢使用顺丰,期待再次为您服务",
-        "location": ""
+        "deviceSerial": "E29436901",
+        "channelNo": 13,
+        "channelName": "1号棚",
+        "picUrl": "http://hls01open.ys7.com/openlive/abd49c84a5a943f7a7febe6208a530e4.m3u8"
       },
       {
-        "time": "2018-05-10 08:23:00",
-        "ftime": "2018-05-10 08:23:00",
-        "context": "[北京市]北京海淀育新小区营业点派件员 顺丰速运 95338正在为您派件",
-        "location": ""
+        "deviceSerial": "E29436901",
+        "channelNo": 2,
+        "channelName": "3号棚",
+        "picUrl": "http://hls01open.ys7.com/openlive/3fa680fb9db74ef383d8b5571513a9b3.m3u8"
       },
       {
-        "time": "2018-05-10 07:32:00",
-        "ftime": "2018-05-10 07:32:00",
-        "context": "快件到达 [北京海淀育新小区营业点]",
-        "location": ""
+        "deviceSerial": "E29436901",
+        "channelNo": 3,
+        "channelName": "2号棚",
+        "picUrl": "http://hls01open.ys7.com/openlive/f9f0701d08e24100adb2db0d800fffed.m3u8"
       },
       {
-        "time": "2018-05-10 02:03:00",
-        "ftime": "2018-05-10 02:03:00",
-        "context": "快件在[北京顺义集散中心]已装车,准备发往 [北京海淀育新小区营业点]",
-        "location": ""
+        "deviceSerial": "E29436901",
+        "channelNo": 6,
+        "channelName": "4号棚",
+        "picUrl": "http://hls01open.ys7.com/openlive/be4f6561cf54491aa84c1530a7e5b633.m3u8"
       },
       {
-        "time": "2018-05-09 23:05:00",
-        "ftime": "2018-05-09 23:05:00",
-        "context": "快件到达 [北京顺义集散中心]",
-        "location": ""
-      },
-      {
-        "time": "2018-05-09 21:21:00",
-        "ftime": "2018-05-09 21:21:00",
-        "context": "快件在[北京宝胜营业点]已装车,准备发往 [北京顺义集散中心]",
-        "location": ""
-      },
-      {
-        "time": "2018-05-09 13:07:00",
-        "ftime": "2018-05-09 13:07:00",
-        "context": "顺丰速运 已收取快件",
-        "location": ""
-      },
-      {
-        "time": "2018-05-09 12:25:03",
-        "ftime": "2018-05-09 12:25:03",
-        "context": "卖家发货",
-        "location": ""
-      },
-      {
-        "time": "2018-05-09 12:22:24",
-        "ftime": "2018-05-09 12:22:24",
-        "context": "您的订单将由HLA（北京海淀区清河中街店）门店安排发货。",
-        "location": ""
-      },
-      {
-        "time": "2018-05-08 21:36:04",
-        "ftime": "2018-05-08 21:36:04",
-        "context": "商品已经下单",
-        "location": ""
+        "deviceSerial": "E29436901",
+        "channelNo": 7,
+        "channelName": "5号棚",
+        "picUrl": "http://hls01open.ys7.com/openlive/c98d5f92aec342d695197be8cdd94fde.m3u8"
       }
     ],
-    "meta": { "status": 200, "message": "获取物流信息成功！" }
+    "_id": "5f07f2b34d8a401ae4b23bb0",
+    "adminname": "suxianrun",
+    "projectnumb": 1,
+    "__v": 0
+  },
+  "meta": {
+    "msg": "查询成功",
+    "status": 200
   }
-  
-  ```
+}
+```
 
+- 响应数据（e）
 
-## 1.11. 数据统计
-
-### 1.11.1.  基于时间统计的折线图
-
-- 请求路径：reports/type/1
-
-- 请求方法：get
-
-- 响应数据
-
-- 需要合并的选项
-
-  ```js
-  options: {
-          title: {
-            text: '用户来源'
-          },
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'cross',
-              label: {
-                backgroundColor: '#E9EEF3'
-              }
+```json
+{
+            "meta": {
+                'msg': "无数据",
+                'status': 403
             }
-          },
-          grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-          },
-          xAxis: [
-            {
-              boundaryGap: false
-            }
-          ],
-          yAxis: [
-            {
-              type: 'value'
-            }
-          ]
         }
-  ```
+```
+
+
+
+
+## 1.11. 子用户相关
+
+### 1.11.1.  查询子用户有权限控制的片区
+
+- 请求方法：user/userdata
+- 请求方法：post
+- 所在文件：chindrndata.js
+- 涉及表：UserC，UserM
+- 请求参数
+
+| 参数名 | 参数说明     | 备注               |
+| ------ | ------------ | ------------------ |
+| token  | 令牌（user） | `头部获取不用携带` |
+
+- 响应数据（s）
+
+```js
+[
+  {
+    "inPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin"
+    ],
+    "outPin": [
+      "1Pin",
+      "2Pin",
+      "3Pin",
+      "4Pin",
+      "5Pin",
+      "6Pin"
+    ],
+    "_id": "5f045494a454870c789280dc",
+    "projectnumb": 1,
+    "nickname": "2号棚",
+    "AdminName": "suxianrun",
+    "platename": "苏鲜润农业平台",
+    "__v": 0,
+    "machinekey": "FX017",
+    "Ip": "192.168.1.51",
+    "sensorsNum": "15",
+    "deviceNum": "4",
+    "networkType": "有线",
+    "networkState": "140ms"
+  }
+]
+```
+
+- 响应数据（e）
+
+```json
+{
+                "meta": {
+                    'msg': "查询失败",
+                    'meta': 301
+                }
+            }
+```
+
+### 1.11.2.  查询子用户分配的视频
+
+- 请求方法：user/uservideo
+- 请求方法：post
+- 所在文件：chindrndata.js
+- 涉及表：UserC，videolist
+- 请求参数
+
+| 参数名 | 参数说明     | 备注               |
+| ------ | ------------ | ------------------ |
+| token  | 令牌（user） | `头部获取不用携带` |
+
+- 响应数据（s）
+
+```json
+
+[
+  {
+    "nikenmae": "3号棚",
+    "picUrl": "http://hls01open.ys7.com/openlive/3fa680fb9db74ef383d8b5571513a9b3.m3u8"
+  },
+  {
+    "nikenmae": "4号棚",
+    "picUrl": "http://hls01open.ys7.com/openlive/be4f6561cf54491aa84c1530a7e5b633.m3u8"
+  }
+]
+```
+
+- 响应数据（e）
+
+```json
+{
+            "meta": {
+                'msg': "查询失败",
+                'meta': 301
+            }
+        }
+```
+
+### 1.11.3.  查询子用户有权限看数据的片区
+
+- 请求方法：user/userdatak
+- 请求方法：post
+- 所在文件：chindrndata.js
+- 涉及表：UserC，UserM，porject
+- 请求参数
+
+| 参数名 | 参数说明     | 备注               |
+| ------ | ------------ | ------------------ |
+| token  | 令牌（user） | `头部获取不用携带` |
+
+- 响应数据（s）
+
+```json
+
+{
+  "resd": [
+    {
+      "inPin": [
+        "1Pin",
+        "2Pin",
+        "3Pin",
+        "4Pin"
+      ],
+      "outPin": [
+        "1Pin",
+        "2Pin",
+        "3Pin",
+        "4Pin",
+        "5Pin",
+        "6Pin"
+      ],
+      "_id": "5f045494a454870c789280de",
+      "projectnumb": 1,
+      "nickname": "4号棚",
+      "AdminName": "suxianrun",
+      "platename": "苏鲜润农业平台",
+      "__v": 0,
+      "machinekey": "FX019",
+      "Ip": "192.168.1.53",
+      "sensorsNum": "15",
+      "deviceNum": "4",
+      "networkType": "有线",
+      "networkState": "170ms"
+    }
+  ],
+  "meta": {
+    "msg": "获取成功",
+    "meta": 200
+  }
+}
+```
+
+- 响应数据（e）
+
+```json
+{
+                "meta": {
+                    'msg': "获取失败",
+                    'meta': 422
+                }
+            }
+```
+
+## 1.12. 爬虫相关
+
+### 1.12.1.  新闻爬虫
+
+- 请求方法：pachong
+- 请求方法：get
+- 所在文件：pachong.js
+
+- 响应数据（s）
+
+```json
+[
+  {
+    "href": "http://www.shuichan.cc/news_view-408341.html",
+    "name": "重庆梁平：活水养鱼养出经济生态双丰收"
+  },
+  {
+    "href": "http://www.shuichan.cc/news_view-408268.html",
+    "name": "第37周: 豆粕暴涨 鱼粉止跌企稳"
+  },
+  {
+    "href": "http://www.shuichan.cc/news_view-408050.html",
+    "name": "池塘“告急”，解毒这些要点不可不知？"
+  },
+  {
+    "href": "http://www.shuichan.cc/news_view-408237.html",
+    "name": "农业农村部全力推进实施水产苗种产地检疫制度"
+  },
+........
+]
+```
+
+### 1.12.2.  天气爬虫
+
+- 请求方法：pachongtianqi
+- 请求方法：get
+- 所在文件：pachong.js
+
+- 响应数据（s）
+
+```json
+
+[
+  {
+    "date": "22日（今天）",
+    "icon": "d03",
+    "wea": "阵雨",
+    "temp": "24/19℃"
+  },
+  {
+    "date": "23日（明天）",
+    "icon": "d03",
+    "wea": "阵雨转多云",
+    "temp": "25/18℃"
+  },
+  {
+    "date": "24日（后天）",
+    "icon": "d01",
+    "wea": "多云",
+    "temp": "25/17℃"
+  }
+]
+```
+
+### 1.12.3.  水产行情爬虫
+
+- 请求方法：pachongshuichan
+- 请求方法：get
+- 所在文件：pachong.js
+
+- 响应数据（s）
+
+```json
+[
+  [
+    "2020-9-8",
+    "昂刺鱼",
+    "24.00"
+  ],
+  [
+    "2020-9-8",
+    "白鲢",
+    "6.20"
+  ],
+  [
+    "2020-9-8",
+    "白鱼",
+    "27.20"
+  ],
+  [
+    "2020-9-8",
+    "鳊鱼",
+    "11.50"
+  ],
+  [
+    "2020-9-8",
+    "草虾",
+    "45.50"
+  ],
+  [
+    "2020-9-8",
+    "草鱼",
+    "14.00"
+  ],
+  [
+    "2020-9-8",
+    "长江回鱼",
+    "15.90"
+  ],
+  [
+    "2020-9-8",
+    "桂鱼",
+    "65.50"
+  ],
+  [
+    "2020-9-8",
+    "河虾",
+    "133.00"
+  ],
+  [
+    "2020-9-8",
+    "黑鱼",
+    "21.30"
+  ],
+  [
+    "2020-9-8",
+    "花鲢",
+    "11.80"
+  ],
+  [
+    "2020-9-8",
+    "黄鳝",
+    "61.50"
+  ],
+  [
+    "2020-9-8",
+    "基围虾",
+    "38.00"
+  ],
+  [
+    "2020-9-8",
+    "鲫鱼",
+    "22.50"
+  ],
+  [
+    "2020-9-8",
+    "甲鱼",
+    "70.50"
+  ],
+  [
+    "2020-9-8",
+    "龙虾",
+    "48.00"
+  ],
+  [
+    "2020-9-8",
+    "鲈鱼",
+    "32.50"
+  ],
+  [
+    "2020-9-8",
+    "螺蛳",
+    "5.90"
+  ],
+  [
+    "2020-9-8",
+    "鳗鱼",
+    "73.50"
+  ],
+  [
+    "2020-9-8",
+    "泥鳅",
+    "20.90"
+  ],
+........
+]
+```
+
